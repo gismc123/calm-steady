@@ -5,7 +5,10 @@ const ASSETS = [
   './index.html',
   './style.css',
   './app.js',
+  './i18n.js',
   './manifest.json',
+  './locales/en.json',
+  './locales/es.json',
   './assets/icon-192.png',
   './assets/icon-512.png',
   './assets/icon-apple.png'

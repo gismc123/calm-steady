@@ -6,215 +6,34 @@
 // CONSTANTS & DATA
 // ============================================================
 
-const STRESS_DESCRIPTIONS = {
-  1:  'A little uneasy — something\'s on your mind.',
-  2:  'Mild tension — noticeable but manageable.',
-  3:  'Low stress — off but still functioning.',
-  4:  'Noticeable anxiety — thoughts starting to race.',
-  5:  'Moderate stress — harder to focus and settle.',
-  6:  'Anxious and overwhelmed — difficult to think clearly.',
-  7:  'High stress — body and mind both affected.',
-  8:  'Significant distress — hard to function normally.',
-  9:  'Near-crisis level — everything feels urgent.',
-  10: 'Complete overwhelm — hard to function at all.'
-};
-
 const CATEGORIES = [
-  {
-    id: 'physical',
-    label: 'Physical',
-    description: 'My body feels tense, tired, or out of control. I\'m not sleeping or eating well.',
-    badgeClass: 'badge--physical'
-  },
-  {
-    id: 'mental',
-    label: 'Intellectual (Mental)',
-    description: 'My thoughts are racing. I can\'t think clearly or stop worrying.',
-    badgeClass: 'badge--mental'
-  },
-  {
-    id: 'emotional',
-    label: 'Emotional',
-    description: 'My feelings are overwhelming me. I feel hopeless, sad, or like I\'m drowning.',
-    badgeClass: 'badge--emotional'
-  },
-  {
-    id: 'spiritual',
-    label: 'Spiritual',
-    description: 'I feel disconnected from what matters. I\'ve lost my sense of peace and purpose.',
-    badgeClass: 'badge--spiritual'
-  }
+  { id: 'physical',  badgeClass: 'badge--physical' },
+  { id: 'mental',    badgeClass: 'badge--mental' },
+  { id: 'emotional', badgeClass: 'badge--emotional' },
+  { id: 'spiritual', badgeClass: 'badge--spiritual' }
 ];
 
 const TOOLS = [
-  {
-    id: 'box-breathing',
-    name: 'Box Breathing',
-    categories: ['physical', 'mental'],
-    categoryLabels: ['Physical', 'Mental'],
-    time: '3–4 min',
-    description: 'Follow a visual guide through four equal breathing phases to activate your calm response.',
-    stressWeight: { high: 10, moderate: 8, low: 6 }
-  },
-  {
-    id: 'full-trunk-breathing',
-    name: 'Full Trunk Deep Breathing',
-    categories: ['physical', 'mental'],
-    categoryLabels: ['Physical', 'Mental'],
-    time: '2–3 min',
-    description: 'A slower, body-awareness breathing exercise focused on breathing into your entire trunk.',
-    stressWeight: { high: 8, moderate: 7, low: 5 }
-  },
-  {
-    id: 'growth-mindset',
-    name: 'Growth Mindset Reframe',
-    categories: ['mental'],
-    categoryLabels: ['Mental'],
-    time: '3–5 min',
-    description: 'Walk from an overwhelming thought to a growth-focused question, one step at a time.',
-    stressWeight: { high: 3, moderate: 8, low: 9 }
-  },
-  {
-    id: 'habit-loop',
-    name: 'Habit Loop Audit',
-    categories: ['mental'],
-    categoryLabels: ['Mental'],
-    time: '5–7 min',
-    description: 'Identify a negative habit loop and begin designing a healthier replacement behavior.',
-    stressWeight: { high: 2, moderate: 6, low: 9 }
-  },
-  {
-    id: 'gratitude',
-    name: 'Gratitude / Focus on the Good',
-    categories: ['emotional'],
-    categoryLabels: ['Emotional'],
-    time: '2–4 min',
-    description: 'Gently shift attention toward what is still good to interrupt the emotional spiral.',
-    stressWeight: { high: 5, moderate: 8, low: 9 }
-  },
-  {
-    id: 'name-the-lie',
-    name: 'Name the Lie, Say the Truth',
-    categories: ['emotional', 'mental'],
-    categoryLabels: ['Emotional', 'Mental'],
-    time: '5–8 min',
-    description: 'Identify a negative thought you\'re believing and replace it with what is actually true.',
-    stressWeight: { high: 3, moderate: 7, low: 8 }
-  },
-  {
-    id: 'resourcing',
-    name: 'Resourcing / Safe Place',
-    categories: ['emotional'],
-    categoryLabels: ['Emotional'],
-    time: '3–5 min',
-    description: 'Mentally visit a safe, calming place you create in your imagination to reduce overwhelm.',
-    stressWeight: { high: 7, moderate: 8, low: 7 }
-  },
-  {
-    id: 'mantra',
-    name: 'Positive Mantra / Affirmation',
-    categories: ['spiritual'],
-    categoryLabels: ['Spiritual'],
-    time: '2–3 min',
-    description: 'Select or write a phrase and sit with it intentionally for two minutes.',
-    stressWeight: { high: 6, moderate: 7, low: 8 }
-  },
-  {
-    id: 'prayer',
-    name: 'Prayer Prompt',
-    categories: ['spiritual'],
-    categoryLabels: ['Spiritual'],
-    time: '2–5 min',
-    description: 'A gentle prompt for prayer, with optional starter prayers provided.',
-    stressWeight: { high: 6, moderate: 7, low: 8 }
-  },
-  {
-    id: 'values',
-    name: 'Values Alignment Check',
-    categories: ['spiritual'],
-    categoryLabels: ['Spiritual'],
-    time: '4–6 min',
-    description: 'Reconnect with what you genuinely care about and notice where life may be off course.',
-    stressWeight: { high: 2, moderate: 5, low: 9 }
-  },
-  {
-    id: 'sleep',
-    name: 'Sleep Hygiene Quick Guide',
-    categories: ['physical'],
-    categoryLabels: ['Physical'],
-    time: '2 min',
-    description: 'Evidence-based sleep tips that directly improve your ability to handle stress.',
-    stressWeight: { high: 3, moderate: 5, low: 8 }
-  },
-  {
-    id: 'movement',
-    name: 'Movement Prompt',
-    categories: ['physical'],
-    categoryLabels: ['Physical'],
-    time: '2 min',
-    description: 'Low-barrier movement options to release physical stress from your body.',
-    stressWeight: { high: 7, moderate: 7, low: 6 }
-  },
-  {
-    id: 'journaling',
-    name: 'Journaling Prompt',
-    categories: ['emotional'],
-    categoryLabels: ['Emotional'],
-    time: '5–10 min',
-    description: 'An open-ended space to externalize and process what you are feeling.',
-    stressWeight: { high: 3, moderate: 6, low: 9 }
-  },
-  {
-    id: 'grounding',
-    name: '5-Senses Grounding',
-    categories: ['mental', 'physical'],
-    categoryLabels: ['Mental', 'Physical'],
-    time: '2–3 min',
-    description: 'Anchor yourself to the present moment by slowly going through each of your five senses.',
-    stressWeight: { high: 9, moderate: 7, low: 4 }
-  },
-  {
-    id: 'nutrition',
-    name: 'Nutrition Quick Guide',
-    categories: ['physical'],
-    categoryLabels: ['Physical'],
-    time: '2 min',
-    description: 'Evidence-based eating tips to stabilize your body and mind when stress affects your appetite.',
-    stressWeight: { high: 3, moderate: 5, low: 8 }
-  },
-  {
-    id: 'mindfulness',
-    name: 'Mindfulness Check-In',
-    categories: ['mental', 'emotional'],
-    categoryLabels: ['Mental', 'Emotional'],
-    time: '3–5 min',
-    description: 'Turn toward what you\'re feeling with curiosity instead of fighting it — lean in and let the wave pass.',
-    stressWeight: { high: 5, moderate: 8, low: 7 }
-  }
+  { id: 'box-breathing',       categories: ['physical', 'mental'],    time: '3–4 min',   stressWeight: { high: 10, moderate: 8, low: 6 } },
+  { id: 'full-trunk-breathing', categories: ['physical', 'mental'],   time: '2–3 min',   stressWeight: { high: 8, moderate: 7, low: 5 } },
+  { id: 'growth-mindset',      categories: ['mental'],                time: '3–5 min',   stressWeight: { high: 3, moderate: 8, low: 9 } },
+  { id: 'habit-loop',          categories: ['mental'],                time: '5–7 min',   stressWeight: { high: 2, moderate: 6, low: 9 } },
+  { id: 'gratitude',           categories: ['emotional'],             time: '2–4 min',   stressWeight: { high: 5, moderate: 8, low: 9 } },
+  { id: 'name-the-lie',        categories: ['emotional', 'mental'],   time: '5–8 min',   stressWeight: { high: 3, moderate: 7, low: 8 } },
+  { id: 'resourcing',          categories: ['emotional'],             time: '3–5 min',   stressWeight: { high: 7, moderate: 8, low: 7 } },
+  { id: 'mantra',              categories: ['spiritual'],             time: '2–3 min',   stressWeight: { high: 6, moderate: 7, low: 8 } },
+  { id: 'prayer',              categories: ['spiritual'],             time: '2–5 min',   stressWeight: { high: 6, moderate: 7, low: 8 } },
+  { id: 'values',              categories: ['spiritual'],             time: '4–6 min',   stressWeight: { high: 2, moderate: 5, low: 9 } },
+  { id: 'sleep',               categories: ['physical'],              time: '2 min',     stressWeight: { high: 3, moderate: 5, low: 8 } },
+  { id: 'movement',            categories: ['physical'],              time: '2 min',     stressWeight: { high: 7, moderate: 7, low: 6 } },
+  { id: 'journaling',          categories: ['emotional'],             time: '5–10 min',  stressWeight: { high: 3, moderate: 6, low: 9 } },
+  { id: 'grounding',           categories: ['mental', 'physical'],   time: '2–3 min',   stressWeight: { high: 9, moderate: 7, low: 4 } },
+  { id: 'nutrition',           categories: ['physical'],              time: '2 min',     stressWeight: { high: 3, moderate: 5, low: 8 } },
+  { id: 'mindfulness',         categories: ['mental', 'emotional'],  time: '3–5 min',   stressWeight: { high: 5, moderate: 8, low: 7 } }
 ];
 
-const AFFIRMATIONS = {
-  faithBased: [
-    'God, help me. I need you right now.',
-    'I can do all things through Christ who strengthens me.',
-    'The Lord is close to the brokenhearted.',
-    'Be still and know that I am God.',
-    'Cast all your anxiety on him because he cares for you.',
-    'Peace I leave with you; my peace I give you.'
-  ],
-  universal: [
-    'This feeling is temporary.',
-    'I am not my circumstances.',
-    'I am stronger than this moment.',
-    'I can handle hard things.',
-    'I am worthy of peace.',
-    'One moment at a time.',
-    'I have survived every hard thing until now.',
-    'I am enough as I am.',
-    'This too shall pass.',
-    'I choose to take this one breath at a time.'
-  ]
-};
+// Faith-based and universal affirmation key indices for t()
+const AFFIRMATION_COUNTS = { faith: 6, universal: 10 };
 
 // ============================================================
 // STATE
@@ -270,7 +89,6 @@ function stressBand(level) {
 // ============================================================
 
 function downloadText(filename, content) {
-  // Capture this tool's content for the session summary (skip if already captured)
   const toolId = state.currentTool;
   if (toolId && !state.sessionResponses.some(r => r.toolId === toolId)) {
     state.sessionResponses.push({ toolId, filename, content });
@@ -287,7 +105,6 @@ function downloadText(filename, content) {
   URL.revokeObjectURL(url);
 }
 
-// Capture any visible textarea content when user leaves a tool (covers journal + in-progress tools)
 function captureCurrentToolTextareas() {
   if (!state.currentTool) return;
   if (state.sessionResponses.some(r => r.toolId === state.currentTool)) return;
@@ -295,7 +112,7 @@ function captureCurrentToolTextareas() {
   if (!container) return;
   const filled = [...container.querySelectorAll('textarea')].filter(ta => ta.value.trim());
   if (filled.length === 0) return;
-  const toolName = TOOLS.find(t => t.id === state.currentTool)?.name || 'Tool';
+  const toolName = t('tools.' + state.currentTool + '.name') || state.currentTool;
   const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   let text = `Calm Down — ${toolName}\n${date}\n\n${'='.repeat(44)}\n\n`;
   filled.forEach(ta => {
@@ -331,7 +148,7 @@ function buildSessionSummaryText() {
   }
 
   if (state.toolsUsed.length > 0) {
-    const names = state.toolsUsed.map(id => TOOLS.find(t => t.id === id)?.name).filter(Boolean);
+    const names = state.toolsUsed.map(id => t('tools.' + id + '.name') || id).filter(Boolean);
     text += `TOOLS TRIED\n`;
     names.forEach(n => { text += `• ${n}\n`; });
     text += `\n${'-'.repeat(44)}\n\n`;
@@ -354,31 +171,33 @@ function renderSessionSummaryCard() {
   if (!card) return;
   const start = state.sessionStartLevel;
   const end = state.currentStressLevel || state.stressLevel;
-  const toolNames = state.toolsUsed.map(id => TOOLS.find(t => t.id === id)?.name).filter(Boolean);
+  const toolNames = state.toolsUsed.map(id => t('tools.' + id + '.name') || id).filter(Boolean);
   let html = '';
   if (start) {
     const endLabel = end ? `${end}/10` : '–';
     const diff = end ? start - end : null;
     const shift = diff > 0 ? ` (↓ ${diff})` : diff < 0 ? ` (↑ ${Math.abs(diff)})` : '';
     html += `<div class="summary-row">
-      <span class="summary-label">Stress</span>
+      <span class="summary-label">${t('summary.label.stress')}</span>
       <span class="summary-value">${start}/10 → ${endLabel}${shift}</span>
     </div>`;
   }
   if (toolNames.length > 0) {
     html += `<div class="summary-row">
-      <span class="summary-label">Tools tried</span>
+      <span class="summary-label">${t('summary.label.tools')}</span>
       <span class="summary-value">${toolNames.join(', ')}</span>
     </div>`;
   }
   if (state.sessionResponses.length > 0) {
-    const label = state.sessionResponses.length === 1 ? '1 response captured' : `${state.sessionResponses.length} responses captured`;
+    const label = state.sessionResponses.length === 1
+      ? t('summary.response.singular')
+      : t('summary.response.plural').replace('{n}', state.sessionResponses.length);
     html += `<div class="summary-row">
-      <span class="summary-label">Written</span>
+      <span class="summary-label">${t('summary.label.written')}</span>
       <span class="summary-value">${label}</span>
     </div>`;
   }
-  card.innerHTML = html || '<p style="color:var(--color-text-muted);font-size:14px;text-align:center;padding:8px 0">Great job showing up today.</p>';
+  card.innerHTML = html || `<p style="color:var(--color-text-muted);font-size:14px;text-align:center;padding:8px 0">${t('summary.great-job')}</p>`;
 }
 
 function showSummaryPage() {
@@ -402,10 +221,10 @@ function buildResponseText(toolName, entries) {
   return text;
 }
 
-function renderDownloadBlock(btnId, onDownload) {
+function renderDownloadBlock(btnId) {
   return `
-    <button class="btn--download-responses" id="${btnId}">Download my responses</button>
-    <p class="download-privacy-note">Saves only to your device — nothing is ever transmitted.</p>
+    <button class="btn--download-responses" id="${btnId}">${t('download.btn')}</button>
+    <p class="download-privacy-note">${t('download.privacy')}</p>
   `;
 }
 
@@ -531,7 +350,7 @@ function initStressScale() {
     btn.setAttribute('data-range', range);
     btn.setAttribute('role', 'radio');
     btn.setAttribute('aria-checked', 'false');
-    btn.setAttribute('aria-label', `Stress level ${i}`);
+    btn.setAttribute('aria-label', t('stress.level.aria').replace('{level}', i));
     btn.textContent = i;
     btn.addEventListener('click', () => selectStress(i));
     container.appendChild(btn);
@@ -547,7 +366,7 @@ function selectStress(level) {
     btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
   });
 
-  $('stress-description').textContent = STRESS_DESCRIPTIONS[level];
+  $('stress-description').textContent = t('stress.desc.' + level);
 
   const continueBtn = $('btn-continue-checkin');
   continueBtn.disabled = false;
@@ -589,15 +408,15 @@ function renderCategories() {
     const card = document.createElement('button');
     card.className = `category-card cat-${cat.id}`;
     card.setAttribute('aria-pressed', 'false');
-    card.setAttribute('aria-label', cat.label);
+    card.setAttribute('aria-label', t('category.' + cat.id + '.label'));
     card.dataset.catId = cat.id;
 
     card.innerHTML = `
       <span class="category-card__title">
         <span class="category-checkmark"></span>
-        ${cat.label}
+        ${t('category.' + cat.id + '.label')}
       </span>
-      <span class="category-card__desc">${cat.description}</span>
+      <span class="category-card__desc">${t('category.' + cat.id + '.desc')}</span>
     `;
 
     card.addEventListener('click', () => toggleCategory(cat.id));
@@ -656,7 +475,6 @@ function getRecommendedTools() {
     return { ...tool, score };
   });
 
-  // Box breathing always first for high stress
   if (band === 'high') {
     const bb = scored.find(t => t.id === 'box-breathing');
     if (bb) bb.score = 999;
@@ -667,21 +485,19 @@ function getRecommendedTools() {
 }
 
 function renderToolCardHTML(tool) {
-  const badgesHTML = tool.categoryLabels
-    .map(label => {
-      const cls = label.toLowerCase().replace(/[^a-z]/g, '');
-      return `<span class="badge badge--${cls}">${label}</span>`;
-    })
+  const badgesHTML = tool.categories
+    .map(catId => `<span class="badge badge--${catId}">${t('tool.' + catId + '.badge')}</span>`)
     .join('');
 
+  const toolName = t('tools.' + tool.id + '.name');
   return `
-    <button class="tool-card" data-tool-id="${tool.id}" role="listitem" aria-label="Start ${tool.name}">
+    <button class="tool-card" data-tool-id="${tool.id}" role="listitem" aria-label="${t('tool.start.aria').replace('{name}', toolName)}">
       <div class="tool-card__header">
-        <span class="tool-card__name">${tool.name}</span>
-        <span class="tool-card__time">${tool.time}</span>
+        <span class="tool-card__name">${toolName}</span>
+        <span class="tool-card__time">${t('tools.' + tool.id + '.time')}</span>
       </div>
       <div class="tool-card__badges">${badgesHTML}</div>
-      <p class="tool-card__desc">${tool.description}</p>
+      <p class="tool-card__desc">${t('tools.' + tool.id + '.desc')}</p>
       <span class="tool-card__arrow">→</span>
     </button>
   `;
@@ -700,14 +516,12 @@ function renderPlan() {
   const otherContainer = $('other-tools-list');
   otherContainer.innerHTML = others.map(renderToolCardHTML).join('');
 
-  // Attach click handlers for all tool cards
   document.querySelectorAll('.tool-card').forEach(card => {
     card.addEventListener('click', () => {
       selectTool(card.dataset.toolId);
     });
   });
 
-  // Reset other tools toggle state
   const toggle = $('other-tools-toggle');
   toggle.setAttribute('aria-expanded', 'false');
   otherContainer.classList.add('hidden');
@@ -738,7 +552,7 @@ function renderNextTools() {
 
   const suggestion = getCurrentSuggestion();
   const allSorted = getRecommendedTools();
-  const next = allSorted.filter(t => t.id !== suggestion?.id).slice(0, 3);
+  const next = allSorted.filter(tool => tool.id !== suggestion?.id).slice(0, 3);
 
   if (next.length === 0) {
     panel.classList.add('hidden');
@@ -748,20 +562,20 @@ function renderNextTools() {
   panel.classList.remove('hidden');
   panel.innerHTML = `
     <hr class="next-tools-divider">
-    <p class="next-tools-heading">Also recommended</p>
+    <p class="next-tools-heading">${t('plan.next-tools.heading')}</p>
     <div class="next-tools-list">
-      ${next.map(t => {
-        const badgesHTML = t.categoryLabels.map(label => {
-          const cls = label.toLowerCase().replace(/[^a-z]/g, '');
-          return `<span class="badge badge--${cls}" style="font-size:10px;padding:2px 7px">${label}</span>`;
-        }).join('');
+      ${next.map(tool => {
+        const badgesHTML = tool.categories.map(catId =>
+          `<span class="badge badge--${catId}" style="font-size:10px;padding:2px 7px">${t('tool.' + catId + '.badge')}</span>`
+        ).join('');
+        const toolName = t('tools.' + tool.id + '.name');
         return `
-          <button class="next-tool-card" data-tool-id="${t.id}" aria-label="Start ${t.name}">
+          <button class="next-tool-card" data-tool-id="${tool.id}" aria-label="${t('tool.start.aria').replace('{name}', toolName)}">
             <div class="next-tool-info">
-              <span class="next-tool-name">${t.name}</span>
+              <span class="next-tool-name">${toolName}</span>
               <div class="next-tool-badges">${badgesHTML}</div>
             </div>
-            <span class="next-tool-time">${t.time}</span>
+            <span class="next-tool-time">${t('tools.' + tool.id + '.time')}</span>
             <span class="next-tool-arrow">→</span>
           </button>`;
       }).join('')}
@@ -782,22 +596,22 @@ function renderTool(toolId) {
   container.innerHTML = '';
 
   const renderers = {
-    'box-breathing':      renderBoxBreathing,
+    'box-breathing':       renderBoxBreathing,
     'full-trunk-breathing': renderFullTrunkBreathing,
-    'growth-mindset':     renderGrowthMindset,
-    'habit-loop':         renderHabitLoop,
-    'gratitude':          renderGratitude,
-    'name-the-lie':       renderNameTheLie,
-    'resourcing':         renderResourcing,
-    'mantra':             renderMantra,
-    'prayer':             renderPrayer,
-    'values':             renderValues,
-    'sleep':              renderSleep,
-    'movement':           renderMovement,
-    'journaling':         renderJournaling,
-    'grounding':          renderGrounding,
-    'nutrition':          renderNutrition,
-    'mindfulness':        renderMindfulness
+    'growth-mindset':      renderGrowthMindset,
+    'habit-loop':          renderHabitLoop,
+    'gratitude':           renderGratitude,
+    'name-the-lie':        renderNameTheLie,
+    'resourcing':          renderResourcing,
+    'mantra':              renderMantra,
+    'prayer':              renderPrayer,
+    'values':              renderValues,
+    'sleep':               renderSleep,
+    'movement':            renderMovement,
+    'journaling':          renderJournaling,
+    'grounding':           renderGrounding,
+    'nutrition':           renderNutrition,
+    'mindfulness':         renderMindfulness
   };
 
   const renderer = renderers[toolId];
@@ -819,42 +633,42 @@ function renderBoxBreathing(container) {
 
   function buildPhases(extended) {
     return [
-      { name: 'Breathe In',  duration: 4, cssClass: 'phase-inhale' },
-      { name: 'Hold',        duration: 4, cssClass: 'phase-hold-top' },
-      { name: 'Breathe Out', duration: extended ? 6 : 4, cssClass: extended ? 'phase-exhale-long' : 'phase-exhale' },
-      { name: 'Hold',        duration: 4, cssClass: 'phase-hold-bottom' }
+      { name: t('box-breathing.phase.inhale'), duration: 4, cssClass: 'phase-inhale' },
+      { name: t('box-breathing.phase.hold'),   duration: 4, cssClass: 'phase-hold-top' },
+      { name: t('box-breathing.phase.exhale'), duration: extended ? 6 : 4, cssClass: extended ? 'phase-exhale-long' : 'phase-exhale' },
+      { name: t('box-breathing.phase.hold'),   duration: 4, cssClass: 'phase-hold-bottom' }
     ];
   }
 
   container.innerHTML = `
     <div class="tool-header">
-      <h2 class="tool-title">Box Breathing</h2>
-      <p class="tool-subtitle">4-count breathing — activates your calm response</p>
+      <h2 class="tool-title">${t('box-breathing.title')}</h2>
+      <p class="tool-subtitle">${t('box-breathing.subtitle')}</p>
     </div>
 
     <div class="breath-stage">
-      <p class="breath-round-label" id="round-label">Round 1 of 4</p>
+      <p class="breath-round-label" id="round-label">${t('box-breathing.round').replace('{n}', 1).replace('{total}', totalRounds)}</p>
       <div class="breath-wrapper">
         <div class="breath-glow"></div>
         <div class="breath-circle phase-hold-bottom" id="breath-circle">
           <span class="breath-count" id="breath-count">4</span>
-          <span class="breath-phase-label" id="phase-label">Ready</span>
+          <span class="breath-phase-label" id="phase-label">${t('box-breathing.ready')}</span>
         </div>
       </div>
     </div>
 
     <div id="breath-complete" class="breath-complete hidden">
-      <p class="breath-complete-msg">You completed ${totalRounds} rounds. Well done.</p>
-      <button class="btn--keep-going" id="btn-keep-going">Keep Going</button>
+      <p class="breath-complete-msg"></p>
+      <button class="btn--keep-going" id="btn-keep-going">${t('box-breathing.keep-going')}</button>
     </div>
 
     <label class="breath-mode-toggle" id="mode-toggle-label" style="margin-top:24px">
       <div class="toggle-switch" id="exhale-toggle"></div>
-      <span class="toggle-label"><strong>Extended Exhale Mode</strong> — shifts to a 6-count exhale for a deeper calm effect</span>
+      <span class="toggle-label">${t('box-breathing.extended-exhale')}</span>
     </label>
 
     <div class="breath-coaching">
-      Try to breathe into your whole trunk — chest AND belly. Place one hand on your chest and one on your stomach to feel both expand.
+      ${t('box-breathing.coaching')}
     </div>
   `;
 
@@ -880,7 +694,7 @@ function renderBoxBreathing(container) {
         endSession();
         return;
       }
-      roundEl.textContent = `Round ${roundsCompleted + 1} of ${totalRounds}`;
+      roundEl.textContent = t('box-breathing.round').replace('{n}', roundsCompleted + 1).replace('{total}', totalRounds);
     }
     count = currentPhases[phaseIndex].duration;
     updateCircle();
@@ -893,15 +707,15 @@ function renderBoxBreathing(container) {
     phaseEl.textContent = '';
     countEl.textContent = '✓';
     completeEl.classList.remove('hidden');
+    const s = totalRounds !== 1 ? 's' : '';
     completeEl.querySelector('.breath-complete-msg').textContent =
-      `You completed ${totalRounds} round${totalRounds > 1 ? 's' : ''}. Well done.`;
+      t('box-breathing.complete.msg').replace('{n}', totalRounds).replace('{s}', s);
   }
 
-  // Start after a brief delay
   setTimeout(() => {
     phaseIndex = 0;
     count = currentPhases[0].duration;
-    roundEl.textContent = `Round 1 of ${totalRounds}`;
+    roundEl.textContent = t('box-breathing.round').replace('{n}', 1).replace('{total}', totalRounds);
     updateCircle();
 
     const tickId = setInterval(() => {
@@ -916,21 +730,18 @@ function renderBoxBreathing(container) {
     addTimer(tickId);
   }, 800);
 
-  // Extended exhale toggle
   document.getElementById('mode-toggle-label').addEventListener('click', () => {
     extendedExhale = !extendedExhale;
     toggleEl.classList.toggle('toggle-switch--on', extendedExhale);
     currentPhases = buildPhases(extendedExhale);
   });
 
-  // Keep going
   $('btn-keep-going').addEventListener('click', () => {
     totalRounds += 4;
-    roundsCompleted = roundsCompleted; // reset handled below
     sessionRunning = true;
     phaseIndex = 0;
     count = currentPhases[0].duration;
-    roundEl.textContent = `Round ${roundsCompleted + 1} of ${totalRounds}`;
+    roundEl.textContent = t('box-breathing.round').replace('{n}', roundsCompleted + 1).replace('{total}', totalRounds);
     completeEl.classList.add('hidden');
     updateCircle();
 
@@ -956,63 +767,49 @@ function renderFullTrunkBreathing(container) {
   let cycleCount = 0;
   const totalCycles = 4;
 
-  const steps = [
-    'Find a comfortable position — lying down is ideal, but sitting works too.',
-    'Place one hand on your chest and one on your belly.',
-    'When you breathe in, feel BOTH your chest and your belly expand. Your back should expand too.',
-    null, // timed: inhale 4
-    null, // timed: hold 4
-    null, // timed: exhale 4 or 6
-    null  // timed: hold 4
-  ];
-
-  let stepIndex = 0;
-  let inTimedPhase = false;
-  let timedPhaseIndex = 0;
-
   const timedPhases = () => [
-    { label: 'Breathe In',  duration: 4,        cssClass: 'phase-inhale' },
-    { label: 'Hold',        duration: 4,        cssClass: 'phase-hold-top' },
-    { label: 'Breathe Out', duration: exhaleLen, cssClass: exhaleLen === 6 ? 'phase-exhale-long' : 'phase-exhale' },
-    { label: 'Hold Empty',  duration: 4,        cssClass: 'phase-hold-bottom' }
+    { label: t('ftb.phase.inhale'),    duration: 4,        cssClass: 'phase-inhale' },
+    { label: t('ftb.phase.hold-top'),  duration: 4,        cssClass: 'phase-hold-top' },
+    { label: t('ftb.phase.exhale'),    duration: exhaleLen, cssClass: exhaleLen === 6 ? 'phase-exhale-long' : 'phase-exhale' },
+    { label: t('ftb.phase.hold-empty'), duration: 4,       cssClass: 'phase-hold-bottom' }
   ];
 
   container.innerHTML = `
     <div class="tool-header">
-      <h2 class="tool-title">Full Trunk Deep Breathing</h2>
-      <p class="tool-subtitle">Body-awareness breathing — chest, belly, and back</p>
+      <h2 class="tool-title">${t('ftb.title')}</h2>
+      <p class="tool-subtitle">${t('ftb.subtitle')}</p>
     </div>
 
     <div id="ftb-text-step" style="margin-bottom:24px">
       <div class="step-card">
-        <p class="step-number">Step 1</p>
-        <p class="step-text" id="ftb-step-text">Find a comfortable position — lying down is ideal, but sitting works too.</p>
+        <p class="step-number">${t('ftb.step.label').replace('{n}', 1)}</p>
+        <p class="step-text" id="ftb-step-text">${t('ftb.step1')}</p>
       </div>
     </div>
 
     <div id="ftb-timed-stage" class="breath-stage hidden">
-      <p class="breath-round-label" id="ftb-cycle-label">Cycle 1 of 4</p>
+      <p class="breath-round-label" id="ftb-cycle-label">${t('ftb.cycle').replace('{n}', 1).replace('{total}', totalCycles)}</p>
       <div class="breath-wrapper">
         <div class="breath-glow"></div>
         <div class="breath-circle phase-hold-bottom" id="ftb-circle">
           <span class="breath-count" id="ftb-count">4</span>
-          <span class="breath-phase-label" id="ftb-phase">Ready</span>
+          <span class="breath-phase-label" id="ftb-phase">${t('box-breathing.ready')}</span>
         </div>
       </div>
-      <p class="text-muted" style="font-size:13px;text-align:center;margin-top:8px">Tap "Next" to advance between cycles</p>
+      <p class="text-muted" style="font-size:13px;text-align:center;margin-top:8px">${t('ftb.tap-hint')}</p>
     </div>
 
     <div class="step-advance-area">
       <label class="breath-mode-toggle" id="ftb-exhale-toggle" style="margin-bottom:16px;display:none">
         <div class="toggle-switch" id="ftb-toggle-switch"></div>
-        <span class="toggle-label">6-count exhale (longer, deeper)</span>
+        <span class="toggle-label">${t('ftb.exhale-toggle')}</span>
       </label>
-      <button class="btn--advance" id="ftb-next-btn">Next →</button>
-      <p class="step-tap-hint" id="ftb-hint">Read the instruction, then tap Next when ready.</p>
+      <button class="btn--advance" id="ftb-next-btn">${t('ftb.next')}</button>
+      <p class="step-tap-hint" id="ftb-hint">${t('ftb.read-hint')}</p>
     </div>
 
     <div id="ftb-complete" class="affirmation-card hidden">
-      <p class="affirmation-text">Four full cycles complete. Your body is calmer than it was a few minutes ago.</p>
+      <p class="affirmation-text">${t('ftb.complete')}</p>
     </div>
   `;
 
@@ -1029,25 +826,21 @@ function renderFullTrunkBreathing(container) {
   const exhausteSw   = $('ftb-toggle-switch');
   const completeEl   = $('ftb-complete');
 
-  const textSteps = [
-    'Find a comfortable position — lying down is ideal, but sitting works too.',
-    'Place one hand on your chest and one on your belly.',
-    'When you breathe in, feel BOTH your chest and your belly expand. Your back should expand too.'
-  ];
+  const textStepKeys = ['ftb.step1', 'ftb.step2', 'ftb.step3'];
   let textStepIdx = 0;
 
   function showTextStep(idx) {
-    stepTextEl.textContent = textSteps[idx];
-    textStageEl.querySelector('.step-number').textContent = `Step ${idx + 1}`;
+    stepTextEl.textContent = t(textStepKeys[idx]);
+    textStageEl.querySelector('.step-number').textContent = t('ftb.step.label').replace('{n}', idx + 1);
   }
 
   function startTimedCycle() {
     timedStageEl.classList.remove('hidden');
     textStageEl.classList.add('hidden');
     exhausteLabel.style.display = 'flex';
-    nextBtn.textContent = 'Start Next Cycle →';
-    hintEl.textContent = `Cycle ${cycleCount + 1} of ${totalCycles}`;
-    cycleEl.textContent = `Cycle ${cycleCount + 1} of ${totalCycles}`;
+    nextBtn.textContent = t('ftb.start-next');
+    hintEl.textContent = t('ftb.hint-cycle').replace('{n}', cycleCount + 1).replace('{total}', totalCycles);
+    cycleEl.textContent = t('ftb.cycle').replace('{n}', cycleCount + 1).replace('{total}', totalCycles);
     runTimedCycle();
   }
 
@@ -1072,14 +865,14 @@ function renderFullTrunkBreathing(container) {
             circleEl.className = 'breath-circle phase-hold-top';
             countEl.textContent = '✓';
             phaseLabelEl.textContent = '';
-            cycleEl.textContent = 'Complete';
+            cycleEl.textContent = t('ftb.cycle.complete');
             nextBtn.classList.add('hidden');
             completeEl.classList.remove('hidden');
           } else {
-            cycleEl.textContent = `Cycle ${cycleCount + 1} of ${totalCycles}`;
-            hintEl.textContent = `Cycle ${cycleCount + 1} of ${totalCycles}`;
+            cycleEl.textContent = t('ftb.cycle').replace('{n}', cycleCount + 1).replace('{total}', totalCycles);
+            hintEl.textContent = t('ftb.hint-cycle').replace('{n}', cycleCount + 1).replace('{total}', totalCycles);
             nextBtn.disabled = false;
-            nextBtn.textContent = `Start Cycle ${cycleCount + 1} →`;
+            nextBtn.textContent = t('ftb.start-cycle-n').replace('{n}', cycleCount + 1);
           }
           return;
         }
@@ -1095,10 +888,10 @@ function renderFullTrunkBreathing(container) {
   }
 
   nextBtn.addEventListener('click', () => {
-    if (textStepIdx < textSteps.length - 1) {
+    if (textStepIdx < textStepKeys.length - 1) {
       textStepIdx++;
       showTextStep(textStepIdx);
-    } else if (textStepIdx === textSteps.length - 1 && cycleCount === 0) {
+    } else if (textStepIdx === textStepKeys.length - 1 && cycleCount === 0) {
       startTimedCycle();
     } else if (!nextBtn.disabled) {
       runTimedCycle();
@@ -1116,38 +909,40 @@ function renderFullTrunkBreathing(container) {
 // ============================================================
 
 function renderGrowthMindset(container) {
-  const prompts = [
-    { q: 'What is the thought that is overwhelming you right now?', hint: '(You don\'t have to type it — just hold it in mind.)' },
-    { q: 'Is this a permanent fact, or is it a temporary situation?' },
-    { q: 'What is one thing within this situation that you DO have control over?' },
-    { q: 'What could this experience be teaching you, even if it is painful?' },
-    { q: 'Write down or hold in mind one small action you can take today that is within your control.' }
+  const promptKeys = [
+    { q: 'growth.q1', hint: 'growth.q1.hint' },
+    { q: 'growth.q2' },
+    { q: 'growth.q3' },
+    { q: 'growth.q4' },
+    { q: 'growth.q5' }
   ];
 
   let step = 0;
   const responses = [];
 
   function render() {
-    const isLast = step === prompts.length;
+    const isLast = step === promptKeys.length;
     const hasContent = responses.some(r => r.trim());
+    const q = !isLast ? t(promptKeys[step].q) : '';
+    const hint = !isLast && promptKeys[step].hint ? t(promptKeys[step].hint) : '';
     container.innerHTML = `
       <div class="tool-header">
-        <h2 class="tool-title">Growth Mindset Reframe</h2>
-        <p class="tool-subtitle">Fixed thought → growth question</p>
+        <h2 class="tool-title">${t('growth.title')}</h2>
+        <p class="tool-subtitle">${t('growth.subtitle')}</p>
       </div>
       ${!isLast ? `
         <div class="step-card" style="margin-bottom:20px">
-          <p class="step-number">Question ${step + 1} of ${prompts.length}</p>
-          <p class="step-prompt">${prompts[step].q}</p>
-          ${prompts[step].hint ? `<p class="step-subtext">${prompts[step].hint}</p>` : ''}
+          <p class="step-number">${t('growth.q.label').replace('{n}', step + 1).replace('{total}', promptKeys.length)}</p>
+          <p class="step-prompt">${q}</p>
+          ${hint ? `<p class="step-subtext">${hint}</p>` : ''}
         </div>
-        <textarea class="tool-input" placeholder="Your thoughts (optional — nothing is saved or transmitted)" rows="4"></textarea>
+        <textarea class="tool-input" placeholder="${t('growth.placeholder')}" rows="4"></textarea>
         <button class="btn--advance mt-md" id="gm-next">
-          ${step < prompts.length - 1 ? 'Next →' : 'Finish'}
+          ${step < promptKeys.length - 1 ? t('growth.next') : t('growth.finish')}
         </button>
       ` : `
         <div class="affirmation-card">
-          <p class="affirmation-text">You are not stuck. You are in a moment that will pass. Growth happens in hard seasons.</p>
+          <p class="affirmation-text">${t('growth.affirmation')}</p>
           ${hasContent ? renderDownloadBlock('gm-download') : ''}
         </div>
       `}
@@ -1164,8 +959,8 @@ function renderGrowthMindset(container) {
     if (dlBtn) {
       dlBtn.addEventListener('click', () => {
         downloadText('calm-down-growth-mindset.txt', buildResponseText(
-          'Growth Mindset Reframe',
-          prompts.map((p, i) => ({ label: `Question ${i + 1} of ${prompts.length}`, question: p.q, response: responses[i] || '' }))
+          t('growth.title'),
+          promptKeys.map((p, i) => ({ label: t('growth.q.label').replace('{n}', i + 1).replace('{total}', promptKeys.length), question: t(p.q), response: responses[i] || '' }))
         ));
       });
     }
@@ -1178,41 +973,41 @@ function renderGrowthMindset(container) {
 // ============================================================
 
 function renderHabitLoop(container) {
-  const steps = [
-    { label: 'Your Trigger', q: 'What is your trigger right now?', hint: 'A feeling, a time of day, a place, a person?' },
-    { label: 'Your Behavior', q: 'What behavior do you default to when that trigger hits?' },
-    { label: 'The Result', q: 'What is the short-term result? What is the long-term result?' },
-    { label: 'Replacement', q: 'What is a healthier behavior you could try instead the next time this trigger appears?' }
+  const stepDefs = [
+    { label: 'habit.trigger.label',     q: 'habit.trigger.q',     hint: 'habit.trigger.hint' },
+    { label: 'habit.behavior.label',    q: 'habit.behavior.q' },
+    { label: 'habit.result.label',      q: 'habit.result.q' },
+    { label: 'habit.replacement.label', q: 'habit.replacement.q' }
   ];
 
   let step = 0;
   const responses = [];
 
   function render() {
-    const isLast = step === steps.length;
+    const isLast = step === stepDefs.length;
     const hasContent = responses.some(r => r.trim());
     container.innerHTML = `
       <div class="tool-header">
-        <h2 class="tool-title">Habit Loop Audit</h2>
+        <h2 class="tool-title">${t('habit.title')}</h2>
         ${step === 0 ? `
           <div class="step-card" style="margin-bottom:20px">
-            <p class="step-text">A habit loop has three parts: a <strong>Trigger</strong> (what sets it off), a <strong>Behavior</strong> (what you do), and a <strong>Result</strong> (what you feel after).</p>
+            <p class="step-text">${t('habit.intro')}</p>
           </div>
         ` : ''}
       </div>
       ${!isLast ? `
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">${steps[step].label}</p>
-          <p class="step-prompt" style="font-size:20px">${steps[step].q}</p>
-          ${steps[step].hint ? `<p class="step-subtext">${steps[step].hint}</p>` : ''}
+          <p class="step-number">${t(stepDefs[step].label)}</p>
+          <p class="step-prompt" style="font-size:20px">${t(stepDefs[step].q)}</p>
+          ${stepDefs[step].hint ? `<p class="step-subtext">${t(stepDefs[step].hint)}</p>` : ''}
         </div>
-        <textarea class="tool-input" placeholder="Write it out (nothing is saved or transmitted)" rows="4"></textarea>
+        <textarea class="tool-input" placeholder="${t('habit.placeholder')}" rows="4"></textarea>
         <button class="btn--advance mt-md" id="hl-next">
-          ${step < steps.length - 1 ? 'Next →' : 'Finish'}
+          ${step < stepDefs.length - 1 ? t('habit.next') : t('habit.finish')}
         </button>
       ` : `
         <div class="affirmation-card">
-          <p class="affirmation-text">You don't have to fix the whole loop today. Just noticing it is the first step.</p>
+          <p class="affirmation-text">${t('habit.affirmation')}</p>
           ${hasContent ? renderDownloadBlock('hl-download') : ''}
         </div>
       `}
@@ -1229,8 +1024,8 @@ function renderHabitLoop(container) {
     if (dlBtn) {
       dlBtn.addEventListener('click', () => {
         downloadText('calm-down-habit-loop.txt', buildResponseText(
-          'Habit Loop Audit',
-          steps.map((s, i) => ({ label: s.label, question: s.q, response: responses[i] || '' }))
+          t('habit.title'),
+          stepDefs.map((s, i) => ({ label: t(s.label), question: t(s.q), response: responses[i] || '' }))
         ));
       });
     }
@@ -1243,35 +1038,31 @@ function renderHabitLoop(container) {
 // ============================================================
 
 function renderGratitude(container) {
-  const questions = [
-    'What is one thing that happened today that was not terrible — even if it was small?',
-    'Who is one person in your life who is on your side?',
-    'What is one thing about yourself you are not giving yourself credit for right now?'
-  ];
+  const questionKeys = ['gratitude.q1', 'gratitude.q2', 'gratitude.q3'];
 
   let step = 0;
   const responses = [];
 
   function render() {
-    const isLast = step === questions.length;
+    const isLast = step === questionKeys.length;
     const hasContent = responses.some(r => r.trim());
     container.innerHTML = `
       <div class="tool-header">
-        <h2 class="tool-title">Focus on the Good</h2>
-        ${step === 0 ? `<p class="step-framing">This is not about denying that things are hard. It is about reminding your brain that hard is not the whole picture.</p>` : ''}
+        <h2 class="tool-title">${t('gratitude.title')}</h2>
+        ${step === 0 ? `<p class="step-framing">${t('gratitude.framing')}</p>` : ''}
       </div>
       ${!isLast ? `
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">Question ${step + 1} of ${questions.length}</p>
-          <p class="step-prompt">${questions[step]}</p>
+          <p class="step-number">${t('gratitude.q.label').replace('{n}', step + 1).replace('{total}', questionKeys.length)}</p>
+          <p class="step-prompt">${t(questionKeys[step])}</p>
         </div>
-        <textarea class="tool-input" placeholder="Take your time (nothing is saved or transmitted)" rows="4"></textarea>
+        <textarea class="tool-input" placeholder="${t('gratitude.placeholder')}" rows="4"></textarea>
         <button class="btn--advance mt-md" id="gr-next">
-          ${step < questions.length - 1 ? 'Next →' : 'Finish'}
+          ${step < questionKeys.length - 1 ? t('gratitude.next') : t('gratitude.finish')}
         </button>
       ` : `
         <div class="affirmation-card">
-          <p class="affirmation-text">Your brain needed that. Come back here any time.</p>
+          <p class="affirmation-text">${t('gratitude.affirmation')}</p>
           ${hasContent ? renderDownloadBlock('gr-download') : ''}
         </div>
       `}
@@ -1288,8 +1079,8 @@ function renderGratitude(container) {
     if (dlBtn) {
       dlBtn.addEventListener('click', () => {
         downloadText('calm-down-gratitude.txt', buildResponseText(
-          'Focus on the Good',
-          questions.map((q, i) => ({ label: `Question ${i + 1} of ${questions.length}`, question: q, response: responses[i] || '' }))
+          t('gratitude.title'),
+          questionKeys.map((k, i) => ({ label: t('gratitude.q.label').replace('{n}', i + 1).replace('{total}', questionKeys.length), question: t(k), response: responses[i] || '' }))
         ));
       });
     }
@@ -1311,15 +1102,15 @@ function renderNameTheLie(container) {
     if (step === 0) {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Name the Lie, Say the Truth</h2>
-          <p class="step-framing" style="margin-top:12px">Right now you are probably telling yourself things that are not true. Let's look at one of them.</p>
+          <h2 class="tool-title">${t('ntl.title')}</h2>
+          <p class="step-framing" style="margin-top:12px">${t('ntl.framing')}</p>
         </div>
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">Step 1 of 4</p>
-          <p class="step-prompt" style="font-size:20px">What is the harshest thing you are currently saying to yourself?</p>
+          <p class="step-number">${t('ntl.step1.label')}</p>
+          <p class="step-prompt" style="font-size:20px">${t('ntl.step1.q')}</p>
         </div>
-        <textarea class="tool-input" placeholder="Write it down. You don't have to share it with anyone. Nothing is saved or transmitted." rows="4" id="ntl-input-1"></textarea>
-        <button class="btn--advance mt-md" id="ntl-next">Next →</button>
+        <textarea class="tool-input" placeholder="${t('ntl.step1.placeholder')}" rows="4" id="ntl-input-1"></textarea>
+        <button class="btn--advance mt-md" id="ntl-next">${t('ntl.next')}</button>
       `;
       $('ntl-next').addEventListener('click', () => {
         responses.step0 = $('ntl-input-1')?.value || '';
@@ -1330,12 +1121,12 @@ function renderNameTheLie(container) {
     } else if (step === 1) {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Name the Lie, Say the Truth</h2>
+          <h2 class="tool-title">${t('ntl.title')}</h2>
         </div>
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">Step 2 of 4</p>
-          <p class="step-prompt" style="font-size:20px">Wait a moment. Breathe.</p>
-          <p class="step-subtext">Now ask: Is this statement 100% true, or is it a story I am telling myself?</p>
+          <p class="step-number">${t('ntl.step2.label')}</p>
+          <p class="step-prompt" style="font-size:20px">${t('ntl.step2.q')}</p>
+          <p class="step-subtext">${t('ntl.step2.sub')}</p>
         </div>
         <div class="breath-stage" style="padding:16px 0">
           <div class="breath-wrapper" style="width:140px;height:140px">
@@ -1345,7 +1136,7 @@ function renderNameTheLie(container) {
             </div>
           </div>
         </div>
-        <button class="btn--advance" id="ntl-skip-pause">Skip →</button>
+        <button class="btn--advance" id="ntl-skip-pause">${t('ntl.skip')}</button>
       `;
 
       const circleEl = $('ntl-pause-circle');
@@ -1390,14 +1181,14 @@ function renderNameTheLie(container) {
     } else if (step === 2) {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Name the Lie, Say the Truth</h2>
+          <h2 class="tool-title">${t('ntl.title')}</h2>
         </div>
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">Step 3 of 4</p>
-          <p class="step-prompt" style="font-size:20px">What would you say to your best friend if they said this to you?</p>
+          <p class="step-number">${t('ntl.step3.label')}</p>
+          <p class="step-prompt" style="font-size:20px">${t('ntl.step3.q')}</p>
         </div>
-        <textarea class="tool-input" placeholder="Write what you'd say to someone you love. Nothing is saved or transmitted." rows="4"></textarea>
-        <button class="btn--advance mt-md" id="ntl-next-3">Next →</button>
+        <textarea class="tool-input" placeholder="${t('ntl.step3.placeholder')}" rows="4"></textarea>
+        <button class="btn--advance mt-md" id="ntl-next-3">${t('ntl.next')}</button>
       `;
       $('ntl-next-3').addEventListener('click', () => {
         responses.step2 = container.querySelector('textarea')?.value || '';
@@ -1408,15 +1199,15 @@ function renderNameTheLie(container) {
     } else if (step === 3) {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Name the Lie, Say the Truth</h2>
+          <h2 class="tool-title">${t('ntl.title')}</h2>
         </div>
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">Step 4 of 4</p>
-          <p class="step-prompt" style="font-size:20px">Now write the truth.</p>
-          <p class="step-subtext">Not a fake positive spin — the actual truth about yourself and this situation.</p>
+          <p class="step-number">${t('ntl.step4.label')}</p>
+          <p class="step-prompt" style="font-size:20px">${t('ntl.step4.q')}</p>
+          <p class="step-subtext">${t('ntl.step4.sub')}</p>
         </div>
-        <textarea class="tool-input" placeholder="The actual truth..." rows="5" id="ntl-truth"></textarea>
-        <button class="btn--advance mt-md" id="ntl-finish">Finish</button>
+        <textarea class="tool-input" placeholder="${t('ntl.step4.placeholder')}" rows="5" id="ntl-truth"></textarea>
+        <button class="btn--advance mt-md" id="ntl-finish">${t('ntl.finish')}</button>
       `;
       $('ntl-finish').addEventListener('click', () => {
         responses.step3 = $('ntl-truth')?.value || '';
@@ -1428,20 +1219,20 @@ function renderNameTheLie(container) {
       const hasContent = Object.values(responses).some(r => r.trim());
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Name the Lie, Say the Truth</h2>
+          <h2 class="tool-title">${t('ntl.title')}</h2>
         </div>
         <div class="affirmation-card">
-          <p class="affirmation-text">That truth is the thing worth listening to.</p>
+          <p class="affirmation-text">${t('ntl.affirmation')}</p>
           ${hasContent ? renderDownloadBlock('ntl-download') : ''}
         </div>
       `;
       const dlBtn = $('ntl-download');
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
-          downloadText('calm-down-name-the-lie.txt', buildResponseText('Name the Lie, Say the Truth', [
-            { label: 'Step 1 of 4', question: 'What is the harshest thing you are currently saying to yourself?', response: responses.step0 },
-            { label: 'Step 3 of 4', question: 'What would you say to your best friend if they said this to you?', response: responses.step2 },
-            { label: 'Step 4 of 4', question: 'Now write the truth.', response: responses.step3 }
+          downloadText('calm-down-name-the-lie.txt', buildResponseText(t('ntl.title'), [
+            { label: t('ntl.step1.label'), question: t('ntl.step1.q'), response: responses.step0 },
+            { label: t('ntl.step3.label'), question: t('ntl.step3.q'), response: responses.step2 },
+            { label: t('ntl.step4.label'), question: t('ntl.step4.q'), response: responses.step3 }
           ]));
         });
       }
@@ -1455,45 +1246,44 @@ function renderNameTheLie(container) {
 // ============================================================
 
 function renderResourcing(container) {
-  const stepTexts = [
-    'Think of a place — real or imagined — where you feel completely safe and at peace.',
-    'What does it look like? Notice the colors, the light.',
-    'What sounds are there? Or is it quiet?',
-    'Feel the temperature. Feel the surface beneath you.',
-    'You are here. Nothing can reach you in this place. Stay as long as you need.',
-    null // 60-second hold
+  const stepKeys = [
+    'resourcing.step1',
+    'resourcing.step2',
+    'resourcing.step3',
+    'resourcing.step4',
+    'resourcing.step5',
+    null
   ];
 
   let step = 0;
 
   function render() {
-    if (step < stepTexts.length - 1) {
+    if (step < stepKeys.length - 1) {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Safe Place Visualization</h2>
-          ${step === 0 ? `<p class="step-framing" style="margin-top:8px">Close your eyes after reading each step. Take your time.</p>` : ''}
+          <h2 class="tool-title">${t('resourcing.title')}</h2>
+          ${step === 0 ? `<p class="step-framing" style="margin-top:8px">${t('resourcing.framing')}</p>` : ''}
         </div>
         <div class="resourcing-step">
           <div class="resourcing-pulse"></div>
-          <p class="resourcing-step-text">${stepTexts[step]}</p>
+          <p class="resourcing-step-text">${t(stepKeys[step])}</p>
           <button class="btn--advance" id="res-next">
-            ${step < stepTexts.length - 2 ? 'Continue →' : 'Enter your safe place →'}
+            ${step < stepKeys.length - 2 ? t('resourcing.continue') : t('resourcing.enter')}
           </button>
         </div>
       `;
       $('res-next').addEventListener('click', () => { step++; render(); });
 
     } else {
-      // 60-second hold
       let holdCount = 60;
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Safe Place Visualization</h2>
+          <h2 class="tool-title">${t('resourcing.title')}</h2>
         </div>
         <div class="prayer-hold-screen">
           <div class="resourcing-pulse" style="width:140px;height:140px;margin-bottom:32px"></div>
           <div class="hold-timer" id="res-hold-count">${holdCount}</div>
-          <p class="hold-label">You are safe. Stay here.</p>
+          <p class="hold-label">${t('resourcing.hold.label')}</p>
         </div>
       `;
 
@@ -1505,7 +1295,7 @@ function renderResourcing(container) {
           clearInterval(id);
           container.innerHTML += `
             <div class="affirmation-card" style="margin-top:0;text-align:center">
-              <p class="affirmation-text">When you are ready, take a slow breath and come back.</p>
+              <p class="affirmation-text">${t('resourcing.affirmation')}</p>
             </div>
           `;
         }
@@ -1522,41 +1312,40 @@ function renderResourcing(container) {
 
 function renderMantra(container) {
   let selectedMantra = '';
-  let sessionRunning = false;
   let sessionTime = 120;
+
+  const faithItems = Array.from({ length: AFFIRMATION_COUNTS.faith }, (_, i) =>
+    `<button class="mantra-item" data-mantra="${encodeURIComponent(t('affirmation.faith.' + (i + 1)))}" data-idx="f${i}">${t('affirmation.faith.' + (i + 1))}</button>`
+  ).join('');
+
+  const universalItems = Array.from({ length: AFFIRMATION_COUNTS.universal }, (_, i) =>
+    `<button class="mantra-item" data-mantra="${encodeURIComponent(t('affirmation.universal.' + (i + 1)))}" data-idx="u${i}">${t('affirmation.universal.' + (i + 1))}</button>`
+  ).join('');
 
   container.innerHTML = `
     <div class="tool-header">
-      <h2 class="tool-title">Positive Mantra</h2>
-      <p class="tool-subtitle">Select a phrase or write your own</p>
+      <h2 class="tool-title">${t('mantra.title')}</h2>
+      <p class="tool-subtitle">${t('mantra.subtitle')}</p>
     </div>
 
     <div id="mantra-select-stage">
-      <p class="mantra-section-label">Faith-Based</p>
-      <div class="mantra-library" id="mantra-faith">
-        ${AFFIRMATIONS.faithBased.map((a, i) =>
-          `<button class="mantra-item" data-mantra="${encodeURIComponent(a)}" data-idx="f${i}">${a}</button>`
-        ).join('')}
-      </div>
+      <p class="mantra-section-label">${t('mantra.faith.label')}</p>
+      <div class="mantra-library" id="mantra-faith">${faithItems}</div>
 
-      <p class="mantra-section-label" style="margin-top:16px">Universal</p>
-      <div class="mantra-library" id="mantra-universal">
-        ${AFFIRMATIONS.universal.map((a, i) =>
-          `<button class="mantra-item" data-mantra="${encodeURIComponent(a)}" data-idx="u${i}">${a}</button>`
-        ).join('')}
-      </div>
+      <p class="mantra-section-label" style="margin-top:16px">${t('mantra.universal.label')}</p>
+      <div class="mantra-library" id="mantra-universal">${universalItems}</div>
 
-      <p class="mantra-section-label" style="margin-top:16px">Your own phrase</p>
-      <textarea class="tool-input" placeholder="Write your own phrase..." rows="2" id="mantra-custom"></textarea>
-      <button class="btn--advance mt-md" id="mantra-use-custom">Use This Phrase →</button>
+      <p class="mantra-section-label" style="margin-top:16px">${t('mantra.custom.label')}</p>
+      <textarea class="tool-input" placeholder="${t('mantra.custom.placeholder')}" rows="2" id="mantra-custom"></textarea>
+      <button class="btn--advance mt-md" id="mantra-use-custom">${t('mantra.custom.btn')}</button>
     </div>
 
     <div id="mantra-session-stage" class="hidden">
       <div class="mantra-display">
         <p class="mantra-display-text" id="mantra-active-text"></p>
       </div>
-      <p class="mantra-timer-display" id="mantra-timer">2:00 remaining</p>
-      <p class="step-framing" style="text-align:center;margin-top:8px">Read it slowly. Read it again. Breathe between each reading.</p>
+      <p class="mantra-timer-display" id="mantra-timer">${t('mantra.timer.remaining').replace('{time}', '2:00')}</p>
+      <p class="step-framing" style="text-align:center;margin-top:8px">${t('mantra.session.hint')}</p>
     </div>
   `;
 
@@ -1568,19 +1357,18 @@ function renderMantra(container) {
     $('mantra-active-text').textContent = phrase;
 
     let remaining = sessionTime;
-    $('mantra-timer').textContent = formatSeconds(remaining) + ' remaining';
+    $('mantra-timer').textContent = t('mantra.timer.remaining').replace('{time}', formatSeconds(remaining));
 
     const id = setInterval(() => {
       remaining--;
       $('mantra-timer').textContent = remaining > 0
-        ? formatSeconds(remaining) + ' remaining'
-        : 'Session complete.';
+        ? t('mantra.timer.remaining').replace('{time}', formatSeconds(remaining))
+        : t('mantra.timer.complete');
       if (remaining <= 0) clearInterval(id);
     }, 1000);
     addTimer(id);
   }
 
-  // Mantra item clicks
   container.querySelectorAll('.mantra-item').forEach(btn => {
     btn.addEventListener('click', () => {
       container.querySelectorAll('.mantra-item').forEach(b => b.classList.remove('mantra-item--selected'));
@@ -1590,7 +1378,6 @@ function renderMantra(container) {
     });
   });
 
-  // Custom phrase
   $('mantra-use-custom').addEventListener('click', () => {
     const custom = $('mantra-custom').value.trim();
     if (custom.length > 0) startMantraSession(custom);
@@ -1608,18 +1395,18 @@ function renderPrayer(container) {
     if (step === 0) {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Prayer Prompt</h2>
-          <p class="step-framing" style="margin-top:8px">Prayer does not have to be long or eloquent. Honest and heartfelt is enough.</p>
+          <h2 class="tool-title">${t('prayer.title')}</h2>
+          <p class="step-framing" style="margin-top:8px">${t('prayer.framing')}</p>
         </div>
         <div class="prayer-starters">
-          <div class="prayer-starter">"God, be with me right now."</div>
-          <div class="prayer-starter">"God, if you are real, make yourself real to me."</div>
-          <div class="prayer-starter">"Jesus, I need you. Help me get through this moment."</div>
+          <div class="prayer-starter">${t('prayer.starter1')}</div>
+          <div class="prayer-starter">${t('prayer.starter2')}</div>
+          <div class="prayer-starter">${t('prayer.starter3')}</div>
         </div>
         <div class="step-card" style="margin-top:16px;margin-bottom:16px">
-          <p class="step-text">Or just talk to God in your own words. You do not have to have it figured out.</p>
+          <p class="step-text">${t('prayer.own-words')}</p>
         </div>
-        <button class="btn--advance" id="prayer-enter-quiet">Enter quiet space →</button>
+        <button class="btn--advance" id="prayer-enter-quiet">${t('prayer.enter')}</button>
       `;
       $('prayer-enter-quiet').addEventListener('click', () => { step++; render(); });
 
@@ -1627,12 +1414,12 @@ function renderPrayer(container) {
       let holdTime = 75;
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Prayer Prompt</h2>
+          <h2 class="tool-title">${t('prayer.title')}</h2>
         </div>
         <div class="prayer-hold-screen">
           <div class="resourcing-pulse" style="width:120px;height:120px;margin:0 auto 32px"></div>
           <div class="hold-timer" id="prayer-hold">${holdTime}</div>
-          <p class="hold-label">He meets you exactly where you are.</p>
+          <p class="hold-label">${t('prayer.hold.label')}</p>
         </div>
       `;
 
@@ -1644,7 +1431,7 @@ function renderPrayer(container) {
           clearInterval(id);
           container.innerHTML += `
             <div class="affirmation-card" style="margin:16px 0 0">
-              <p class="affirmation-text">He meets you exactly where you are.</p>
+              <p class="affirmation-text">${t('prayer.affirmation')}</p>
             </div>
           `;
         }
@@ -1660,36 +1447,36 @@ function renderPrayer(container) {
 // ============================================================
 
 function renderValues(container) {
-  const prompts = [
-    { label: 'What Matters Most', q: 'What are the three things in life you care about most?', hint: 'Examples: my kids, my faith, my health, being a good person' },
-    { label: 'Weekly Alignment', q: 'Looking at the past week — how aligned were your actions with those three things?' },
-    { label: 'What\'s Off Course', q: 'Is there one thing you are doing right now that is working against what you care about?' },
-    { label: 'One Small Move', q: 'What is one small thing you could do in the next 24 hours that would move you closer to what you care about?' }
+  const promptDefs = [
+    { label: 'values.what-matters.label', q: 'values.what-matters.q', hint: 'values.what-matters.hint' },
+    { label: 'values.weekly.label',       q: 'values.weekly.q' },
+    { label: 'values.off-course.label',   q: 'values.off-course.q' },
+    { label: 'values.small-move.label',   q: 'values.small-move.q' }
   ];
 
   let step = 0;
   const responses = [];
 
   function render() {
-    const isLast = step === prompts.length;
+    const isLast = step === promptDefs.length;
     const hasContent = responses.some(r => r.trim());
     container.innerHTML = `
       <div class="tool-header">
-        <h2 class="tool-title">Values Alignment Check</h2>
+        <h2 class="tool-title">${t('values.title')}</h2>
       </div>
       ${!isLast ? `
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">${prompts[step].label}</p>
-          <p class="step-prompt" style="font-size:20px">${prompts[step].q}</p>
-          ${prompts[step].hint ? `<p class="step-subtext">${prompts[step].hint}</p>` : ''}
+          <p class="step-number">${t(promptDefs[step].label)}</p>
+          <p class="step-prompt" style="font-size:20px">${t(promptDefs[step].q)}</p>
+          ${promptDefs[step].hint ? `<p class="step-subtext">${t(promptDefs[step].hint)}</p>` : ''}
         </div>
-        <textarea class="tool-input" placeholder="Take your time (nothing is saved or transmitted)" rows="4"></textarea>
+        <textarea class="tool-input" placeholder="${t('values.placeholder')}" rows="4"></textarea>
         <button class="btn--advance mt-md" id="val-next">
-          ${step < prompts.length - 1 ? 'Next →' : 'Finish'}
+          ${step < promptDefs.length - 1 ? t('values.next') : t('values.finish')}
         </button>
       ` : `
         <div class="affirmation-card">
-          <p class="affirmation-text">Clarity about what matters is itself a form of calm. You know who you want to be.</p>
+          <p class="affirmation-text">${t('values.affirmation')}</p>
           ${hasContent ? renderDownloadBlock('val-download') : ''}
         </div>
       `}
@@ -1706,8 +1493,8 @@ function renderValues(container) {
     if (dlBtn) {
       dlBtn.addEventListener('click', () => {
         downloadText('calm-down-values.txt', buildResponseText(
-          'Values Alignment Check',
-          prompts.map((p, i) => ({ label: p.label, question: p.q, response: responses[i] || '' }))
+          t('values.title'),
+          promptDefs.map((p, i) => ({ label: t(p.label), question: t(p.q), response: responses[i] || '' }))
         ));
       });
     }
@@ -1720,30 +1507,26 @@ function renderValues(container) {
 // ============================================================
 
 function renderSleep(container) {
-  const tips = [
-    'Set a consistent bedtime and stick to it.',
-    'Start dimming lights 1 hour before bed.',
-    'Avoid screens 30–60 minutes before sleep.',
-    'Try a calming pre-sleep routine: light reading, gentle stretching, or a warm bath.',
-    '7–9 hours is the research-supported target. If you toss and turn, allow extra time in bed.',
-    'If racing thoughts keep you up: try box breathing in bed, or listen to something calm and distracting.'
+  const tipKeys = [
+    'sleep.tip.1', 'sleep.tip.2', 'sleep.tip.3',
+    'sleep.tip.4', 'sleep.tip.5', 'sleep.tip.6'
   ];
 
   container.innerHTML = `
     <div class="tool-header">
-      <h2 class="tool-title">Sleep Hygiene Guide</h2>
-      <p class="tool-subtitle">Tap each item to check it off</p>
+      <h2 class="tool-title">${t('sleep.title')}</h2>
+      <p class="tool-subtitle">${t('sleep.subtitle')}</p>
     </div>
     <div class="checklist-items">
-      ${tips.map((tip, i) => `
+      ${tipKeys.map((key, i) => `
         <button class="checklist-item" data-idx="${i}" aria-pressed="false">
           <span class="checklist-check" id="check-${i}"></span>
-          <span class="checklist-text">${tip}</span>
+          <span class="checklist-text">${t(key)}</span>
         </button>
       `).join('')}
     </div>
     <div class="sleep-note">
-      Sleep is the single biggest lever for your ability to handle stress. Prioritize it even when it feels impossible.
+      ${t('sleep.note')}
     </div>
   `;
 
@@ -1761,46 +1544,40 @@ function renderSleep(container) {
 // ============================================================
 
 function renderMovement(container) {
-  const options = [
-    'A 10-minute walk outside (even slow, even around the block)',
-    '5 minutes of light stretching',
-    'Put on a song and move however feels right',
-    'Do 10 slow squats or 10 wall push-ups — just to move'
-  ];
-
+  const optionKeys = ['movement.opt.1', 'movement.opt.2', 'movement.opt.3', 'movement.opt.4'];
   let selected = null;
 
   function render() {
     if (!selected) {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Movement Prompt</h2>
-          <p class="step-framing" style="margin-top:8px">Your body is holding stress. Movement releases it. You do not need a gym.</p>
+          <h2 class="tool-title">${t('movement.title')}</h2>
+          <p class="step-framing" style="margin-top:8px">${t('movement.framing')}</p>
         </div>
         <div class="movement-options">
-          ${options.map((opt, i) =>
-            `<button class="movement-option" data-idx="${i}">${opt}</button>`
+          ${optionKeys.map((key, i) =>
+            `<button class="movement-option" data-idx="${i}">${t(key)}</button>`
           ).join('')}
         </div>
       `;
       container.querySelectorAll('.movement-option').forEach(btn => {
         btn.addEventListener('click', () => {
-          selected = options[btn.dataset.idx];
+          selected = t(optionKeys[btn.dataset.idx]);
           render();
         });
       });
     } else {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Movement Prompt</h2>
+          <h2 class="tool-title">${t('movement.title')}</h2>
         </div>
         <div class="movement-return">
           <p style="font-size:15px;color:var(--color-text-secondary);margin-bottom:24px;font-style:italic">"${selected}"</p>
-          <p class="movement-return-msg">Go do it now. Come back when you are done.</p>
-          <p class="movement-return-sub">This page will be here when you return.</p>
+          <p class="movement-return-msg">${t('movement.return.msg')}</p>
+          <p class="movement-return-sub">${t('movement.return.sub')}</p>
         </div>
         <div class="affirmation-card" style="margin-top:24px">
-          <p class="affirmation-text">Nice work. Your cortisol just dropped a little. That mattered.</p>
+          <p class="affirmation-text">${t('movement.affirmation')}</p>
         </div>
       `;
     }
@@ -1818,45 +1595,40 @@ function renderJournaling(container) {
   let timerRemaining = 0;
   let timerIntervalId = null;
 
-  const secondaryPrompts = [
-    'What am I most afraid of right now?',
-    'What do I wish someone would say to me?',
-    'What is one thing I need to let go of today?'
-  ];
+  const secondaryKeys = ['journal.secondary.1', 'journal.secondary.2', 'journal.secondary.3'];
 
   container.innerHTML = `
     <div class="tool-header">
-      <h2 class="tool-title">Journaling</h2>
+      <h2 class="tool-title">${t('journal.title')}</h2>
     </div>
     <div class="journal-stage">
-      <p class="journal-prompt">Write whatever is in your head. Nobody will see this. It does not have to make sense.</p>
-      <textarea class="tool-input tool-input--large" id="journal-text" placeholder="Start anywhere..." aria-label="Journal entry"></textarea>
+      <p class="journal-prompt">${t('journal.prompt')}</p>
+      <textarea class="tool-input tool-input--large" id="journal-text" placeholder="${t('journal.placeholder')}" aria-label="${t('journal.title')}"></textarea>
 
       <div>
-        <p class="step-subtext" style="margin-bottom:8px">Stuck? Try one of these:</p>
+        <p class="step-subtext" style="margin-bottom:8px">${t('journal.stuck')}</p>
         <div class="journal-secondary-prompts">
-          ${secondaryPrompts.map(p =>
-            `<button class="journal-prompt-btn" data-prompt="${p}">"${p}"</button>`
+          ${secondaryKeys.map(k =>
+            `<button class="journal-prompt-btn" data-prompt="${t(k).replace(/"/g, '&quot;')}">"${t(k)}"</button>`
           ).join('')}
         </div>
       </div>
 
       <div class="journal-timer-controls">
-        <span style="font-size:13px;color:var(--color-text-muted)">Timer:</span>
-        <button class="timer-toggle-btn" id="timer-5">5 min</button>
-        <button class="timer-toggle-btn" id="timer-10">10 min</button>
+        <span style="font-size:13px;color:var(--color-text-muted)">${t('journal.timer.label')}</span>
+        <button class="timer-toggle-btn" id="timer-5">${t('journal.timer.5')}</button>
+        <button class="timer-toggle-btn" id="timer-10">${t('journal.timer.10')}</button>
         <span class="journal-timer-display" id="journal-timer-display"></span>
       </div>
 
       <div class="journal-action-row">
-        <button class="btn--clear" id="journal-clear">Clear & Discard</button>
-        <button class="btn--download-journal" id="journal-download">Download entry</button>
+        <button class="btn--clear" id="journal-clear">${t('journal.clear')}</button>
+        <button class="btn--download-journal" id="journal-download">${t('journal.download')}</button>
       </div>
-      <p class="download-privacy-note" style="margin-top:4px">Your entry is never saved or transmitted — download creates a local file only.</p>
+      <p class="download-privacy-note" style="margin-top:4px">${t('journal.privacy')}</p>
     </div>
   `;
 
-  // Secondary prompt insertion
   container.querySelectorAll('.journal-prompt-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const textarea = $('journal-text');
@@ -1867,7 +1639,6 @@ function renderJournaling(container) {
     });
   });
 
-  // Timer buttons
   function startTimer(minutes) {
     if (timerIntervalId) {
       clearInterval(timerIntervalId);
@@ -1887,7 +1658,7 @@ function renderJournaling(container) {
       timerRemaining--;
       display.textContent = timerRemaining > 0
         ? formatSeconds(timerRemaining)
-        : 'Time\'s up!';
+        : t('journal.times-up');
       if (timerRemaining <= 0) {
         clearInterval(timerIntervalId);
         timerActive = false;
@@ -1899,20 +1670,18 @@ function renderJournaling(container) {
   $('timer-5').addEventListener('click', () => startTimer(5));
   $('timer-10').addEventListener('click', () => startTimer(10));
 
-  // Clear
   $('journal-clear').addEventListener('click', () => {
-    if (confirm('Clear your journal entry? This cannot be undone.')) {
+    if (confirm(t('journal.confirm-clear'))) {
       $('journal-text').value = '';
     }
   });
 
-  // Download
   $('journal-download').addEventListener('click', () => {
     const text = $('journal-text').value.trim();
     if (!text) return;
     const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const content = `Calm Down — Journal Entry\n${date}\n\n${'='.repeat(44)}\n\n${text}\n\n${'='.repeat(44)}\n\nPrivacy note: This file was created on your device.\nNo data was saved, recorded, or transmitted by Calm Down.`;
-    downloadText(`calm-down-journal.txt`, content);
+    downloadText('calm-down-journal.txt', content);
   });
 }
 
@@ -1921,37 +1690,37 @@ function renderJournaling(container) {
 // ============================================================
 
 function renderGrounding(container) {
-  const senses = [
-    { label: '5 — See',   prompt: 'Look around slowly. Name 5 things you can see right now.', placeholder: 'A lamp, the wall, my hands, a window, a cup...' },
-    { label: '4 — Touch', prompt: 'Notice 4 things you can physically feel — texture, weight, temperature.', placeholder: 'The floor under my feet, the chair beneath me...' },
-    { label: '3 — Hear',  prompt: 'Listen quietly. What are 3 sounds you can hear right now?', placeholder: 'Traffic outside, my own breathing, the fan...' },
-    { label: '2 — Smell', prompt: 'Take a slow breath through your nose. Name 2 things you can smell, even faintly.', placeholder: 'Coffee, fresh air, nothing in particular...' },
-    { label: '1 — Taste', prompt: 'What do you taste right now, even the faintest trace?', placeholder: 'Water, toothpaste, nothing at all...' }
+  const senseKeys = [
+    { label: 'grounding.see.label',   prompt: 'grounding.see.prompt',   placeholder: 'grounding.see.placeholder' },
+    { label: 'grounding.touch.label', prompt: 'grounding.touch.prompt', placeholder: 'grounding.touch.placeholder' },
+    { label: 'grounding.hear.label',  prompt: 'grounding.hear.prompt',  placeholder: 'grounding.hear.placeholder' },
+    { label: 'grounding.smell.label', prompt: 'grounding.smell.prompt', placeholder: 'grounding.smell.placeholder' },
+    { label: 'grounding.taste.label', prompt: 'grounding.taste.prompt', placeholder: 'grounding.taste.placeholder' }
   ];
 
   let step = 0;
   const responses = [];
 
   function render() {
-    const isLast = step === senses.length;
+    const isLast = step === senseKeys.length;
     const hasContent = responses.some(r => r.trim());
     container.innerHTML = `
       <div class="tool-header">
-        <h2 class="tool-title">5-Senses Grounding</h2>
-        ${step === 0 ? `<p class="step-framing" style="margin-top:8px">You are here. Right now. Let's prove that to your nervous system — one sense at a time.</p>` : ''}
+        <h2 class="tool-title">${t('grounding.title')}</h2>
+        ${step === 0 ? `<p class="step-framing" style="margin-top:8px">${t('grounding.framing')}</p>` : ''}
       </div>
       ${!isLast ? `
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">${senses[step].label}</p>
-          <p class="step-prompt">${senses[step].prompt}</p>
+          <p class="step-number">${t(senseKeys[step].label)}</p>
+          <p class="step-prompt">${t(senseKeys[step].prompt)}</p>
         </div>
-        <textarea class="tool-input" placeholder="${senses[step].placeholder}" rows="3"></textarea>
+        <textarea class="tool-input" placeholder="${t(senseKeys[step].placeholder)}" rows="3"></textarea>
         <button class="btn--advance mt-md" id="gs-next">
-          ${step < senses.length - 1 ? 'Next sense →' : 'Finish'}
+          ${step < senseKeys.length - 1 ? t('grounding.next') : t('grounding.finish')}
         </button>
       ` : `
         <div class="affirmation-card">
-          <p class="affirmation-text">You just proved to your brain that you are safe right now — in this moment, in this place.</p>
+          <p class="affirmation-text">${t('grounding.affirmation')}</p>
           ${hasContent ? renderDownloadBlock('gs-download') : ''}
         </div>
       `}
@@ -1968,8 +1737,8 @@ function renderGrounding(container) {
     if (dlBtn) {
       dlBtn.addEventListener('click', () => {
         downloadText('calm-down-grounding.txt', buildResponseText(
-          '5-Senses Grounding',
-          senses.map((s, i) => ({ label: s.label, question: s.prompt, response: responses[i] || '' }))
+          t('grounding.title'),
+          senseKeys.map((s, i) => ({ label: t(s.label), question: t(s.prompt), response: responses[i] || '' }))
         ));
       });
     }
@@ -1982,31 +1751,26 @@ function renderGrounding(container) {
 // ============================================================
 
 function renderNutrition(container) {
-  const tips = [
-    'Eat something — even small. Your brain needs glucose to think and process emotions.',
-    'Prioritize protein: eggs, chicken, Greek yogurt, legumes. It stabilizes blood sugar and mood.',
-    'Choose whole foods over comfort foods. Processed food spikes then crashes your blood sugar, worsening anxiety.',
-    'Aim for 3 meals today. Skipping meals raises cortisol and makes everything feel harder.',
-    'Limit sugar and refined carbs — they feel comforting in the moment but intensify emotional swings.',
-    'Limit or skip alcohol. It disrupts sleep and keeps cortisol elevated — the opposite of calm.',
-    'Drink water. Dehydration worsens anxiety, brain fog, and emotional dysregulation.'
+  const tipKeys = [
+    'nutrition.tip.1', 'nutrition.tip.2', 'nutrition.tip.3', 'nutrition.tip.4',
+    'nutrition.tip.5', 'nutrition.tip.6', 'nutrition.tip.7'
   ];
 
   container.innerHTML = `
     <div class="tool-header">
-      <h2 class="tool-title">Nutrition Guide</h2>
-      <p class="tool-subtitle">Tap each item to check it off</p>
+      <h2 class="tool-title">${t('nutrition.title')}</h2>
+      <p class="tool-subtitle">${t('nutrition.subtitle')}</p>
     </div>
     <div class="checklist-items">
-      ${tips.map((tip, i) => `
+      ${tipKeys.map((key, i) => `
         <button class="checklist-item" data-idx="${i}" aria-pressed="false">
           <span class="checklist-check" id="ncheck-${i}"></span>
-          <span class="checklist-text">${tip}</span>
+          <span class="checklist-text">${t(key)}</span>
         </button>
       `).join('')}
     </div>
     <div class="sleep-note">
-      When your body is undernourished, it is incredibly difficult to think clearly. Feeding yourself is not a luxury right now — it is a calming intervention.
+      ${t('nutrition.note')}
     </div>
   `;
 
@@ -2031,30 +1795,30 @@ function renderMindfulness(container) {
     if (step === 0) {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Mindfulness Check-In</h2>
-          <p class="step-framing" style="margin-top:8px">You don't have to fix what you're feeling. Just notice it. That is the whole practice.</p>
+          <h2 class="tool-title">${t('mindfulness.title')}</h2>
+          <p class="step-framing" style="margin-top:8px">${t('mindfulness.framing')}</p>
         </div>
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">Step 1 of 4 — Settle</p>
-          <p class="step-prompt">Find a comfortable position. Close your eyes if you'd like.</p>
-          <p class="step-subtext">Take three slow, deep breaths before continuing.</p>
+          <p class="step-number">${t('mindfulness.step1.label')}</p>
+          <p class="step-prompt">${t('mindfulness.step1.q')}</p>
+          <p class="step-subtext">${t('mindfulness.step1.sub')}</p>
         </div>
-        <button class="btn--advance" id="mf-next-1">I've taken three breaths →</button>
+        <button class="btn--advance" id="mf-next-1">${t('mindfulness.step1.btn')}</button>
       `;
       $('mf-next-1').addEventListener('click', () => { step++; render(); });
 
     } else if (step === 1) {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Mindfulness Check-In</h2>
+          <h2 class="tool-title">${t('mindfulness.title')}</h2>
         </div>
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">Step 2 of 4 — Notice</p>
-          <p class="step-prompt">What emotion is present right now?</p>
-          <p class="step-subtext">Don't judge it. Don't fix it. Just name it like you're naming weather outside.</p>
+          <p class="step-number">${t('mindfulness.step2.label')}</p>
+          <p class="step-prompt">${t('mindfulness.step2.q')}</p>
+          <p class="step-subtext">${t('mindfulness.step2.sub')}</p>
         </div>
-        <textarea class="tool-input" placeholder="e.g. Dread. Sadness. Rage. Numbness. Anxiety. Relief. Nothing." rows="3"></textarea>
-        <button class="btn--advance mt-md" id="mf-next-2">Next →</button>
+        <textarea class="tool-input" placeholder="${t('mindfulness.step2.placeholder')}" rows="3"></textarea>
+        <button class="btn--advance mt-md" id="mf-next-2">${t('mindfulness.next')}</button>
       `;
       $('mf-next-2').addEventListener('click', () => {
         responses.emotion = container.querySelector('textarea')?.value || '';
@@ -2065,15 +1829,15 @@ function renderMindfulness(container) {
     } else if (step === 2) {
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Mindfulness Check-In</h2>
+          <h2 class="tool-title">${t('mindfulness.title')}</h2>
         </div>
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">Step 3 of 4 — Get Curious</p>
-          <p class="step-prompt">Where do you feel this in your body?</p>
-          <p class="step-subtext">A tight chest? Heavy shoulders? Pit in your stomach? Describe the sensation, not the story.</p>
+          <p class="step-number">${t('mindfulness.step3.label')}</p>
+          <p class="step-prompt">${t('mindfulness.step3.q')}</p>
+          <p class="step-subtext">${t('mindfulness.step3.sub')}</p>
         </div>
-        <textarea class="tool-input" placeholder="Describe what you physically feel, not what happened or why." rows="3"></textarea>
-        <button class="btn--advance mt-md" id="mf-next-3">Next →</button>
+        <textarea class="tool-input" placeholder="${t('mindfulness.step3.placeholder')}" rows="3"></textarea>
+        <button class="btn--advance mt-md" id="mf-next-3">${t('mindfulness.next')}</button>
       `;
       $('mf-next-3').addEventListener('click', () => {
         responses.body = container.querySelector('textarea')?.value || '';
@@ -2085,17 +1849,17 @@ function renderMindfulness(container) {
       let holdCount = 60;
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Mindfulness Check-In</h2>
+          <h2 class="tool-title">${t('mindfulness.title')}</h2>
         </div>
         <div class="step-card" style="margin-bottom:16px">
-          <p class="step-number">Step 4 of 4 — Ride the Wave</p>
-          <p class="step-prompt">Just sit with it for 60 seconds. Don't fight it or feed it.</p>
-          <p class="step-subtext">Watch the feeling like a wave. Let it rise, peak, and begin to fall on its own.</p>
+          <p class="step-number">${t('mindfulness.step4.label')}</p>
+          <p class="step-prompt">${t('mindfulness.step4.q')}</p>
+          <p class="step-subtext">${t('mindfulness.step4.sub')}</p>
         </div>
         <div class="prayer-hold-screen">
           <div class="resourcing-pulse" style="width:110px;height:110px;margin:0 auto 24px"></div>
           <div class="hold-timer" id="mf-hold-count">${holdCount}</div>
-          <p class="hold-label">Just notice. You don't have to do anything.</p>
+          <p class="hold-label">${t('mindfulness.hold.label')}</p>
         </div>
       `;
       const holdEl = $('mf-hold-count');
@@ -2114,19 +1878,19 @@ function renderMindfulness(container) {
       const hasContent = responses.emotion.trim() || responses.body.trim();
       container.innerHTML = `
         <div class="tool-header">
-          <h2 class="tool-title">Mindfulness Check-In</h2>
+          <h2 class="tool-title">${t('mindfulness.title')}</h2>
         </div>
         <div class="affirmation-card">
-          <p class="affirmation-text">You leaned in instead of running. That takes more courage than most people realize.</p>
+          <p class="affirmation-text">${t('mindfulness.affirmation')}</p>
           ${hasContent ? renderDownloadBlock('mf-download') : ''}
         </div>
       `;
       const dlBtn = $('mf-download');
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
-          downloadText('calm-down-mindfulness.txt', buildResponseText('Mindfulness Check-In', [
-            { label: 'Step 2 of 4 — Notice', question: 'What emotion is present right now?', response: responses.emotion },
-            { label: 'Step 3 of 4 — Get Curious', question: 'Where do you feel this in your body?', response: responses.body }
+          downloadText('calm-down-mindfulness.txt', buildResponseText(t('mindfulness.title'), [
+            { label: t('mindfulness.step2.label'), question: t('mindfulness.step2.q'), response: responses.emotion },
+            { label: t('mindfulness.step3.label'), question: t('mindfulness.step3.q'), response: responses.body }
           ]));
         });
       }
@@ -2141,7 +1905,7 @@ function renderMindfulness(container) {
 
 function getCurrentSuggestion() {
   const allSorted = getRecommendedTools();
-  return allSorted.find(t => !state.toolsUsed.includes(t.id)) || allSorted[0];
+  return allSorted.find(tool => !state.toolsUsed.includes(tool.id)) || allSorted[0];
 }
 
 function renderSuggestedTool() {
@@ -2149,7 +1913,7 @@ function renderSuggestedTool() {
   if (!banner) return;
 
   const allSorted = getRecommendedTools();
-  const suggestion = allSorted.find(t => !state.toolsUsed.includes(t.id)) || allSorted[0];
+  const suggestion = allSorted.find(tool => !state.toolsUsed.includes(tool.id)) || allSorted[0];
 
   if (!suggestion) {
     banner.classList.add('hidden');
@@ -2157,21 +1921,21 @@ function renderSuggestedTool() {
   }
 
   const levelDisplay = state.currentStressLevel || state.stressLevel;
-  const badgesHTML = suggestion.categoryLabels.map(label => {
-    const cls = label.toLowerCase().replace(/[^a-z]/g, '');
-    return `<span class="badge badge--${cls}">${label}</span>`;
-  }).join('');
+  const badgesHTML = suggestion.categories.map(catId =>
+    `<span class="badge badge--${catId}">${t('tool.' + catId + '.badge')}</span>`
+  ).join('');
 
+  const toolName = t('tools.' + suggestion.id + '.name');
   banner.classList.remove('hidden');
   banner.innerHTML = `
-    <span class="suggested-eyebrow">Suggested for your level ${levelDisplay}</span>
-    <button class="suggested-card" id="btn-suggested-tool" aria-label="Start ${suggestion.name}">
+    <span class="suggested-eyebrow">${t('plan.suggested.eyebrow').replace('{level}', levelDisplay)}</span>
+    <button class="suggested-card" id="btn-suggested-tool" aria-label="${t('tool.start.aria').replace('{name}', toolName)}">
       <div class="suggested-card-info">
-        <span class="suggested-card-name">${suggestion.name}</span>
-        <span class="suggested-card-time">${suggestion.time}</span>
+        <span class="suggested-card-name">${toolName}</span>
+        <span class="suggested-card-time">${t('tools.' + suggestion.id + '.time')}</span>
       </div>
       <div class="tool-card__badges" style="margin-top:4px">${badgesHTML}</div>
-      <span class="suggested-card-arrow">Start →</span>
+      <span class="suggested-card-arrow">→</span>
     </button>
   `;
 
@@ -2220,7 +1984,7 @@ function renderProgressPanel() {
 
   if (toolsEl) {
     const toolNames = state.toolsUsed
-      .map(id => TOOLS.find(t => t.id === id)?.name)
+      .map(id => t('tools.' + id + '.name') || id)
       .filter(Boolean);
     toolsEl.textContent = toolNames.join(' · ');
   }
@@ -2247,7 +2011,7 @@ function renderMiniCheckin() {
     btn.className = 'stress-btn stress-btn--mini';
     btn.dataset.level = i;
     btn.dataset.range = range;
-    btn.setAttribute('aria-label', `Stress level ${i}`);
+    btn.setAttribute('aria-label', t('stress.level.aria').replace('{level}', i));
     btn.textContent = i;
     btn.addEventListener('click', () => handleMiniCheckin(i));
     container.appendChild(btn);
@@ -2269,13 +2033,13 @@ function handleMiniCheckin(level) {
     msgEl.classList.remove('hidden');
     const diff = prev - level;
     if (diff >= 3) {
-      msgEl.textContent = `From ${prev} to ${level} — that's a real shift. You're doing the work.`;
+      msgEl.textContent = t('checkin.progress.big-shift').replace('{prev}', prev).replace('{level}', level);
     } else if (diff > 0) {
-      msgEl.textContent = `You moved from ${prev} to ${level}. Small steps are real steps.`;
+      msgEl.textContent = t('checkin.progress.small-shift').replace('{prev}', prev).replace('{level}', level);
     } else if (diff === 0) {
-      msgEl.textContent = `Holding steady at ${level}. Showing up matters — even when it's hard.`;
+      msgEl.textContent = t('checkin.progress.holding').replace('{level}', level);
     } else {
-      msgEl.textContent = `Stress can rise before it settles. That's completely normal. Let's keep going.`;
+      msgEl.textContent = t('checkin.progress.rising');
     }
   }
 }
@@ -2316,14 +2080,12 @@ function initOtherToolsToggle() {
 // ============================================================
 
 function initPWA() {
-  // Register service worker
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('./sw.js').catch(() => {});
     });
   }
 
-  // Install prompt (Android/Chrome)
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches
     || window.navigator.standalone === true;
 
@@ -2361,25 +2123,20 @@ function initPWA() {
 // ============================================================
 
 function wireEvents() {
-  // Screen 1
   $('btn-continue-checkin').addEventListener('click', handleContinueCheckin);
 
-  // Safety
   $('btn-safety-ok').addEventListener('click', handleSafetyOk);
   $('back-safety').addEventListener('click', () => showScreen('screen-checkin'));
 
-  // Screen 2
   $('btn-build-plan').addEventListener('click', handleBuildPlan);
   $('back-categories').addEventListener('click', () => showScreen('screen-checkin'));
 
-  // Screen 3
   $('back-plan').addEventListener('click', () => {
     state.selectedCategories = [];
     showScreen('screen-categories');
     renderCategories();
   });
 
-  // Screen 4
   $('back-tool').addEventListener('click', () => {
     clearTimers();
     if (state.quickSession) {
@@ -2404,13 +2161,11 @@ function wireEvents() {
     }
   });
 
-  // Quick breathing shortcut on check-in screen
   $('btn-quick-breathing').addEventListener('click', () => {
     state.quickSession = true;
     selectTool('box-breathing');
   });
 
-  // Completion overlay — page 1
   $('btn-try-another').addEventListener('click', () => {
     $('overlay-done-page').classList.add('hidden');
     $('overlay-checkin-page').classList.remove('hidden');
@@ -2421,7 +2176,6 @@ function wireEvents() {
     showSummaryPage();
   });
 
-  // Completion overlay — page 2 (check-in)
   $('btn-checkin-continue').addEventListener('click', () => {
     $('overlay-done-page').classList.remove('hidden');
     $('overlay-checkin-page').classList.add('hidden');
@@ -2436,7 +2190,6 @@ function wireEvents() {
     showSummaryPage();
   });
 
-  // Session summary page (page 3)
   $('btn-summary-done').addEventListener('click', () => {
     $('overlay-summary-page').classList.add('hidden');
     $('overlay-done-page').classList.remove('hidden');
@@ -2445,7 +2198,6 @@ function wireEvents() {
     showScreen('screen-checkin');
   });
 
-  // Other tools toggle
   initOtherToolsToggle();
 }
 
@@ -2467,7 +2219,6 @@ function resetSession() {
   state.quickSession = false;
   state.sessionResponses = [];
 
-  // Reset stress scale
   document.querySelectorAll('.stress-btn').forEach(btn => {
     btn.classList.remove('stress-btn--selected');
     btn.setAttribute('aria-checked', 'false');
@@ -2484,10 +2235,12 @@ function resetSession() {
 // ============================================================
 
 document.addEventListener('DOMContentLoaded', () => {
-  initTheme();
-  initStressScale();
-  wireEvents();
-  initPWA();
-  initInstallModal();
-  initLegalModals();
+  (window.i18nReady || Promise.resolve()).then(() => {
+    initTheme();
+    initStressScale();
+    wireEvents();
+    initPWA();
+    initInstallModal();
+    initLegalModals();
+  });
 });

@@ -1,6 +1,7 @@
 {
   "name": "Calm Down",
   "short_name": "Calm Down",
+  "lang": "en",
   "description": "A personal stress-relief guide to help you calm down step by step.",
   "start_url": "./index.html",
   "scope": "./",

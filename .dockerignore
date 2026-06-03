@@ -4,4 +4,5 @@ docker-compose.yml
 .env
 .gitignore
 deploy.sh
+scripts/
 *.md

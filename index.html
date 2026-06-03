@@ -23,54 +23,55 @@
 
   <!-- ===== INSTALL BANNER ===== -->
   <div id="install-banner" class="install-banner hidden" role="banner">
-    <span class="install-text">Add this to your home screen for quick access.</span>
-    <button id="btn-install" class="btn-install">Install</button>
-    <button id="btn-dismiss-banner" class="btn-dismiss" aria-label="Dismiss install prompt">✕</button>
+    <span class="install-text" data-i18n="install.banner.text">Add this to your home screen for quick access.</span>
+    <button id="btn-install" class="btn-install" data-i18n="install.banner.btn">Install</button>
+    <button id="btn-dismiss-banner" class="btn-dismiss" data-i18n-aria="install.banner.dismiss.aria" aria-label="Dismiss install prompt">✕</button>
   </div>
 
   <!-- ===== SCREEN 1: STRESS CHECK-IN ===== -->
   <div id="screen-checkin" class="screen screen--active" role="main">
     <div class="screen-inner">
       <div class="app-header-row">
-        <div class="app-wordmark">Calm Down</div>
+        <div class="app-wordmark" data-i18n="header.wordmark">Calm Down</div>
         <div class="header-right">
-          <button class="btn-install-guide" id="btn-open-install-modal" aria-label="How to add to home screen">+ Home Screen</button>
-          <div class="theme-picker" id="theme-picker" role="group" aria-label="Choose color theme">
-            <button class="theme-swatch theme-swatch--midnight" data-theme="midnight" aria-label="Midnight theme" title="Midnight"></button>
-            <button class="theme-swatch theme-swatch--forest"   data-theme="forest"   aria-label="Forest theme"   title="Forest"></button>
-            <button class="theme-swatch theme-swatch--ember"    data-theme="ember"    aria-label="Ember theme"    title="Ember"></button>
+          <button class="btn-install-guide btn-lang" id="btn-lang-toggle" data-i18n-aria="header.lang-toggle.aria" aria-label="Switch language">ES</button>
+          <button class="btn-install-guide" id="btn-open-install-modal" data-i18n="header.install-btn" data-i18n-aria="header.install-btn.aria" aria-label="How to add to home screen">+ Home Screen</button>
+          <div class="theme-picker" id="theme-picker" role="group" data-i18n-aria="header.theme-picker.aria" aria-label="Choose color theme">
+            <button class="theme-swatch theme-swatch--midnight" data-theme="midnight" data-i18n-aria="header.theme.midnight.aria" data-i18n-title="header.theme.midnight.title" aria-label="Midnight theme" title="Midnight"></button>
+            <button class="theme-swatch theme-swatch--forest"   data-theme="forest"   data-i18n-aria="header.theme.forest.aria"   data-i18n-title="header.theme.forest.title"   aria-label="Forest theme"   title="Forest"></button>
+            <button class="theme-swatch theme-swatch--ember"    data-theme="ember"    data-i18n-aria="header.theme.ember.aria"    data-i18n-title="header.theme.ember.title"    aria-label="Ember theme"    title="Ember"></button>
           </div>
         </div>
       </div>
       <header class="screen-header">
-        <h1>How are you feeling right now?</h1>
+        <h1 data-i18n="checkin.question">How are you feeling right now?</h1>
       </header>
 
-      <div class="stress-scale" role="group" aria-label="Stress level selector">
+      <div class="stress-scale" role="group" data-i18n-aria="checkin.scale.aria" aria-label="Stress level selector">
         <div class="stress-range-labels" aria-hidden="true">
-          <span class="range-label range-label--low">1–3<br><small>Uneasy</small></span>
-          <span class="range-label range-label--mid">4–6<br><small>Anxious</small></span>
-          <span class="range-label range-label--high">7–10<br><small>Overwhelmed</small></span>
+          <span class="range-label range-label--low"><span data-i18n="checkin.scale.low.label">1–3</span><br><small data-i18n="checkin.scale.low.desc">Uneasy</small></span>
+          <span class="range-label range-label--mid"><span data-i18n="checkin.scale.mid.label">4–6</span><br><small data-i18n="checkin.scale.mid.desc">Anxious</small></span>
+          <span class="range-label range-label--high"><span data-i18n="checkin.scale.high.label">7–10</span><br><small data-i18n="checkin.scale.high.desc">Overwhelmed</small></span>
         </div>
-        <div class="scale-numbers" id="scale-numbers" role="radiogroup" aria-label="Select your stress level">
+        <div class="scale-numbers" id="scale-numbers" role="radiogroup" data-i18n-aria="checkin.scale.numbers.aria" aria-label="Select your stress level">
           <!-- Rendered by app.js -->
         </div>
         <p class="stress-description" id="stress-description" aria-live="polite"></p>
       </div>
 
-      <p class="hint-text">You don't have to know why. Just pick the number that feels right.</p>
-      <button class="btn btn--primary" id="btn-continue-checkin" disabled aria-disabled="true">Continue</button>
-      <button class="btn btn--ghost" id="btn-quick-breathing">Start a breathing session now →</button>
-      <p class="privacy-notice">Nothing you write is ever saved, recorded, or transmitted — your session lives only in this tab.</p>
-      <p class="toolkit-credit">Built on <button class="legal-link toolkit-credit-link" id="btn-open-attribution">The Calm Toolkit</button> by Marriage Helper</p>
+      <p class="hint-text" data-i18n="checkin.hint">You don't have to know why. Just pick the number that feels right.</p>
+      <button class="btn btn--primary" id="btn-continue-checkin" disabled aria-disabled="true" data-i18n="checkin.continue">Continue</button>
+      <button class="btn btn--ghost" id="btn-quick-breathing" data-i18n="checkin.quick-breathing">Start a breathing session now →</button>
+      <p class="privacy-notice" data-i18n="checkin.privacy">Nothing you write is ever saved, recorded, or transmitted — your session lives only in this tab.</p>
+      <p class="toolkit-credit"><span data-i18n="checkin.toolkit-prefix">Built on</span> <button class="legal-link toolkit-credit-link" id="btn-open-attribution"><span data-i18n="checkin.toolkit-link">The Calm Toolkit</span></button> <span data-i18n="checkin.toolkit-suffix">by Marriage Helper</span></p>
       <div class="legal-footer">
-        <button class="legal-link" id="btn-open-terms">Terms of Use</button>
+        <button class="legal-link" id="btn-open-terms" data-i18n="legal.terms">Terms of Use</button>
         <span class="legal-sep">·</span>
-        <button class="legal-link" id="btn-open-privacy">Privacy Policy</button>
+        <button class="legal-link" id="btn-open-privacy" data-i18n="legal.privacy">Privacy Policy</button>
         <span class="legal-sep">·</span>
-        <button class="legal-link" id="btn-open-attribution-footer">Attribution</button>
+        <button class="legal-link" id="btn-open-attribution-footer" data-i18n="legal.attribution">Attribution</button>
         <span class="legal-sep">·</span>
-        <button class="legal-link" id="btn-open-version">Build Version</button>
+        <button class="legal-link" id="btn-open-version" data-i18n="legal.version">Build Version</button>
       </div>
     </div>
   </div>
@@ -78,22 +79,22 @@
   <!-- ===== SAFETY INTERSTITIAL ===== -->
   <div id="screen-safety" class="screen" role="main">
     <div class="screen-inner screen-inner--centered">
-      <button class="back-btn" id="back-safety" aria-label="Go back">← Back</button>
+      <button class="back-btn" id="back-safety" data-i18n="back.btn" data-i18n-aria="back.aria" aria-label="Go back">← Back</button>
       <div class="safety-card">
         <div class="safety-heart" aria-hidden="true">♡</div>
-        <p class="safety-message">
+        <p class="safety-message" data-i18n="safety.message">
           You're carrying something heavy right now. That takes a lot out of a person.
         </p>
-        <p class="safety-message-sub">
+        <p class="safety-message-sub" data-i18n="safety.sub">
           This app will walk with you — one small step at a time. You don't have to figure it all out right now.
         </p>
         <div class="crisis-box">
-          <p class="crisis-resource-text">
+          <p class="crisis-resource-text" data-i18n-html="safety.crisis">
             If you feel unsafe or need someone to talk to, the <strong>988 Lifeline</strong> is available anytime —
             call or text <strong>988</strong>. They're there for any mental health moment, not just emergencies.
           </p>
         </div>
-        <button class="btn btn--primary" id="btn-safety-ok">I'm ready — let's begin</button>
+        <button class="btn btn--primary" id="btn-safety-ok" data-i18n="safety.btn">I'm ready — let's begin</button>
       </div>
     </div>
   </div>
@@ -101,25 +102,25 @@
   <!-- ===== SCREEN 2: CATEGORY SELECTION ===== -->
   <div id="screen-categories" class="screen" role="main">
     <div class="screen-inner">
-      <button class="back-btn" id="back-categories" aria-label="Go back">← Back</button>
+      <button class="back-btn" id="back-categories" data-i18n="back.btn" data-i18n-aria="back.aria" aria-label="Go back">← Back</button>
       <header class="screen-header">
-        <h1>Where do you feel it most?</h1>
-        <p class="subhead">Select all that apply.</p>
+        <h1 data-i18n="categories.question">Where do you feel it most?</h1>
+        <p class="subhead" data-i18n="categories.subhead">Select all that apply.</p>
       </header>
-      <div class="category-grid" id="category-grid" role="group" aria-label="Stress categories">
+      <div class="category-grid" id="category-grid" role="group" data-i18n-aria="categories.grid.aria" aria-label="Stress categories">
         <!-- Rendered by app.js -->
       </div>
-      <button class="btn btn--primary" id="btn-build-plan" disabled aria-disabled="true">Build My Plan</button>
+      <button class="btn btn--primary" id="btn-build-plan" disabled aria-disabled="true" data-i18n="categories.build-plan">Build My Plan</button>
     </div>
   </div>
 
   <!-- ===== SCREEN 3: CALM-DOWN PLAN ===== -->
   <div id="screen-plan" class="screen" role="main">
     <div class="screen-inner">
-      <button class="back-btn" id="back-plan" aria-label="Go back">← Back</button>
+      <button class="back-btn" id="back-plan" data-i18n="back.btn" data-i18n-aria="back.aria" aria-label="Go back">← Back</button>
       <header class="screen-header">
-        <h1>Your Calm-Down Plan</h1>
-        <p class="subhead">Start with just one. You do not need to do them all.</p>
+        <h1 data-i18n="plan.title">Your Calm-Down Plan</h1>
+        <p class="subhead" data-i18n="plan.subhead">Start with just one. You do not need to do them all.</p>
       </header>
       <div class="suggested-tool-banner hidden" id="suggested-tool-banner"></div>
       <div id="next-tools-panel" class="next-tools-section hidden"></div>
@@ -127,16 +128,16 @@
         <div class="session-progress-inner">
           <div class="progress-stress-row">
             <div class="progress-item">
-              <span class="progress-label">Started</span>
+              <span class="progress-label" data-i18n="plan.progress.started">Started</span>
               <span class="progress-value" id="progress-start-val">—</span>
             </div>
             <span class="progress-arrow" id="progress-arrow">→</span>
             <div class="progress-item">
-              <span class="progress-label">Now</span>
+              <span class="progress-label" data-i18n="plan.progress.now">Now</span>
               <span class="progress-value" id="progress-current-val">—</span>
             </div>
           </div>
-          <p class="progress-tools-label">Tried: <span id="progress-tools-list"></span></p>
+          <p class="progress-tools-label"><span data-i18n="plan.progress.tried">Tried:</span> <span id="progress-tools-list"></span></p>
         </div>
       </div>
       <div class="tool-list" id="recommended-tools" role="list">
@@ -144,7 +145,7 @@
       </div>
       <div class="other-tools-section">
         <button class="other-tools-toggle" id="other-tools-toggle" aria-expanded="false">
-          Other tools available <span class="toggle-chevron" aria-hidden="true">▾</span>
+          <span data-i18n="plan.other-tools">Other tools available</span> <span class="toggle-chevron" aria-hidden="true">▾</span>
         </button>
         <div class="other-tools-list hidden" id="other-tools-list" role="list">
           <!-- Rendered by app.js -->
@@ -156,12 +157,12 @@
   <!-- ===== SCREEN 4: TOOL EXPERIENCE ===== -->
   <div id="screen-tool" class="screen" role="main">
     <div class="screen-inner screen-inner--tool">
-      <button class="back-btn" id="back-tool" aria-label="Back to my plan">← Back to Plan</button>
+      <button class="back-btn" id="back-tool" data-i18n="back.plan.btn" data-i18n-aria="back.plan.aria" aria-label="Back to my plan">← Back to Plan</button>
       <main id="tool-container">
         <!-- Rendered by app.js -->
       </main>
       <footer class="tool-footer">
-        <button class="btn btn--secondary" id="btn-done-tool">Done — Return to My Plan</button>
+        <button class="btn btn--secondary" id="btn-done-tool" data-i18n="tool.done">Done — Return to My Plan</button>
       </footer>
     </div>
   </div>
@@ -172,24 +173,24 @@
     <div class="overlay-card">
       <!-- Page 1: Completion -->
       <div id="overlay-done-page">
-        <p class="completion-msg">You did something hard. That matters.</p>
-        <button class="btn btn--primary" id="btn-try-another">Try another tool</button>
-        <button class="btn btn--ghost" id="btn-done-session">I'm done for now</button>
+        <p class="completion-msg" data-i18n="completion.msg">You did something hard. That matters.</p>
+        <button class="btn btn--primary" id="btn-try-another" data-i18n="completion.try-another">Try another tool</button>
+        <button class="btn btn--ghost" id="btn-done-session" data-i18n="completion.done">I'm done for now</button>
       </div>
       <!-- Page 2: Mid-session check-in -->
       <div id="overlay-checkin-page" class="hidden">
-        <p class="checkin-heading">Quick check-in</p>
-        <p class="checkin-subtext">Where is your stress right now?</p>
+        <p class="checkin-heading" data-i18n="completion.checkin.heading">Quick check-in</p>
+        <p class="checkin-subtext" data-i18n="completion.checkin.subtext">Where is your stress right now?</p>
         <div class="checkin-mini-scale" id="checkin-mini-scale"></div>
         <p class="checkin-progress-msg hidden" id="checkin-progress-msg"></p>
-        <button class="btn btn--primary" id="btn-checkin-continue">Continue to plan</button>
-        <button class="btn btn--ghost" id="btn-done-session-2">I'm done for now</button>
+        <button class="btn btn--primary" id="btn-checkin-continue" data-i18n="completion.checkin.continue">Continue to plan</button>
+        <button class="btn btn--ghost" id="btn-done-session-2" data-i18n="completion.done">I'm done for now</button>
       </div>
       <!-- Page 3: Session Summary -->
       <div id="overlay-summary-page" class="hidden">
-        <p class="completion-msg">Your session</p>
+        <p class="completion-msg" data-i18n="completion.summary.title">Your session</p>
         <div class="session-summary-card" id="session-summary-card"></div>
-        <button class="btn btn--ghost" id="btn-summary-done">Done — start fresh</button>
+        <button class="btn btn--ghost" id="btn-summary-done" data-i18n="completion.summary.done">Done — start fresh</button>
       </div>
     </div>
   </div>
@@ -199,37 +200,37 @@
     <div class="modal-backdrop" id="install-modal-backdrop"></div>
     <div class="modal-card">
       <div class="modal-header">
-        <h2 class="modal-title" id="install-modal-title">Add to Home Screen</h2>
-        <button class="modal-close" id="btn-close-install-modal" aria-label="Close">✕</button>
+        <h2 class="modal-title" id="install-modal-title" data-i18n="install.modal.title">Add to Home Screen</h2>
+        <button class="modal-close" id="btn-close-install-modal" data-i18n-aria="modal.close.aria" aria-label="Close">✕</button>
       </div>
 
-      <p class="modal-subtitle">Calm Down works like a native app when installed on your phone. No app store needed.</p>
+      <p class="modal-subtitle" data-i18n="install.modal.subtitle">Calm Down works like a native app when installed on your phone. No app store needed.</p>
 
       <div class="modal-privacy-notice">
-        <p><strong>Your privacy is fully protected.</strong> No data is ever saved, recorded, or transmitted by this app. Everything you write stays only in your current tab and is gone when you close it — unless you choose to download it yourself.</p>
+        <p data-i18n-html="install.modal.privacy"><strong>Your privacy is fully protected.</strong> No data is ever saved, recorded, or transmitted by this app. Everything you write stays only in your current tab and is gone when you close it — unless you choose to download it yourself.</p>
       </div>
 
       <div class="install-platform">
-        <h3 class="install-platform-title">iPhone / iPad (Safari)</h3>
+        <h3 class="install-platform-title" data-i18n="install.modal.iphone.title">iPhone / iPad (Safari)</h3>
         <ol class="install-steps">
-          <li>Open this page in <strong>Safari</strong> (not Chrome)</li>
-          <li>Tap the <strong>Share icon</strong> at the bottom of the screen</li>
-          <li>Scroll down and tap <strong>"Add to Home Screen"</strong></li>
-          <li>Tap <strong>"Add"</strong> in the top right corner</li>
+          <li data-i18n-html="install.modal.iphone.step1">Open this page in <strong>Safari</strong> (not Chrome)</li>
+          <li data-i18n-html="install.modal.iphone.step2">Tap the <strong>Share icon</strong> at the bottom of the screen</li>
+          <li data-i18n-html="install.modal.iphone.step3">Scroll down and tap <strong>"Add to Home Screen"</strong></li>
+          <li data-i18n-html="install.modal.iphone.step4">Tap <strong>"Add"</strong> in the top right corner</li>
         </ol>
       </div>
 
       <div class="install-platform">
-        <h3 class="install-platform-title">Android (Chrome)</h3>
+        <h3 class="install-platform-title" data-i18n="install.modal.android.title">Android (Chrome)</h3>
         <ol class="install-steps">
-          <li>Open this page in <strong>Chrome</strong></li>
-          <li>Tap the <strong>three-dot menu (&#8942;)</strong> in the top right</li>
-          <li>Tap <strong>"Add to Home Screen"</strong> or <strong>"Install App"</strong></li>
-          <li>Confirm by tapping <strong>"Add"</strong></li>
+          <li data-i18n-html="install.modal.android.step1">Open this page in <strong>Chrome</strong></li>
+          <li data-i18n-html="install.modal.android.step2">Tap the <strong>three-dot menu (&#8942;)</strong> in the top right</li>
+          <li data-i18n-html="install.modal.android.step3">Tap <strong>"Add to Home Screen"</strong> or <strong>"Install App"</strong></li>
+          <li data-i18n-html="install.modal.android.step4">Confirm by tapping <strong>"Add"</strong></li>
         </ol>
       </div>
 
-      <button class="btn btn--primary" id="btn-install-modal-ok" style="margin-top:20px">Got it</button>
+      <button class="btn btn--primary" id="btn-install-modal-ok" data-i18n="modal.ok" style="margin-top:20px">Got it</button>
     </div>
   </div>
 
@@ -238,32 +239,32 @@
     <div class="modal-backdrop" id="terms-modal-backdrop"></div>
     <div class="modal-card">
       <div class="modal-header">
-        <h2 class="modal-title" id="terms-modal-title">Terms of Use</h2>
-        <button class="modal-close" id="btn-close-terms-modal" aria-label="Close">✕</button>
+        <h2 class="modal-title" id="terms-modal-title" data-i18n="terms.modal.title">Terms of Use</h2>
+        <button class="modal-close" id="btn-close-terms-modal" data-i18n-aria="modal.close.aria" aria-label="Close">✕</button>
       </div>
-      <p class="modal-subtitle">Please read these terms before using Calm Down.</p>
+      <p class="modal-subtitle" data-i18n="terms.modal.subtitle">Please read these terms before using Calm Down.</p>
 
       <div class="legal-section">
-        <h3 class="legal-heading">Not a Medical Service</h3>
-        <p class="legal-body">Calm Down is a personal wellness tool designed to support stress management and emotional regulation. It is <strong>not</strong> a medical service, mental health treatment, or clinical intervention. Nothing in this app constitutes medical advice, diagnosis, or treatment.</p>
-      </div>
-
-      <div class="legal-section">
-        <h3 class="legal-heading">Not a Substitute for Professional Care</h3>
-        <p class="legal-body">If you are experiencing a mental health crisis, please contact a qualified professional or call/text <strong>988</strong> (Suicide &amp; Crisis Lifeline). This app is not a replacement for therapy, counseling, or any other professional care.</p>
+        <h3 class="legal-heading" data-i18n="terms.h1">Not a Medical Service</h3>
+        <p class="legal-body" data-i18n-html="terms.b1">Calm Down is a personal wellness tool designed to support stress management and emotional regulation. It is <strong>not</strong> a medical service, mental health treatment, or clinical intervention. Nothing in this app constitutes medical advice, diagnosis, or treatment.</p>
       </div>
 
       <div class="legal-section">
-        <h3 class="legal-heading">Use at Your Own Discretion</h3>
-        <p class="legal-body">The tools and exercises in this app are provided as general wellness resources. Results vary by individual. You are responsible for determining whether any tool is appropriate for your situation.</p>
+        <h3 class="legal-heading" data-i18n="terms.h2">Not a Substitute for Professional Care</h3>
+        <p class="legal-body" data-i18n-html="terms.b2">If you are experiencing a mental health crisis, please contact a qualified professional or call/text <strong>988</strong> (Suicide &amp; Crisis Lifeline). This app is not a replacement for therapy, counseling, or any other professional care.</p>
       </div>
 
       <div class="legal-section">
-        <h3 class="legal-heading">No Warranty</h3>
-        <p class="legal-body">This app is provided "as is" without warranty of any kind. We make no guarantees about outcomes, availability, or fitness for any particular purpose.</p>
+        <h3 class="legal-heading" data-i18n="terms.h3">Use at Your Own Discretion</h3>
+        <p class="legal-body" data-i18n="terms.b3">The tools and exercises in this app are provided as general wellness resources. Results vary by individual. You are responsible for determining whether any tool is appropriate for your situation.</p>
       </div>
 
-      <button class="btn btn--primary" id="btn-terms-ok" style="margin-top:20px">Got it</button>
+      <div class="legal-section">
+        <h3 class="legal-heading" data-i18n="terms.h4">No Warranty</h3>
+        <p class="legal-body" data-i18n="terms.b4">This app is provided "as is" without warranty of any kind. We make no guarantees about outcomes, availability, or fitness for any particular purpose.</p>
+      </div>
+
+      <button class="btn btn--primary" id="btn-terms-ok" data-i18n="modal.ok" style="margin-top:20px">Got it</button>
     </div>
   </div>
 
@@ -272,36 +273,36 @@
     <div class="modal-backdrop" id="privacy-modal-backdrop"></div>
     <div class="modal-card">
       <div class="modal-header">
-        <h2 class="modal-title" id="privacy-modal-title">Privacy Policy</h2>
-        <button class="modal-close" id="btn-close-privacy-modal" aria-label="Close">✕</button>
+        <h2 class="modal-title" id="privacy-modal-title" data-i18n="privacy.modal.title">Privacy Policy</h2>
+        <button class="modal-close" id="btn-close-privacy-modal" data-i18n-aria="modal.close.aria" aria-label="Close">✕</button>
       </div>
-      <p class="modal-subtitle">Your privacy is a core principle of this app — not an afterthought.</p>
+      <p class="modal-subtitle" data-i18n="privacy.modal.subtitle">Your privacy is a core principle of this app — not an afterthought.</p>
 
       <div class="modal-privacy-notice">
-        <p><strong>We collect absolutely nothing.</strong> No account, no login, no tracking.</p>
+        <p data-i18n-html="privacy.notice"><strong>We collect absolutely nothing.</strong> No account, no login, no tracking.</p>
       </div>
 
       <div class="legal-section">
-        <h3 class="legal-heading">No Data Collection</h3>
-        <p class="legal-body">Calm Down does not collect, store, or transmit any personal information. Your stress levels, written responses, and session activity never leave your device.</p>
+        <h3 class="legal-heading" data-i18n="privacy.h1">No Data Collection</h3>
+        <p class="legal-body" data-i18n="privacy.b1">Calm Down does not collect, store, or transmit any personal information. Your stress levels, written responses, and session activity never leave your device.</p>
       </div>
 
       <div class="legal-section">
-        <h3 class="legal-heading">Session Data</h3>
-        <p class="legal-body">All session data lives only in your browser tab. When you close or refresh the tab, everything is gone. Nothing is written to cookies, local storage, or any server.</p>
+        <h3 class="legal-heading" data-i18n="privacy.h2">Session Data</h3>
+        <p class="legal-body" data-i18n="privacy.b2">All session data lives only in your browser tab. When you close or refresh the tab, everything is gone. Nothing is written to cookies, local storage, or any server.</p>
       </div>
 
       <div class="legal-section">
-        <h3 class="legal-heading">Downloads</h3>
-        <p class="legal-body">If you choose to download your responses, that file is saved only to your device using your browser's standard download function. We never see it.</p>
+        <h3 class="legal-heading" data-i18n="privacy.h3">Downloads</h3>
+        <p class="legal-body" data-i18n="privacy.b3">If you choose to download your responses, that file is saved only to your device using your browser's standard download function. We never see it.</p>
       </div>
 
       <div class="legal-section">
-        <h3 class="legal-heading">No Analytics or Third Parties</h3>
-        <p class="legal-body">This app contains no analytics scripts, ad trackers, or third-party services of any kind. There is nothing here watching you.</p>
+        <h3 class="legal-heading" data-i18n="privacy.h4">No Analytics or Third Parties</h3>
+        <p class="legal-body" data-i18n="privacy.b4">This app contains no analytics scripts, ad trackers, or third-party services of any kind. There is nothing here watching you.</p>
       </div>
 
-      <button class="btn btn--primary" id="btn-privacy-ok" style="margin-top:20px">Got it</button>
+      <button class="btn btn--primary" id="btn-privacy-ok" data-i18n="modal.ok" style="margin-top:20px">Got it</button>
     </div>
   </div>
 
@@ -310,24 +311,24 @@
     <div class="modal-backdrop" id="attribution-modal-backdrop"></div>
     <div class="modal-card">
       <div class="modal-header">
-        <h2 class="modal-title" id="attribution-modal-title">Attribution</h2>
-        <button class="modal-close" id="btn-close-attribution-modal" aria-label="Close">✕</button>
+        <h2 class="modal-title" id="attribution-modal-title" data-i18n="attribution.modal.title">Attribution</h2>
+        <button class="modal-close" id="btn-close-attribution-modal" data-i18n-aria="modal.close.aria" aria-label="Close">✕</button>
       </div>
 
       <div class="legal-section">
-        <h3 class="legal-heading">The Calm Toolkit by Marriage Helper</h3>
-        <p class="legal-body">The tools, frameworks, and therapeutic concepts in this app — the PIES categories, the stress scale, and the calm-down exercises — are drawn from <strong>The Calm Toolkit</strong> by Marriage Helper.</p>
-        <p class="legal-body" style="margin-top:12px">Marriage Helper is a resource dedicated to helping individuals and couples navigate difficult seasons with evidence-based tools and compassionate guidance. Their work is the foundation this app is built on, and we are genuinely grateful for it.</p>
-        <p class="legal-body" style="margin-top:12px">Learn more at <a href="https://www.marriagehelper.com" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">marriagehelper.com</a>.</p>
+        <h3 class="legal-heading" data-i18n="attribution.h1">The Calm Toolkit by Marriage Helper</h3>
+        <p class="legal-body" data-i18n-html="attribution.b1">The tools, frameworks, and therapeutic concepts in this app — the PIES categories, the stress scale, and the calm-down exercises — are drawn from <strong>The Calm Toolkit</strong> by Marriage Helper.</p>
+        <p class="legal-body" style="margin-top:12px" data-i18n="attribution.b2">Marriage Helper is a resource dedicated to helping individuals and couples navigate difficult seasons with evidence-based tools and compassionate guidance. Their work is the foundation this app is built on, and we are genuinely grateful for it.</p>
+        <p class="legal-body" style="margin-top:12px" data-i18n-html="attribution.b3">Learn more at <a href="https://www.marriagehelper.com" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">marriagehelper.com</a>.</p>
       </div>
 
       <div class="legal-section" style="margin-top:4px">
-        <h3 class="legal-heading">About This App</h3>
-        <p class="legal-body">Calm Down is an independent personal project built by a Marriage Helper community member to make these tools more accessible in a private, offline-capable digital format. It is not affiliated with, endorsed by, or a product of Marriage Helper.</p>
-        <p class="legal-body" style="margin-top:12px">No data is ever collected or transmitted. Everything stays on your device.</p>
+        <h3 class="legal-heading" data-i18n="attribution.h2">About This App</h3>
+        <p class="legal-body" data-i18n="attribution.b4">Calm Down is an independent personal project built by a Marriage Helper community member to make these tools more accessible in a private, offline-capable digital format. It is not affiliated with, endorsed by, or a product of Marriage Helper.</p>
+        <p class="legal-body" style="margin-top:12px" data-i18n="attribution.b5">No data is ever collected or transmitted. Everything stays on your device.</p>
       </div>
 
-      <button class="btn btn--primary" id="btn-attribution-ok" style="margin-top:20px">Got it</button>
+      <button class="btn btn--primary" id="btn-attribution-ok" data-i18n="modal.ok" style="margin-top:20px">Got it</button>
     </div>
   </div>
 
@@ -336,17 +337,18 @@
     <div class="modal-backdrop" id="version-modal-backdrop"></div>
     <div class="modal-card">
       <div class="modal-header">
-        <h2 class="modal-title" id="version-modal-title">Build Version</h2>
-        <button class="modal-close" id="btn-close-version-modal" aria-label="Close">✕</button>
+        <h2 class="modal-title" id="version-modal-title" data-i18n="version.modal.title">Build Version</h2>
+        <button class="modal-close" id="btn-close-version-modal" data-i18n-aria="modal.close.aria" aria-label="Close">✕</button>
       </div>
       <div class="legal-section">
-        <h3 class="legal-heading">Deployed Version</h3>
+        <h3 class="legal-heading" data-i18n="version.h1">Deployed Version</h3>
         <p class="legal-body" id="build-version-string" style="font-family: monospace; word-break: break-all;">Loading…</p>
       </div>
-      <button class="btn btn--primary" id="btn-version-ok" style="margin-top:20px">Got it</button>
+      <button class="btn btn--primary" id="btn-version-ok" data-i18n="modal.ok" style="margin-top:20px">Got it</button>
     </div>
   </div>
 
+  <script src="i18n.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
