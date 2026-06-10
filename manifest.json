@@ -1,8 +1,8 @@
 {
-  "name": "Calm Down",
-  "short_name": "Calm Down",
+  "name": "Calm and Steady",
+  "short_name": "Calm & Steady",
   "lang": "en",
-  "description": "A personal stress-relief guide to help you calm down step by step.",
+  "description": "Accessible, evidence-based grounding and breathing tools to help you steady yourself, step by step.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

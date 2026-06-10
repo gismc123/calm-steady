@@ -1,5 +1,5 @@
 /* ============================================================
-   CALM DOWN APP — MAIN LOGIC
+   CALM AND STEADY — MAIN LOGIC
    ============================================================ */
 
 // ============================================================
@@ -26,7 +26,6 @@ const TOOLS = [
   { id: 'values',              categories: ['spiritual'],             time: '4–6 min',   stressWeight: { high: 2, moderate: 5, low: 9 } },
   { id: 'sleep',               categories: ['physical'],              time: '2 min',     stressWeight: { high: 3, moderate: 5, low: 8 } },
   { id: 'movement',            categories: ['physical'],              time: '2 min',     stressWeight: { high: 7, moderate: 7, low: 6 } },
-  { id: 'journaling',          categories: ['emotional'],             time: '5–10 min',  stressWeight: { high: 3, moderate: 6, low: 9 } },
   { id: 'grounding',           categories: ['mental', 'physical'],   time: '2–3 min',   stressWeight: { high: 9, moderate: 7, low: 4 } },
   { id: 'nutrition',           categories: ['physical'],              time: '2 min',     stressWeight: { high: 3, moderate: 5, low: 8 } },
   { id: 'mindfulness',         categories: ['mental', 'emotional'],  time: '3–5 min',   stressWeight: { high: 5, moderate: 8, low: 7 } }
@@ -114,16 +113,16 @@ function captureCurrentToolTextareas() {
   if (filled.length === 0) return;
   const toolName = t('tools.' + state.currentTool + '.name') || state.currentTool;
   const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  let text = `Calm Down — ${toolName}\n${date}\n\n${'='.repeat(44)}\n\n`;
+  let text = `Calm and Steady — ${toolName}\n${date}\n\n${'='.repeat(44)}\n\n`;
   filled.forEach(ta => {
     const prev = ta.previousElementSibling;
     const question = prev?.textContent?.trim() || 'Your response';
     text += `${question}\n\n${ta.value.trim()}\n\n${'-'.repeat(44)}\n\n`;
   });
-  text += 'Privacy note: This file was created entirely on your device.\nNo data was saved, recorded, or transmitted by Calm Down.';
+  text += 'Privacy note: This file was created entirely on your device.\nNo data was saved, recorded, or transmitted by Calm and Steady.';
   state.sessionResponses.push({
     toolId: state.currentTool,
-    filename: `calm-down-${state.currentTool}.txt`,
+    filename: `calm-and-steady-${state.currentTool}.txt`,
     content: text
   });
 }
@@ -131,7 +130,7 @@ function captureCurrentToolTextareas() {
 function buildSessionSummaryText() {
   const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-  let text = `Calm Down — Session Summary\n${date} at ${time}\n\n${'='.repeat(44)}\n\n`;
+  let text = `Calm and Steady — Session Summary\n${date} at ${time}\n\n${'='.repeat(44)}\n\n`;
 
   const start = state.sessionStartLevel;
   const end = state.currentStressLevel || state.stressLevel;
@@ -161,7 +160,7 @@ function buildSessionSummaryText() {
       text += `\n\n${'='.repeat(44)}\n\n`;
     });
   } else {
-    text += 'Privacy note: This file was created entirely on your device.\nNo data was saved, recorded, or transmitted by Calm Down.';
+    text += 'Privacy note: This file was created entirely on your device.\nNo data was saved, recorded, or transmitted by Calm and Steady.';
   }
   return text;
 }
@@ -209,7 +208,7 @@ function showSummaryPage() {
 
 function buildResponseText(toolName, entries) {
   const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  let text = `Calm Down — ${toolName}\n${date}\n\n${'='.repeat(44)}\n\n`;
+  let text = `Calm and Steady — ${toolName}\n${date}\n\n${'='.repeat(44)}\n\n`;
   entries.forEach(({ label, question, response }) => {
     if (label) text += `[${label}]\n`;
     text += `${question}\n\n`;
@@ -217,7 +216,8 @@ function buildResponseText(toolName, entries) {
     text += `\n\n${'-'.repeat(44)}\n\n`;
   });
   text += 'Privacy note: This file was created entirely on your device.\n';
-  text += 'No data was saved, recorded, or transmitted by Calm Down.';
+  text += 'No data was saved, recorded, or transmitted by Calm and Steady.';
+
   return text;
 }
 
@@ -273,7 +273,6 @@ function initLegalModals() {
   [
     { openId: 'btn-open-terms',       modalId: 'terms-modal',       closeId: 'btn-close-terms-modal',       okId: 'btn-terms-ok',       backdropId: 'terms-modal-backdrop' },
     { openId: 'btn-open-privacy',     modalId: 'privacy-modal',     closeId: 'btn-close-privacy-modal',     okId: 'btn-privacy-ok',     backdropId: 'privacy-modal-backdrop' },
-    { openId: 'btn-open-attribution',        modalId: 'attribution-modal', closeId: 'btn-close-attribution-modal', okId: 'btn-attribution-ok', backdropId: 'attribution-modal-backdrop' },
     { openId: 'btn-open-attribution-footer', modalId: 'attribution-modal', closeId: 'btn-close-attribution-modal', okId: 'btn-attribution-ok', backdropId: 'attribution-modal-backdrop' },
     { openId: 'btn-open-version',     modalId: 'version-modal',     closeId: 'btn-close-version-modal',     okId: 'btn-version-ok',     backdropId: 'version-modal-backdrop' }
   ].forEach(({ openId, modalId, closeId, okId, backdropId }) => {
@@ -290,8 +289,65 @@ function initLegalModals() {
     const meta = document.querySelector('meta[name="app-version"]');
     const version = (meta && meta.content && meta.content !== '__APP_VERSION__')
       ? meta.content
-      : 'calm-down-v1.0-dev';
+      : 'calm-and-steady-v1.0-dev';
     $('build-version-string').textContent = version;
+  });
+}
+
+// ============================================================
+// AD BANNER
+// ============================================================
+
+function initAdBanner() {
+  const container = $('ad-banner-container');
+  if (!container) return;
+  try {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  } catch (e) {
+    container.style.display = 'none';
+  }
+}
+
+function setAdVisibility(visible) {
+  const container = $('ad-banner-container');
+  if (container) container.classList.toggle('ad-hidden', !visible);
+}
+
+// ============================================================
+// ONBOARDING
+// ============================================================
+
+function initOnboarding() {
+  if (localStorage.getItem('calm_steady_onboarded')) return;
+
+  const modal = $('onboarding-modal');
+  modal.classList.remove('hidden');
+  modal.setAttribute('aria-hidden', 'false');
+
+  const ageSelect = $('onboarding-age');
+  const under18Note = $('onboarding-under18-note');
+
+  ageSelect.addEventListener('change', () => {
+    under18Note.classList.toggle('hidden', ageSelect.value !== 'under18');
+  });
+
+  function completeOnboarding() {
+    const profile = {
+      name: $('onboarding-name').value.trim().slice(0, 50) || null,
+      ageRange: ageSelect.value || null,
+      gender: $('onboarding-gender').value || null
+    };
+    localStorage.setItem('calm_steady_profile', JSON.stringify(profile));
+    localStorage.setItem('calm_steady_onboarded', '1');
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  $('btn-onboarding-continue').addEventListener('click', completeOnboarding);
+  $('btn-onboarding-skip').addEventListener('click', () => {
+    localStorage.setItem('calm_steady_onboarded', '1');
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden', 'true');
   });
 }
 
@@ -332,6 +388,7 @@ function showScreen(id) {
       el.classList.remove('screen--active');
     }
   });
+  setAdVisibility(id !== 'screen-safety');
 }
 
 // ============================================================
@@ -462,7 +519,7 @@ function handleBuildPlan() {
 }
 
 // ============================================================
-// SCREEN 3: CALM-DOWN PLAN
+// SCREEN 3: PLAN
 // ============================================================
 
 function getRecommendedTools() {
@@ -591,6 +648,9 @@ function renderNextTools() {
 // SCREEN 4: TOOL EXPERIENCE
 // ============================================================
 
+// FUTURE: Voice guidance integration point — each tool render function will
+// call a voiceGuide(toolId, stepIndex) hook once the voice system is implemented.
+
 function renderTool(toolId) {
   const container = $('tool-container');
   container.innerHTML = '';
@@ -608,7 +668,6 @@ function renderTool(toolId) {
     'values':              renderValues,
     'sleep':               renderSleep,
     'movement':            renderMovement,
-    'journaling':          renderJournaling,
     'grounding':           renderGrounding,
     'nutrition':           renderNutrition,
     'mindfulness':         renderMindfulness
@@ -958,7 +1017,7 @@ function renderGrowthMindset(container) {
     const dlBtn = $('gm-download');
     if (dlBtn) {
       dlBtn.addEventListener('click', () => {
-        downloadText('calm-down-growth-mindset.txt', buildResponseText(
+        downloadText('calm-and-steady-growth-mindset.txt', buildResponseText(
           t('growth.title'),
           promptKeys.map((p, i) => ({ label: t('growth.q.label').replace('{n}', i + 1).replace('{total}', promptKeys.length), question: t(p.q), response: responses[i] || '' }))
         ));
@@ -1023,7 +1082,7 @@ function renderHabitLoop(container) {
     const dlBtn = $('hl-download');
     if (dlBtn) {
       dlBtn.addEventListener('click', () => {
-        downloadText('calm-down-habit-loop.txt', buildResponseText(
+        downloadText('calm-and-steady-habit-loop.txt', buildResponseText(
           t('habit.title'),
           stepDefs.map((s, i) => ({ label: t(s.label), question: t(s.q), response: responses[i] || '' }))
         ));
@@ -1078,7 +1137,7 @@ function renderGratitude(container) {
     const dlBtn = $('gr-download');
     if (dlBtn) {
       dlBtn.addEventListener('click', () => {
-        downloadText('calm-down-gratitude.txt', buildResponseText(
+        downloadText('calm-and-steady-gratitude.txt', buildResponseText(
           t('gratitude.title'),
           questionKeys.map((k, i) => ({ label: t('gratitude.q.label').replace('{n}', i + 1).replace('{total}', questionKeys.length), question: t(k), response: responses[i] || '' }))
         ));
@@ -1229,7 +1288,7 @@ function renderNameTheLie(container) {
       const dlBtn = $('ntl-download');
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
-          downloadText('calm-down-name-the-lie.txt', buildResponseText(t('ntl.title'), [
+          downloadText('calm-and-steady-name-the-lie.txt', buildResponseText(t('ntl.title'), [
             { label: t('ntl.step1.label'), question: t('ntl.step1.q'), response: responses.step0 },
             { label: t('ntl.step3.label'), question: t('ntl.step3.q'), response: responses.step2 },
             { label: t('ntl.step4.label'), question: t('ntl.step4.q'), response: responses.step3 }
@@ -1492,7 +1551,7 @@ function renderValues(container) {
     const dlBtn = $('val-download');
     if (dlBtn) {
       dlBtn.addEventListener('click', () => {
-        downloadText('calm-down-values.txt', buildResponseText(
+        downloadText('calm-and-steady-values.txt', buildResponseText(
           t('values.title'),
           promptDefs.map((p, i) => ({ label: t(p.label), question: t(p.q), response: responses[i] || '' }))
         ));
@@ -1586,108 +1645,9 @@ function renderMovement(container) {
 }
 
 // ============================================================
-// TOOL 13: JOURNALING PROMPT
+// TOOL 13: 5-SENSES GROUNDING
 // ============================================================
 
-function renderJournaling(container) {
-  let timerActive = false;
-  let timerMinutes = 5;
-  let timerRemaining = 0;
-  let timerIntervalId = null;
-
-  const secondaryKeys = ['journal.secondary.1', 'journal.secondary.2', 'journal.secondary.3'];
-
-  container.innerHTML = `
-    <div class="tool-header">
-      <h2 class="tool-title">${t('journal.title')}</h2>
-    </div>
-    <div class="journal-stage">
-      <p class="journal-prompt">${t('journal.prompt')}</p>
-      <textarea class="tool-input tool-input--large" id="journal-text" placeholder="${t('journal.placeholder')}" aria-label="${t('journal.title')}"></textarea>
-
-      <div>
-        <p class="step-subtext" style="margin-bottom:8px">${t('journal.stuck')}</p>
-        <div class="journal-secondary-prompts">
-          ${secondaryKeys.map(k =>
-            `<button class="journal-prompt-btn" data-prompt="${t(k).replace(/"/g, '&quot;')}">"${t(k)}"</button>`
-          ).join('')}
-        </div>
-      </div>
-
-      <div class="journal-timer-controls">
-        <span style="font-size:13px;color:var(--color-text-muted)">${t('journal.timer.label')}</span>
-        <button class="timer-toggle-btn" id="timer-5">${t('journal.timer.5')}</button>
-        <button class="timer-toggle-btn" id="timer-10">${t('journal.timer.10')}</button>
-        <span class="journal-timer-display" id="journal-timer-display"></span>
-      </div>
-
-      <div class="journal-action-row">
-        <button class="btn--clear" id="journal-clear">${t('journal.clear')}</button>
-        <button class="btn--download-journal" id="journal-download">${t('journal.download')}</button>
-      </div>
-      <p class="download-privacy-note" style="margin-top:4px">${t('journal.privacy')}</p>
-    </div>
-  `;
-
-  container.querySelectorAll('.journal-prompt-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const textarea = $('journal-text');
-      const prompt = btn.dataset.prompt + '\n\n';
-      textarea.value += (textarea.value.length > 0 ? '\n\n' : '') + prompt;
-      textarea.focus();
-      textarea.setSelectionRange(textarea.value.length, textarea.value.length);
-    });
-  });
-
-  function startTimer(minutes) {
-    if (timerIntervalId) {
-      clearInterval(timerIntervalId);
-      state.activeTimers = state.activeTimers.filter(id => id !== timerIntervalId);
-    }
-    timerMinutes = minutes;
-    timerRemaining = minutes * 60;
-    timerActive = true;
-
-    [$('timer-5'), $('timer-10')].forEach(b => b.classList.remove('timer-toggle-btn--active'));
-    $(`timer-${minutes}`).classList.add('timer-toggle-btn--active');
-
-    const display = $('journal-timer-display');
-    display.textContent = formatSeconds(timerRemaining);
-
-    timerIntervalId = setInterval(() => {
-      timerRemaining--;
-      display.textContent = timerRemaining > 0
-        ? formatSeconds(timerRemaining)
-        : t('journal.times-up');
-      if (timerRemaining <= 0) {
-        clearInterval(timerIntervalId);
-        timerActive = false;
-      }
-    }, 1000);
-    addTimer(timerIntervalId);
-  }
-
-  $('timer-5').addEventListener('click', () => startTimer(5));
-  $('timer-10').addEventListener('click', () => startTimer(10));
-
-  $('journal-clear').addEventListener('click', () => {
-    if (confirm(t('journal.confirm-clear'))) {
-      $('journal-text').value = '';
-    }
-  });
-
-  $('journal-download').addEventListener('click', () => {
-    const text = $('journal-text').value.trim();
-    if (!text) return;
-    const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-    const content = `Calm Down — Journal Entry\n${date}\n\n${'='.repeat(44)}\n\n${text}\n\n${'='.repeat(44)}\n\nPrivacy note: This file was created on your device.\nNo data was saved, recorded, or transmitted by Calm Down.`;
-    downloadText('calm-down-journal.txt', content);
-  });
-}
-
-// ============================================================
-// TOOL 14: 5-SENSES GROUNDING
-// ============================================================
 
 function renderGrounding(container) {
   const senseKeys = [
@@ -1736,7 +1696,7 @@ function renderGrounding(container) {
     const dlBtn = $('gs-download');
     if (dlBtn) {
       dlBtn.addEventListener('click', () => {
-        downloadText('calm-down-grounding.txt', buildResponseText(
+        downloadText('calm-and-steady-grounding.txt', buildResponseText(
           t('grounding.title'),
           senseKeys.map((s, i) => ({ label: t(s.label), question: t(s.prompt), response: responses[i] || '' }))
         ));
@@ -1888,7 +1848,7 @@ function renderMindfulness(container) {
       const dlBtn = $('mf-download');
       if (dlBtn) {
         dlBtn.addEventListener('click', () => {
-          downloadText('calm-down-mindfulness.txt', buildResponseText(t('mindfulness.title'), [
+          downloadText('calm-and-steady-mindfulness.txt', buildResponseText(t('mindfulness.title'), [
             { label: t('mindfulness.step2.label'), question: t('mindfulness.step2.q'), response: responses.emotion },
             { label: t('mindfulness.step3.label'), question: t('mindfulness.step3.q'), response: responses.body }
           ]));
@@ -2242,5 +2202,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPWA();
     initInstallModal();
     initLegalModals();
+    initOnboarding();
+    initAdBanner();
   });
 });

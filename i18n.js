@@ -1,5 +1,5 @@
 /* ============================================================
-   CALM DOWN — i18n MODULE
+   CALM AND STEADY — i18n MODULE
    Loads locale JSON, applies data-i18n attributes, exposes t()
    ============================================================ */
 (function () {

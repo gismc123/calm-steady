@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="description" content="A personal stress-relief guide to help you calm down step by step.">
+  <meta name="description" content="Accessible, evidence-based grounding and breathing tools to help you steady yourself, step by step.">
 
   <!-- PWA / iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Calm Down">
+  <meta name="apple-mobile-web-app-title" content="Calm & Steady">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#1C2340">
   <meta name="app-version" content="__APP_VERSION__">
@@ -17,7 +17,10 @@
   <link rel="apple-touch-icon" href="assets/icon-apple.png">
   <link rel="stylesheet" href="style.css">
 
-  <title>Calm Down</title>
+  <!-- TODO: Replace ca-pub-XXXXXXXXXXXXXXXXX with your AdSense publisher ID -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXXX" crossorigin="anonymous"></script>
+
+  <title>Calm and Steady</title>
 </head>
 <body>
 
@@ -32,7 +35,7 @@
   <div id="screen-checkin" class="screen screen--active" role="main">
     <div class="screen-inner">
       <div class="app-header-row">
-        <div class="app-wordmark" data-i18n="header.wordmark">Calm Down</div>
+        <div class="app-wordmark" data-i18n="header.wordmark">Calm and Steady</div>
         <div class="header-right">
           <button class="btn-install-guide btn-lang" id="btn-lang-toggle" data-i18n-aria="header.lang-toggle.aria" aria-label="Switch language">ES</button>
           <button class="btn-install-guide" id="btn-open-install-modal" data-i18n="header.install-btn" data-i18n-aria="header.install-btn.aria" aria-label="How to add to home screen">+ Home Screen</button>
@@ -63,7 +66,6 @@
       <button class="btn btn--primary" id="btn-continue-checkin" disabled aria-disabled="true" data-i18n="checkin.continue">Continue</button>
       <button class="btn btn--ghost" id="btn-quick-breathing" data-i18n="checkin.quick-breathing">Start a breathing session now →</button>
       <p class="privacy-notice" data-i18n="checkin.privacy">Nothing you write is ever saved, recorded, or transmitted — your session lives only in this tab.</p>
-      <p class="toolkit-credit"><span data-i18n="checkin.toolkit-prefix">Built on</span> <button class="legal-link toolkit-credit-link" id="btn-open-attribution"><span data-i18n="checkin.toolkit-link">The Calm Toolkit</span></button> <span data-i18n="checkin.toolkit-suffix">by Marriage Helper</span></p>
       <div class="legal-footer">
         <button class="legal-link" id="btn-open-terms" data-i18n="legal.terms">Terms of Use</button>
         <span class="legal-sep">·</span>
@@ -114,12 +116,12 @@
     </div>
   </div>
 
-  <!-- ===== SCREEN 3: CALM-DOWN PLAN ===== -->
+  <!-- ===== SCREEN 3: PLAN ===== -->
   <div id="screen-plan" class="screen" role="main">
     <div class="screen-inner">
       <button class="back-btn" id="back-plan" data-i18n="back.btn" data-i18n-aria="back.aria" aria-label="Go back">← Back</button>
       <header class="screen-header">
-        <h1 data-i18n="plan.title">Your Calm-Down Plan</h1>
+        <h1 data-i18n="plan.title">Your Plan</h1>
         <p class="subhead" data-i18n="plan.subhead">Start with just one. You do not need to do them all.</p>
       </header>
       <div class="suggested-tool-banner hidden" id="suggested-tool-banner"></div>
@@ -204,7 +206,7 @@
         <button class="modal-close" id="btn-close-install-modal" data-i18n-aria="modal.close.aria" aria-label="Close">✕</button>
       </div>
 
-      <p class="modal-subtitle" data-i18n="install.modal.subtitle">Calm Down works like a native app when installed on your phone. No app store needed.</p>
+      <p class="modal-subtitle" data-i18n="install.modal.subtitle">Calm and Steady works like a native app when installed on your phone. No app store needed.</p>
 
       <div class="modal-privacy-notice">
         <p data-i18n-html="install.modal.privacy"><strong>Your privacy is fully protected.</strong> No data is ever saved, recorded, or transmitted by this app. Everything you write stays only in your current tab and is gone when you close it — unless you choose to download it yourself.</p>
@@ -242,11 +244,11 @@
         <h2 class="modal-title" id="terms-modal-title" data-i18n="terms.modal.title">Terms of Use</h2>
         <button class="modal-close" id="btn-close-terms-modal" data-i18n-aria="modal.close.aria" aria-label="Close">✕</button>
       </div>
-      <p class="modal-subtitle" data-i18n="terms.modal.subtitle">Please read these terms before using Calm Down.</p>
+      <p class="modal-subtitle" data-i18n="terms.modal.subtitle">Please read these terms before using Calm and Steady.</p>
 
       <div class="legal-section">
         <h3 class="legal-heading" data-i18n="terms.h1">Not a Medical Service</h3>
-        <p class="legal-body" data-i18n-html="terms.b1">Calm Down is a personal wellness tool designed to support stress management and emotional regulation. It is <strong>not</strong> a medical service, mental health treatment, or clinical intervention. Nothing in this app constitutes medical advice, diagnosis, or treatment.</p>
+        <p class="legal-body" data-i18n-html="terms.b1">Calm and Steady is a personal wellness tool designed to support stress management and emotional regulation. It is <strong>not</strong> a medical service, mental health treatment, or clinical intervention. Nothing in this app constitutes medical advice, diagnosis, or treatment.</p>
       </div>
 
       <div class="legal-section">
@@ -284,7 +286,7 @@
 
       <div class="legal-section">
         <h3 class="legal-heading" data-i18n="privacy.h1">No Data Collection</h3>
-        <p class="legal-body" data-i18n="privacy.b1">Calm Down does not collect, store, or transmit any personal information. Your stress levels, written responses, and session activity never leave your device.</p>
+        <p class="legal-body" data-i18n="privacy.b1">Calm and Steady does not collect, store, or transmit any personal information. Your stress levels, written responses, and session activity never leave your device.</p>
       </div>
 
       <div class="legal-section">
@@ -298,8 +300,13 @@
       </div>
 
       <div class="legal-section">
-        <h3 class="legal-heading" data-i18n="privacy.h4">No Analytics or Third Parties</h3>
-        <p class="legal-body" data-i18n="privacy.b4">This app contains no analytics scripts, ad trackers, or third-party services of any kind. There is nothing here watching you.</p>
+        <h3 class="legal-heading" data-i18n="privacy.h4">Advertising</h3>
+        <p class="legal-body" data-i18n="privacy.b4">This app displays contextual ads provided by Google AdSense to help keep it free. AdSense may use cookies for ad personalization. No additional tracking scripts are present.</p>
+      </div>
+
+      <div class="legal-section">
+        <h3 class="legal-heading" data-i18n="privacy.h5">Optional Demographic Information</h3>
+        <p class="legal-body" data-i18n="privacy.b5">If you choose to enter your name, age range, or gender during onboarding, that information is stored only in your device's local storage and is never transmitted, shared, or accessible to anyone. You can skip this step entirely at any time.</p>
       </div>
 
       <button class="btn btn--primary" id="btn-privacy-ok" data-i18n="modal.ok" style="margin-top:20px">Got it</button>
@@ -311,21 +318,19 @@
     <div class="modal-backdrop" id="attribution-modal-backdrop"></div>
     <div class="modal-card">
       <div class="modal-header">
-        <h2 class="modal-title" id="attribution-modal-title" data-i18n="attribution.modal.title">Attribution</h2>
+        <h2 class="modal-title" id="attribution-modal-title" data-i18n="attribution.modal.title">About</h2>
         <button class="modal-close" id="btn-close-attribution-modal" data-i18n-aria="modal.close.aria" aria-label="Close">✕</button>
       </div>
 
       <div class="legal-section">
-        <h3 class="legal-heading" data-i18n="attribution.h1">The Calm Toolkit by Marriage Helper</h3>
-        <p class="legal-body" data-i18n-html="attribution.b1">The tools, frameworks, and therapeutic concepts in this app — the PIES categories, the stress scale, and the calm-down exercises — are drawn from <strong>The Calm Toolkit</strong> by Marriage Helper.</p>
-        <p class="legal-body" style="margin-top:12px" data-i18n="attribution.b2">Marriage Helper is a resource dedicated to helping individuals and couples navigate difficult seasons with evidence-based tools and compassionate guidance. Their work is the foundation this app is built on, and we are genuinely grateful for it.</p>
-        <p class="legal-body" style="margin-top:12px" data-i18n-html="attribution.b3">Learn more at <a href="https://www.marriagehelper.com" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline">marriagehelper.com</a>.</p>
+        <h3 class="legal-heading" data-i18n="attribution.h1">Calm and Steady</h3>
+        <p class="legal-body" data-i18n="attribution.b1">Calm and Steady was designed to offer accessible, evidence-based grounding and breathing tools. The techniques in this app draw from widely-practiced methods in mindfulness, somatic therapy, and cognitive-behavioral approaches. No clinical relationship is formed through use of this app.</p>
       </div>
 
       <div class="legal-section" style="margin-top:4px">
-        <h3 class="legal-heading" data-i18n="attribution.h2">About This App</h3>
-        <p class="legal-body" data-i18n="attribution.b4">Calm Down is an independent personal project built by a Marriage Helper community member to make these tools more accessible in a private, offline-capable digital format. It is not affiliated with, endorsed by, or a product of Marriage Helper.</p>
-        <p class="legal-body" style="margin-top:12px" data-i18n="attribution.b5">No data is ever collected or transmitted. Everything stays on your device.</p>
+        <h3 class="legal-heading" data-i18n="attribution.h2">About the Techniques</h3>
+        <p class="legal-body" data-i18n="attribution.b2">Breathing exercises, grounding techniques, and imagery-based tools are established practices in clinical psychology, mindfulness, and crisis counseling. They are not proprietary — they belong to the broad body of evidence-based wellness research.</p>
+        <p class="legal-body" style="margin-top:12px" data-i18n="attribution.b3">© 2026 Calm and Steady. No data is ever collected or transmitted. Everything stays on your device.</p>
       </div>
 
       <button class="btn btn--primary" id="btn-attribution-ok" data-i18n="modal.ok" style="margin-top:20px">Got it</button>
@@ -345,6 +350,69 @@
         <p class="legal-body" id="build-version-string" style="font-family: monospace; word-break: break-all;">Loading…</p>
       </div>
       <button class="btn btn--primary" id="btn-version-ok" data-i18n="modal.ok" style="margin-top:20px">Got it</button>
+    </div>
+  </div>
+
+  <!-- ===== AD BANNER ===== -->
+  <div id="ad-banner-container" class="ad-banner-container" aria-hidden="true">
+    <p class="ad-disclosure" data-i18n="ad.disclosure">Ads help keep Calm and Steady free.</p>
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-XXXXXXXXXXXXXXXXX"
+         data-ad-slot="AUTO"
+         data-ad-format="banner"
+         data-full-width-responsive="true"></ins>
+  </div>
+
+  <!-- ===== ONBOARDING MODAL ===== -->
+  <div id="onboarding-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="onboarding-modal-title">
+    <div class="modal-backdrop" id="onboarding-modal-backdrop"></div>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 class="modal-title" id="onboarding-modal-title" data-i18n="onboarding.title">Welcome to Calm and Steady</h2>
+      </div>
+      <p class="modal-subtitle" data-i18n="onboarding.subtitle">A few optional details help us understand who uses this app. You can skip anytime.</p>
+
+      <div class="onboarding-form">
+        <div class="onboarding-field">
+          <label class="onboarding-label" for="onboarding-name" data-i18n="onboarding.name.label">First name (optional)</label>
+          <input type="text" id="onboarding-name" class="onboarding-input" maxlength="50" data-i18n-placeholder="onboarding.name.placeholder" placeholder="Your first name" autocomplete="off">
+        </div>
+
+        <div class="onboarding-field">
+          <label class="onboarding-label" for="onboarding-age" data-i18n="onboarding.age.label">Age range</label>
+          <select id="onboarding-age" class="onboarding-select">
+            <option value="" data-i18n="onboarding.age.default">Select your age range</option>
+            <option value="under18" data-i18n="onboarding.age.under18">Under 18</option>
+            <option value="18-24" data-i18n="onboarding.age.18-24">18–24</option>
+            <option value="25-34" data-i18n="onboarding.age.25-34">25–34</option>
+            <option value="35-44" data-i18n="onboarding.age.35-44">35–44</option>
+            <option value="45-54" data-i18n="onboarding.age.45-54">45–54</option>
+            <option value="55-64" data-i18n="onboarding.age.55-64">55–64</option>
+            <option value="65plus" data-i18n="onboarding.age.65plus">65+</option>
+            <option value="prefer-not" data-i18n="onboarding.age.prefer-not">Prefer not to say</option>
+          </select>
+          <p id="onboarding-under18-note" class="onboarding-under18-note hidden" data-i18n="onboarding.under18.note">If you are under 18, please use this app with a trusted adult.</p>
+        </div>
+
+        <div class="onboarding-field">
+          <label class="onboarding-label" for="onboarding-gender" data-i18n="onboarding.gender.label">Gender</label>
+          <select id="onboarding-gender" class="onboarding-select">
+            <option value="" data-i18n="onboarding.gender.default">Select your gender</option>
+            <option value="man" data-i18n="onboarding.gender.man">Man</option>
+            <option value="woman" data-i18n="onboarding.gender.woman">Woman</option>
+            <option value="nonbinary" data-i18n="onboarding.gender.nonbinary">Non-binary</option>
+            <option value="prefer-not" data-i18n="onboarding.gender.prefer-not">Prefer not to say</option>
+          </select>
+        </div>
+
+        <p class="onboarding-privacy-notice" data-i18n="onboarding.privacy">This information stays on your device and is never shared or transmitted.</p>
+      </div>
+
+      <div class="onboarding-actions">
+        <button class="btn btn--primary" id="btn-onboarding-continue" data-i18n="onboarding.continue">Continue</button>
+        <button class="btn btn--ghost" id="btn-onboarding-skip" data-i18n="onboarding.skip">Skip</button>
+      </div>
     </div>
   </div>
 

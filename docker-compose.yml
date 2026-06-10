@@ -1,10 +1,10 @@
 services:
-  calm-down-app:
+  calm-and-steady-app:
     build:
       context: .
       args:
         BUILD_DATE: ${BUILD_DATE:-latest}
-    container_name: calm-down-app
+    container_name: calm-and-steady-app
     ports:
-      - "901:80"
+      - "906:80"
     restart: unless-stopped
