@@ -6,5 +6,5 @@ services:
         BUILD_DATE: ${BUILD_DATE:-latest}
     container_name: calm-and-steady-app
     ports:
-      - "906:80"
+      - "904:80"
     restart: unless-stopped
