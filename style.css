@@ -167,6 +167,23 @@ input, textarea {
 }
 
 /* ============================================================
+   GLOBAL HEADER — fixed, always visible on every screen
+   ============================================================ */
+.global-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) var(--spacing-md) 10px;
+  background-color: var(--color-bg-base);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ============================================================
    SCREENS
    ============================================================ */
 .screen {
@@ -179,8 +196,8 @@ input, textarea {
   transform: translateY(16px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   background-color: var(--color-bg-base);
-  /* Safe area for notched phones */
-  padding-top: env(safe-area-inset-top, 0px);
+  /* Push content below the global header + notch safe area */
+  padding-top: calc(env(safe-area-inset-top, 0px) + 56px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
@@ -211,13 +228,6 @@ input, textarea {
 /* ============================================================
    APP WORDMARK & THEME PICKER
    ============================================================ */
-.app-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: var(--spacing-lg);
-}
-
 .app-wordmark {
   font-size: 14px;
   font-weight: 400;
@@ -402,6 +412,40 @@ input, textarea {
 
 .btn--ghost:hover {
   color: var(--color-text-primary);
+}
+
+.btn--breath-quick {
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent-soft);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn--breath-quick:hover {
+  background: var(--color-accent-glow);
+  border-color: var(--color-accent);
+}
+
+.btn--help-begin {
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-sm);
+  font-size: 14px;
+  line-height: 1.4;
+  padding: 14px var(--spacing-md);
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.btn--help-begin:hover {
+  background: var(--color-bg-elevated);
+  color: var(--color-text-primary);
+  border-color: var(--color-accent-soft);
 }
 
 /* ============================================================

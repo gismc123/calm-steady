@@ -6,11 +6,12 @@
 // CONSTANTS & DATA
 // ============================================================
 
-const CATEGORIES = [
-  { id: 'physical',  badgeClass: 'badge--physical' },
-  { id: 'mental',    badgeClass: 'badge--mental' },
-  { id: 'emotional', badgeClass: 'badge--emotional' },
-  { id: 'spiritual', badgeClass: 'badge--spiritual' }
+// Triage categories — the 3 options shown on the first screen.
+// These map to the PIES scoring system used by getRecommendedTools().
+const TRIAGE_CATEGORIES = [
+  { id: 'physical',  labelKey: 'category.physical.label',  descKey: 'category.physical.desc' },
+  { id: 'emotional', labelKey: 'category.emotional.label', descKey: 'category.emotional.desc' },
+  { id: 'mental',    labelKey: 'category.mental.label',    descKey: 'category.mental.desc' }
 ];
 
 const TOOLS = [
@@ -375,7 +376,7 @@ function initTheme() {
 // SCREEN NAVIGATION
 // ============================================================
 
-const SCREENS = ['screen-checkin', 'screen-safety', 'screen-categories', 'screen-plan', 'screen-tool'];
+const SCREENS = ['screen-categories', 'screen-checkin', 'screen-safety', 'screen-plan', 'screen-tool'];
 
 function showScreen(id) {
   clearTimers();
@@ -436,8 +437,15 @@ function handleContinueCheckin() {
   if (state.stressLevel >= 8 && !state.safetyShown) {
     showScreen('screen-safety');
   } else {
-    showScreen('screen-categories');
-    renderCategories();
+    if (!state.selectedCategories.length) {
+      state.selectedCategories = ['physical', 'mental', 'emotional', 'spiritual'];
+    }
+    if (state.sessionStartLevel === null) {
+      state.sessionStartLevel = state.stressLevel;
+      state.currentStressLevel = state.stressLevel;
+    }
+    renderPlan();
+    showScreen('screen-plan');
   }
 }
 
@@ -447,33 +455,41 @@ function handleContinueCheckin() {
 
 function handleSafetyOk() {
   state.safetyShown = true;
-  showScreen('screen-categories');
-  renderCategories();
+  if (!state.selectedCategories.length) {
+    state.selectedCategories = ['physical', 'mental', 'emotional', 'spiritual'];
+  }
+  if (state.sessionStartLevel === null) {
+    state.sessionStartLevel = state.stressLevel;
+    state.currentStressLevel = state.stressLevel;
+  }
+  renderPlan();
+  showScreen('screen-plan');
 }
 
 // ============================================================
-// SCREEN 2: CATEGORY SELECTION
+// SCREEN 1 (TRIAGE): CATEGORY SELECTION
 // ============================================================
 
 function renderCategories() {
   const grid = $('category-grid');
   grid.innerHTML = '';
-  state.selectedCategories = [];
-  updateBuildPlanBtn();
+  // Preserve any existing selection when re-rendering (e.g., on back nav)
+  updateTriageContinueBtn();
 
-  CATEGORIES.forEach(cat => {
+  TRIAGE_CATEGORIES.forEach(cat => {
+    const isSelected = state.selectedCategories.includes(cat.id);
     const card = document.createElement('button');
-    card.className = `category-card cat-${cat.id}`;
-    card.setAttribute('aria-pressed', 'false');
-    card.setAttribute('aria-label', t('category.' + cat.id + '.label'));
+    card.className = `category-card cat-${cat.id}${isSelected ? ' category-card--selected' : ''}`;
+    card.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+    card.setAttribute('aria-label', t(cat.labelKey));
     card.dataset.catId = cat.id;
 
     card.innerHTML = `
       <span class="category-card__title">
-        <span class="category-checkmark"></span>
-        ${t('category.' + cat.id + '.label')}
+        <span class="category-checkmark">${isSelected ? '✓' : ''}</span>
+        ${t(cat.labelKey)}
       </span>
-      <span class="category-card__desc">${t('category.' + cat.id + '.desc')}</span>
+      <span class="category-card__desc">${t(cat.descKey)}</span>
     `;
 
     card.addEventListener('click', () => toggleCategory(cat.id));
@@ -498,24 +514,45 @@ function toggleCategory(id) {
     check.textContent = isSelected ? '✓' : '';
   });
 
-  updateBuildPlanBtn();
+  updateTriageContinueBtn();
 }
 
-function updateBuildPlanBtn() {
-  const btn = $('btn-build-plan');
+function updateTriageContinueBtn() {
+  const btn = $('btn-continue-triage');
+  if (!btn) return;
   const hasSelection = state.selectedCategories.length > 0;
   btn.disabled = !hasSelection;
   btn.setAttribute('aria-disabled', hasSelection ? 'false' : 'true');
 }
 
-function handleBuildPlan() {
+function handleTriageContinue() {
   if (state.selectedCategories.length === 0) return;
-  if (state.sessionStartLevel === null) {
-    state.sessionStartLevel = state.stressLevel;
-    state.currentStressLevel = state.stressLevel;
-  }
-  renderPlan();
-  showScreen('screen-plan');
+  // Reset stress level so the user rates it fresh each session
+  state.stressLevel = null;
+  document.querySelectorAll('.stress-btn').forEach(btn => {
+    btn.classList.remove('stress-btn--selected');
+    btn.setAttribute('aria-checked', 'false');
+  });
+  const descEl = $('stress-description');
+  if (descEl) descEl.textContent = '';
+  const continueBtn = $('btn-continue-checkin');
+  if (continueBtn) { continueBtn.disabled = true; continueBtn.setAttribute('aria-disabled', 'true'); }
+  showScreen('screen-checkin');
+}
+
+function handleTriageUnknown() {
+  // Use all categories so the recommendation engine weighs everything
+  state.selectedCategories = ['physical', 'mental', 'emotional', 'spiritual'];
+  state.stressLevel = null;
+  document.querySelectorAll('.stress-btn').forEach(btn => {
+    btn.classList.remove('stress-btn--selected');
+    btn.setAttribute('aria-checked', 'false');
+  });
+  const descEl = $('stress-description');
+  if (descEl) descEl.textContent = '';
+  const continueBtn = $('btn-continue-checkin');
+  if (continueBtn) { continueBtn.disabled = true; continueBtn.setAttribute('aria-disabled', 'true'); }
+  showScreen('screen-checkin');
 }
 
 // ============================================================
@@ -977,11 +1014,9 @@ function renderGrowthMindset(container) {
   ];
 
   let step = 0;
-  const responses = [];
 
   function render() {
     const isLast = step === promptKeys.length;
-    const hasContent = responses.some(r => r.trim());
     const q = !isLast ? t(promptKeys[step].q) : '';
     const hint = !isLast && promptKeys[step].hint ? t(promptKeys[step].hint) : '';
     container.innerHTML = `
@@ -995,32 +1030,23 @@ function renderGrowthMindset(container) {
           <p class="step-prompt">${q}</p>
           ${hint ? `<p class="step-subtext">${hint}</p>` : ''}
         </div>
-        <textarea class="tool-input" placeholder="${t('growth.placeholder')}" rows="4"></textarea>
-        <button class="btn--advance mt-md" id="gm-next">
+        <div style="text-align:center;padding:16px 0 20px">
+          <div class="resourcing-pulse" style="width:70px;height:70px;margin:0 auto 12px"></div>
+          <p class="step-subtext">${t('meditation.reflect')}</p>
+        </div>
+        <button class="btn--advance" id="gm-next">
           ${step < promptKeys.length - 1 ? t('growth.next') : t('growth.finish')}
         </button>
       ` : `
         <div class="affirmation-card">
           <p class="affirmation-text">${t('growth.affirmation')}</p>
-          ${hasContent ? renderDownloadBlock('gm-download') : ''}
         </div>
       `}
     `;
     if (!isLast) {
       $('gm-next').addEventListener('click', () => {
-        const ta = container.querySelector('textarea');
-        responses.push(ta ? ta.value : '');
         step++;
         render();
-      });
-    }
-    const dlBtn = $('gm-download');
-    if (dlBtn) {
-      dlBtn.addEventListener('click', () => {
-        downloadText('steady-growth-mindset.txt', buildResponseText(
-          t('growth.title'),
-          promptKeys.map((p, i) => ({ label: t('growth.q.label').replace('{n}', i + 1).replace('{total}', promptKeys.length), question: t(p.q), response: responses[i] || '' }))
-        ));
       });
     }
   }
@@ -1040,11 +1066,9 @@ function renderHabitLoop(container) {
   ];
 
   let step = 0;
-  const responses = [];
 
   function render() {
     const isLast = step === stepDefs.length;
-    const hasContent = responses.some(r => r.trim());
     container.innerHTML = `
       <div class="tool-header">
         <h2 class="tool-title">${t('habit.title')}</h2>
@@ -1060,32 +1084,23 @@ function renderHabitLoop(container) {
           <p class="step-prompt" style="font-size:20px">${t(stepDefs[step].q)}</p>
           ${stepDefs[step].hint ? `<p class="step-subtext">${t(stepDefs[step].hint)}</p>` : ''}
         </div>
-        <textarea class="tool-input" placeholder="${t('habit.placeholder')}" rows="4"></textarea>
-        <button class="btn--advance mt-md" id="hl-next">
+        <div style="text-align:center;padding:16px 0 20px">
+          <div class="resourcing-pulse" style="width:70px;height:70px;margin:0 auto 12px"></div>
+          <p class="step-subtext">${t('meditation.reflect')}</p>
+        </div>
+        <button class="btn--advance" id="hl-next">
           ${step < stepDefs.length - 1 ? t('habit.next') : t('habit.finish')}
         </button>
       ` : `
         <div class="affirmation-card">
           <p class="affirmation-text">${t('habit.affirmation')}</p>
-          ${hasContent ? renderDownloadBlock('hl-download') : ''}
         </div>
       `}
     `;
     if (!isLast) {
       $('hl-next').addEventListener('click', () => {
-        const ta = container.querySelector('textarea');
-        responses.push(ta ? ta.value : '');
         step++;
         render();
-      });
-    }
-    const dlBtn = $('hl-download');
-    if (dlBtn) {
-      dlBtn.addEventListener('click', () => {
-        downloadText('steady-habit-loop.txt', buildResponseText(
-          t('habit.title'),
-          stepDefs.map((s, i) => ({ label: t(s.label), question: t(s.q), response: responses[i] || '' }))
-        ));
       });
     }
   }
@@ -1100,11 +1115,9 @@ function renderGratitude(container) {
   const questionKeys = ['gratitude.q1', 'gratitude.q2', 'gratitude.q3'];
 
   let step = 0;
-  const responses = [];
 
   function render() {
     const isLast = step === questionKeys.length;
-    const hasContent = responses.some(r => r.trim());
     container.innerHTML = `
       <div class="tool-header">
         <h2 class="tool-title">${t('gratitude.title')}</h2>
@@ -1115,32 +1128,23 @@ function renderGratitude(container) {
           <p class="step-number">${t('gratitude.q.label').replace('{n}', step + 1).replace('{total}', questionKeys.length)}</p>
           <p class="step-prompt">${t(questionKeys[step])}</p>
         </div>
-        <textarea class="tool-input" placeholder="${t('gratitude.placeholder')}" rows="4"></textarea>
-        <button class="btn--advance mt-md" id="gr-next">
+        <div style="text-align:center;padding:16px 0 20px">
+          <div class="resourcing-pulse" style="width:70px;height:70px;margin:0 auto 12px"></div>
+          <p class="step-subtext">${t('meditation.reflect')}</p>
+        </div>
+        <button class="btn--advance" id="gr-next">
           ${step < questionKeys.length - 1 ? t('gratitude.next') : t('gratitude.finish')}
         </button>
       ` : `
         <div class="affirmation-card">
           <p class="affirmation-text">${t('gratitude.affirmation')}</p>
-          ${hasContent ? renderDownloadBlock('gr-download') : ''}
         </div>
       `}
     `;
     if (!isLast) {
       $('gr-next').addEventListener('click', () => {
-        const ta = container.querySelector('textarea');
-        responses.push(ta ? ta.value : '');
         step++;
         render();
-      });
-    }
-    const dlBtn = $('gr-download');
-    if (dlBtn) {
-      dlBtn.addEventListener('click', () => {
-        downloadText('steady-gratitude.txt', buildResponseText(
-          t('gratitude.title'),
-          questionKeys.map((k, i) => ({ label: t('gratitude.q.label').replace('{n}', i + 1).replace('{total}', questionKeys.length), question: t(k), response: responses[i] || '' }))
-        ));
       });
     }
   }
@@ -1155,7 +1159,6 @@ function renderNameTheLie(container) {
   let step = 0;
   let pauseCount = 30;
   let pauseRunning = false;
-  const responses = { step0: '', step2: '', step3: '' };
 
   function render() {
     if (step === 0) {
@@ -1168,11 +1171,13 @@ function renderNameTheLie(container) {
           <p class="step-number">${t('ntl.step1.label')}</p>
           <p class="step-prompt" style="font-size:20px">${t('ntl.step1.q')}</p>
         </div>
-        <textarea class="tool-input" placeholder="${t('ntl.step1.placeholder')}" rows="4" id="ntl-input-1"></textarea>
-        <button class="btn--advance mt-md" id="ntl-next">${t('ntl.next')}</button>
+        <div style="text-align:center;padding:16px 0 20px">
+          <div class="resourcing-pulse" style="width:70px;height:70px;margin:0 auto 12px"></div>
+          <p class="step-subtext">${t('meditation.reflect')}</p>
+        </div>
+        <button class="btn--advance" id="ntl-next">${t('ntl.next')}</button>
       `;
       $('ntl-next').addEventListener('click', () => {
-        responses.step0 = $('ntl-input-1')?.value || '';
         step++;
         render();
       });
@@ -1246,11 +1251,13 @@ function renderNameTheLie(container) {
           <p class="step-number">${t('ntl.step3.label')}</p>
           <p class="step-prompt" style="font-size:20px">${t('ntl.step3.q')}</p>
         </div>
-        <textarea class="tool-input" placeholder="${t('ntl.step3.placeholder')}" rows="4"></textarea>
-        <button class="btn--advance mt-md" id="ntl-next-3">${t('ntl.next')}</button>
+        <div style="text-align:center;padding:16px 0 20px">
+          <div class="resourcing-pulse" style="width:70px;height:70px;margin:0 auto 12px"></div>
+          <p class="step-subtext">${t('meditation.reflect')}</p>
+        </div>
+        <button class="btn--advance" id="ntl-next-3">${t('ntl.next')}</button>
       `;
       $('ntl-next-3').addEventListener('click', () => {
-        responses.step2 = container.querySelector('textarea')?.value || '';
         step++;
         render();
       });
@@ -1265,36 +1272,26 @@ function renderNameTheLie(container) {
           <p class="step-prompt" style="font-size:20px">${t('ntl.step4.q')}</p>
           <p class="step-subtext">${t('ntl.step4.sub')}</p>
         </div>
-        <textarea class="tool-input" placeholder="${t('ntl.step4.placeholder')}" rows="5" id="ntl-truth"></textarea>
-        <button class="btn--advance mt-md" id="ntl-finish">${t('ntl.finish')}</button>
+        <div style="text-align:center;padding:16px 0 20px">
+          <div class="resourcing-pulse" style="width:70px;height:70px;margin:0 auto 12px"></div>
+          <p class="step-subtext">${t('meditation.reflect')}</p>
+        </div>
+        <button class="btn--advance" id="ntl-finish">${t('ntl.finish')}</button>
       `;
       $('ntl-finish').addEventListener('click', () => {
-        responses.step3 = $('ntl-truth')?.value || '';
         step++;
         render();
       });
 
     } else {
-      const hasContent = Object.values(responses).some(r => r.trim());
       container.innerHTML = `
         <div class="tool-header">
           <h2 class="tool-title">${t('ntl.title')}</h2>
         </div>
         <div class="affirmation-card">
           <p class="affirmation-text">${t('ntl.affirmation')}</p>
-          ${hasContent ? renderDownloadBlock('ntl-download') : ''}
         </div>
       `;
-      const dlBtn = $('ntl-download');
-      if (dlBtn) {
-        dlBtn.addEventListener('click', () => {
-          downloadText('steady-name-the-lie.txt', buildResponseText(t('ntl.title'), [
-            { label: t('ntl.step1.label'), question: t('ntl.step1.q'), response: responses.step0 },
-            { label: t('ntl.step3.label'), question: t('ntl.step3.q'), response: responses.step2 },
-            { label: t('ntl.step4.label'), question: t('ntl.step4.q'), response: responses.step3 }
-          ]));
-        });
-      }
     }
   }
   render();
@@ -1514,11 +1511,9 @@ function renderValues(container) {
   ];
 
   let step = 0;
-  const responses = [];
 
   function render() {
     const isLast = step === promptDefs.length;
-    const hasContent = responses.some(r => r.trim());
     container.innerHTML = `
       <div class="tool-header">
         <h2 class="tool-title">${t('values.title')}</h2>
@@ -1529,32 +1524,23 @@ function renderValues(container) {
           <p class="step-prompt" style="font-size:20px">${t(promptDefs[step].q)}</p>
           ${promptDefs[step].hint ? `<p class="step-subtext">${t(promptDefs[step].hint)}</p>` : ''}
         </div>
-        <textarea class="tool-input" placeholder="${t('values.placeholder')}" rows="4"></textarea>
-        <button class="btn--advance mt-md" id="val-next">
+        <div style="text-align:center;padding:16px 0 20px">
+          <div class="resourcing-pulse" style="width:70px;height:70px;margin:0 auto 12px"></div>
+          <p class="step-subtext">${t('meditation.reflect')}</p>
+        </div>
+        <button class="btn--advance" id="val-next">
           ${step < promptDefs.length - 1 ? t('values.next') : t('values.finish')}
         </button>
       ` : `
         <div class="affirmation-card">
           <p class="affirmation-text">${t('values.affirmation')}</p>
-          ${hasContent ? renderDownloadBlock('val-download') : ''}
         </div>
       `}
     `;
     if (!isLast) {
       $('val-next').addEventListener('click', () => {
-        const ta = container.querySelector('textarea');
-        responses.push(ta ? ta.value : '');
         step++;
         render();
-      });
-    }
-    const dlBtn = $('val-download');
-    if (dlBtn) {
-      dlBtn.addEventListener('click', () => {
-        downloadText('steady-values.txt', buildResponseText(
-          t('values.title'),
-          promptDefs.map((p, i) => ({ label: t(p.label), question: t(p.q), response: responses[i] || '' }))
-        ));
       });
     }
   }
@@ -1651,19 +1637,17 @@ function renderMovement(container) {
 
 function renderGrounding(container) {
   const senseKeys = [
-    { label: 'grounding.see.label',   prompt: 'grounding.see.prompt',   placeholder: 'grounding.see.placeholder' },
-    { label: 'grounding.touch.label', prompt: 'grounding.touch.prompt', placeholder: 'grounding.touch.placeholder' },
-    { label: 'grounding.hear.label',  prompt: 'grounding.hear.prompt',  placeholder: 'grounding.hear.placeholder' },
-    { label: 'grounding.smell.label', prompt: 'grounding.smell.prompt', placeholder: 'grounding.smell.placeholder' },
-    { label: 'grounding.taste.label', prompt: 'grounding.taste.prompt', placeholder: 'grounding.taste.placeholder' }
+    { label: 'grounding.see.label',   prompt: 'grounding.see.prompt' },
+    { label: 'grounding.touch.label', prompt: 'grounding.touch.prompt' },
+    { label: 'grounding.hear.label',  prompt: 'grounding.hear.prompt' },
+    { label: 'grounding.smell.label', prompt: 'grounding.smell.prompt' },
+    { label: 'grounding.taste.label', prompt: 'grounding.taste.prompt' }
   ];
 
   let step = 0;
-  const responses = [];
 
   function render() {
     const isLast = step === senseKeys.length;
-    const hasContent = responses.some(r => r.trim());
     container.innerHTML = `
       <div class="tool-header">
         <h2 class="tool-title">${t('grounding.title')}</h2>
@@ -1674,32 +1658,23 @@ function renderGrounding(container) {
           <p class="step-number">${t(senseKeys[step].label)}</p>
           <p class="step-prompt">${t(senseKeys[step].prompt)}</p>
         </div>
-        <textarea class="tool-input" placeholder="${t(senseKeys[step].placeholder)}" rows="3"></textarea>
-        <button class="btn--advance mt-md" id="gs-next">
+        <div style="text-align:center;padding:16px 0 20px">
+          <div class="resourcing-pulse" style="width:70px;height:70px;margin:0 auto 12px"></div>
+          <p class="step-subtext">${t('meditation.reflect')}</p>
+        </div>
+        <button class="btn--advance" id="gs-next">
           ${step < senseKeys.length - 1 ? t('grounding.next') : t('grounding.finish')}
         </button>
       ` : `
         <div class="affirmation-card">
           <p class="affirmation-text">${t('grounding.affirmation')}</p>
-          ${hasContent ? renderDownloadBlock('gs-download') : ''}
         </div>
       `}
     `;
     if (!isLast) {
       $('gs-next').addEventListener('click', () => {
-        const ta = container.querySelector('textarea');
-        responses.push(ta ? ta.value : '');
         step++;
         render();
-      });
-    }
-    const dlBtn = $('gs-download');
-    if (dlBtn) {
-      dlBtn.addEventListener('click', () => {
-        downloadText('steady-grounding.txt', buildResponseText(
-          t('grounding.title'),
-          senseKeys.map((s, i) => ({ label: t(s.label), question: t(s.prompt), response: responses[i] || '' }))
-        ));
       });
     }
   }
@@ -1749,7 +1724,6 @@ function renderNutrition(container) {
 
 function renderMindfulness(container) {
   let step = 0;
-  const responses = { emotion: '', body: '' };
 
   function render() {
     if (step === 0) {
@@ -1777,11 +1751,13 @@ function renderMindfulness(container) {
           <p class="step-prompt">${t('mindfulness.step2.q')}</p>
           <p class="step-subtext">${t('mindfulness.step2.sub')}</p>
         </div>
-        <textarea class="tool-input" placeholder="${t('mindfulness.step2.placeholder')}" rows="3"></textarea>
-        <button class="btn--advance mt-md" id="mf-next-2">${t('mindfulness.next')}</button>
+        <div style="text-align:center;padding:16px 0 20px">
+          <div class="resourcing-pulse" style="width:70px;height:70px;margin:0 auto 12px"></div>
+          <p class="step-subtext">${t('meditation.reflect')}</p>
+        </div>
+        <button class="btn--advance" id="mf-next-2">${t('mindfulness.next')}</button>
       `;
       $('mf-next-2').addEventListener('click', () => {
-        responses.emotion = container.querySelector('textarea')?.value || '';
         step++;
         render();
       });
@@ -1796,11 +1772,13 @@ function renderMindfulness(container) {
           <p class="step-prompt">${t('mindfulness.step3.q')}</p>
           <p class="step-subtext">${t('mindfulness.step3.sub')}</p>
         </div>
-        <textarea class="tool-input" placeholder="${t('mindfulness.step3.placeholder')}" rows="3"></textarea>
-        <button class="btn--advance mt-md" id="mf-next-3">${t('mindfulness.next')}</button>
+        <div style="text-align:center;padding:16px 0 20px">
+          <div class="resourcing-pulse" style="width:70px;height:70px;margin:0 auto 12px"></div>
+          <p class="step-subtext">${t('meditation.reflect')}</p>
+        </div>
+        <button class="btn--advance" id="mf-next-3">${t('mindfulness.next')}</button>
       `;
       $('mf-next-3').addEventListener('click', () => {
-        responses.body = container.querySelector('textarea')?.value || '';
         step++;
         render();
       });
@@ -1835,25 +1813,14 @@ function renderMindfulness(container) {
       addTimer(id);
 
     } else {
-      const hasContent = responses.emotion.trim() || responses.body.trim();
       container.innerHTML = `
         <div class="tool-header">
           <h2 class="tool-title">${t('mindfulness.title')}</h2>
         </div>
         <div class="affirmation-card">
           <p class="affirmation-text">${t('mindfulness.affirmation')}</p>
-          ${hasContent ? renderDownloadBlock('mf-download') : ''}
         </div>
       `;
-      const dlBtn = $('mf-download');
-      if (dlBtn) {
-        dlBtn.addEventListener('click', () => {
-          downloadText('steady-mindfulness.txt', buildResponseText(t('mindfulness.title'), [
-            { label: t('mindfulness.step2.label'), question: t('mindfulness.step2.q'), response: responses.emotion },
-            { label: t('mindfulness.step3.label'), question: t('mindfulness.step3.q'), response: responses.body }
-          ]));
-        });
-      }
     }
   }
   render();
@@ -2083,25 +2050,28 @@ function initPWA() {
 // ============================================================
 
 function wireEvents() {
+  $('btn-continue-triage').addEventListener('click', handleTriageContinue);
+  $('btn-triage-unknown').addEventListener('click', handleTriageUnknown);
+
   $('btn-continue-checkin').addEventListener('click', handleContinueCheckin);
+  $('back-checkin').addEventListener('click', () => {
+    state.selectedCategories = [];
+    showScreen('screen-categories');
+    renderCategories();
+  });
 
   $('btn-safety-ok').addEventListener('click', handleSafetyOk);
   $('back-safety').addEventListener('click', () => showScreen('screen-checkin'));
 
-  $('btn-build-plan').addEventListener('click', handleBuildPlan);
-  $('back-categories').addEventListener('click', () => showScreen('screen-checkin'));
-
   $('back-plan').addEventListener('click', () => {
-    state.selectedCategories = [];
-    showScreen('screen-categories');
-    renderCategories();
+    showScreen('screen-checkin');
   });
 
   $('back-tool').addEventListener('click', () => {
     clearTimers();
     if (state.quickSession) {
       state.quickSession = false;
-      showScreen('screen-checkin');
+      showScreen('screen-categories');
     } else {
       renderSuggestedTool();
       renderNextTools();
@@ -2115,7 +2085,7 @@ function wireEvents() {
     clearTimers();
     if (state.quickSession) {
       state.quickSession = false;
-      showScreen('screen-checkin');
+      showScreen('screen-categories');
     } else {
       showCompletionOverlay();
     }
@@ -2155,7 +2125,7 @@ function wireEvents() {
     $('overlay-done-page').classList.remove('hidden');
     hideCompletionOverlay();
     resetSession();
-    showScreen('screen-checkin');
+    showScreen('screen-categories');
   });
 
   initOtherToolsToggle();
@@ -2183,11 +2153,13 @@ function resetSession() {
     btn.classList.remove('stress-btn--selected');
     btn.setAttribute('aria-checked', 'false');
   });
-  $('stress-description').textContent = '';
+  const descEl = $('stress-description');
+  if (descEl) descEl.textContent = '';
 
   const continueBtn = $('btn-continue-checkin');
-  continueBtn.disabled = true;
-  continueBtn.setAttribute('aria-disabled', 'true');
+  if (continueBtn) { continueBtn.disabled = true; continueBtn.setAttribute('aria-disabled', 'true'); }
+
+  renderCategories();
 }
 
 // ============================================================
@@ -2198,6 +2170,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (window.i18nReady || Promise.resolve()).then(() => {
     initTheme();
     initStressScale();
+    renderCategories();
     wireEvents();
     initPWA();
     initInstallModal();

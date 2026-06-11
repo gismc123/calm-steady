@@ -45,6 +45,12 @@
   "safety.crisis": "Si te sientes inseguro o necesitas hablar con alguien, la <strong>Línea de Vida 988</strong> está disponible en cualquier momento — llama o envía un mensaje al <strong>988</strong>. Están ahí para cualquier momento de salud mental, no solo emergencias.",
   "safety.btn": "Listo — comencemos",
 
+  "triage.question": "¿Qué estás experimentando ahora mismo?",
+  "triage.subhead": "Elige todo lo que aplique — puedes seleccionar más de uno.",
+  "triage.grid.aria": "Categorías de experiencia",
+  "triage.continue": "Continuar",
+  "triage.unknown": "No sé cómo me siento ni dónde lo siento — ayúdame a comenzar",
+
   "categories.question": "¿Dónde lo sientes más?",
   "categories.subhead": "Selecciona todo lo que aplique.",
   "categories.grid.aria": "Categorías de estrés",
@@ -177,11 +183,11 @@
   "stress.level.aria": "Nivel de estrés {level}",
 
   "category.physical.label": "Cuerpo",
-  "category.physical.desc": "Mi cuerpo se siente tenso, cansado o fuera de control. No estoy durmiendo ni comiendo bien.",
+  "category.physical.desc": "Tensión, inquietud o el impulso de liberar energía — los ejercicios de respiración y movimiento pueden ayudar ahora mismo.",
   "category.mental.label": "Mente",
-  "category.mental.desc": "Mis pensamientos están acelerados. No puedo pensar con claridad ni dejar de preocuparme.",
+  "category.mental.desc": "Pensamientos acelerados, exceso de análisis o una mente que no quiere calmarse — aunque lo desees.",
   "category.emotional.label": "Sentimientos",
-  "category.emotional.desc": "Mis sentimientos me abruman. Me siento sin esperanza, triste o como si me estuviera ahogando.",
+  "category.emotional.desc": "Ansiedad, nerviosismo o emociones difíciles de nombrar — sientes algo intenso y necesitas ayuda para manejarlo.",
   "category.spiritual.label": "Espíritu",
   "category.spiritual.desc": "Me siento desconectado de lo que importa. He perdido mi sentido de paz y propósito.",
 
@@ -286,6 +292,8 @@
   "ftb.phase.hold-empty": "Mantén vacío",
   "ftb.complete": "Cuatro ciclos completos. Tu cuerpo está más tranquilo que hace unos minutos.",
 
+  "meditation.reflect": "Siéntate con esto. Tómate tu tiempo.",
+
   "growth.title": "Reencuadre de mentalidad de crecimiento",
   "growth.subtitle": "Pensamiento fijo → pregunta de crecimiento",
   "growth.q.label": "Pregunta {n} de {total}",
@@ -294,7 +302,7 @@
   "growth.q2": "¿Esto es un hecho permanente o es una situación temporal?",
   "growth.q3": "¿Qué es una cosa dentro de esta situación sobre la que SÍ tienes control?",
   "growth.q4": "¿Qué podría estar enseñándote esta experiencia, aunque sea dolorosa?",
-  "growth.q5": "Escribe o ten presente una pequeña acción que puedas tomar hoy que esté dentro de tu control.",
+  "growth.q5": "Ten presente una pequeña acción que puedas tomar hoy que esté dentro de tu control.",
   "growth.placeholder": "Tus pensamientos (opcional — nada se guarda ni transmite)",
   "growth.next": "Siguiente →",
   "growth.finish": "Terminar",
@@ -342,7 +350,7 @@
   "ntl.step3.q": "¿Qué le dirías a tu mejor amigo si te dijera esto a ti?",
   "ntl.step3.placeholder": "Escribe lo que le dirías a alguien que amas. Nada se guarda ni transmite.",
   "ntl.step4.label": "Paso 4 de 4",
-  "ntl.step4.q": "Ahora escribe la verdad.",
+  "ntl.step4.q": "Ahora siéntate con la verdad.",
   "ntl.step4.sub": "No una positividad falsa — la verdad real sobre ti y esta situación.",
   "ntl.step4.placeholder": "La verdad real...",
   "ntl.affirmation": "Esa verdad es lo que merece ser escuchado.",

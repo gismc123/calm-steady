@@ -111,6 +111,20 @@
     </div>
   </noscript>
 
+  <!-- ===== GLOBAL HEADER (always visible on every screen) ===== -->
+  <header id="global-header" class="global-header">
+    <div class="app-wordmark" data-i18n="header.wordmark">Steady</div>
+    <div class="header-right">
+      <button class="btn-install-guide btn-lang" id="btn-lang-toggle" data-i18n-aria="header.lang-toggle.aria" aria-label="Switch language">ES</button>
+      <button class="btn-install-guide" id="btn-open-install-modal" data-i18n="header.install-btn" data-i18n-aria="header.install-btn.aria" aria-label="How to add to home screen">+ Home Screen</button>
+      <div class="theme-picker" id="theme-picker" role="group" data-i18n-aria="header.theme-picker.aria" aria-label="Choose color theme">
+        <button class="theme-swatch theme-swatch--midnight" data-theme="midnight" data-i18n-aria="header.theme.midnight.aria" data-i18n-title="header.theme.midnight.title" aria-label="Midnight theme" title="Midnight"></button>
+        <button class="theme-swatch theme-swatch--forest"   data-theme="forest"   data-i18n-aria="header.theme.forest.aria"   data-i18n-title="header.theme.forest.title"   aria-label="Forest theme"   title="Forest"></button>
+        <button class="theme-swatch theme-swatch--ember"    data-theme="ember"    data-i18n-aria="header.theme.ember.aria"    data-i18n-title="header.theme.ember.title"    aria-label="Ember theme"    title="Ember"></button>
+      </div>
+    </div>
+  </header>
+
   <!-- ===== INSTALL BANNER ===== -->
   <div id="install-banner" class="install-banner hidden" role="banner">
     <span class="install-text" data-i18n="install.banner.text">Add this to your home screen for quick access.</span>
@@ -119,23 +133,11 @@
   </div>
 
   <!-- ===== SCREEN 1: STRESS CHECK-IN ===== -->
-  <div id="screen-checkin" class="screen screen--active" role="main">
+  <div id="screen-checkin" class="screen" role="region" aria-label="Stress check-in">
     <div class="screen-inner">
-      <div class="app-header-row">
-        <div class="app-wordmark" data-i18n="header.wordmark">Steady</div>
-        <div class="header-right">
-          <button class="btn-install-guide btn-lang" id="btn-lang-toggle" data-i18n-aria="header.lang-toggle.aria" aria-label="Switch language">ES</button>
-          <button class="btn-install-guide" id="btn-open-install-modal" data-i18n="header.install-btn" data-i18n-aria="header.install-btn.aria" aria-label="How to add to home screen">+ Home Screen</button>
-          <div class="theme-picker" id="theme-picker" role="group" data-i18n-aria="header.theme-picker.aria" aria-label="Choose color theme">
-            <button class="theme-swatch theme-swatch--midnight" data-theme="midnight" data-i18n-aria="header.theme.midnight.aria" data-i18n-title="header.theme.midnight.title" aria-label="Midnight theme" title="Midnight"></button>
-            <button class="theme-swatch theme-swatch--forest"   data-theme="forest"   data-i18n-aria="header.theme.forest.aria"   data-i18n-title="header.theme.forest.title"   aria-label="Forest theme"   title="Forest"></button>
-            <button class="theme-swatch theme-swatch--ember"    data-theme="ember"    data-i18n-aria="header.theme.ember.aria"    data-i18n-title="header.theme.ember.title"    aria-label="Ember theme"    title="Ember"></button>
-          </div>
-        </div>
-      </div>
+      <button class="back-btn" id="back-checkin" data-i18n="back.btn" data-i18n-aria="back.aria" aria-label="Go back">← Back</button>
       <header class="screen-header">
         <h1 data-i18n="checkin.question">How are you feeling right now?</h1>
-        <p class="app-tagline" data-i18n="checkin.tagline">Guided breathing &amp; grounding exercises for stress and anxiety — free, private, works offline.</p>
       </header>
 
       <div class="stress-scale" role="group" data-i18n-aria="checkin.scale.aria" aria-label="Stress level selector">
@@ -152,7 +154,6 @@
 
       <p class="hint-text" data-i18n="checkin.hint">You don't have to know why. Just pick the number that feels right.</p>
       <button class="btn btn--primary" id="btn-continue-checkin" disabled aria-disabled="true" data-i18n="checkin.continue">Continue</button>
-      <button class="btn btn--ghost" id="btn-quick-breathing" data-i18n="checkin.quick-breathing">Start a breathing session now →</button>
       <p class="privacy-notice" data-i18n="checkin.privacy">Nothing you write is ever saved, recorded, or transmitted — your session lives only in this tab.</p>
       <div class="legal-footer">
         <button class="legal-link" id="btn-open-terms" data-i18n="legal.terms">Terms of Use</button>
@@ -189,18 +190,24 @@
     </div>
   </div>
 
-  <!-- ===== SCREEN 2: CATEGORY SELECTION ===== -->
-  <div id="screen-categories" class="screen" role="region" aria-label="Wellness dimensions">
+  <!-- ===== SCREEN 2 (now FIRST): TRIAGE SELECTION ===== -->
+  <div id="screen-categories" class="screen screen--active" role="main">
     <div class="screen-inner">
-      <button class="back-btn" id="back-categories" data-i18n="back.btn" data-i18n-aria="back.aria" aria-label="Go back">← Back</button>
       <header class="screen-header">
-        <h1 data-i18n="categories.question">Where do you feel it most?</h1>
-        <p class="subhead" data-i18n="categories.subhead">Select all that apply.</p>
+        <h1 data-i18n="triage.question">What are you experiencing right now?</h1>
+        <p class="subhead" data-i18n="triage.subhead">Choose all that apply — you can select more than one.</p>
       </header>
-      <div class="category-grid" id="category-grid" role="group" data-i18n-aria="categories.grid.aria" aria-label="Stress categories">
+
+      <button class="btn btn--breath-quick" id="btn-quick-breathing" data-i18n="checkin.quick-breathing">Start a breathing session now →</button>
+
+      <div class="category-grid" id="category-grid" role="group" data-i18n-aria="triage.grid.aria" aria-label="Experience categories">
         <!-- Rendered by app.js -->
       </div>
-      <button class="btn btn--primary" id="btn-build-plan" disabled aria-disabled="true" data-i18n="categories.build-plan">Build My Plan</button>
+
+      <button class="btn btn--primary" id="btn-continue-triage" disabled aria-disabled="true" data-i18n="triage.continue">Continue</button>
+      <button class="btn btn--help-begin" id="btn-triage-unknown" data-i18n="triage.unknown">I don't know how I feel or where I feel it — help me begin</button>
+
+      <p class="privacy-notice" style="margin-top: var(--spacing-md)" data-i18n="checkin.privacy">Nothing you write is ever saved, recorded, or transmitted — your session lives only in this tab.</p>
     </div>
   </div>
 

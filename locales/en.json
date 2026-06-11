@@ -45,6 +45,12 @@
   "safety.crisis": "If you feel unsafe or need someone to talk to, the <strong>988 Lifeline</strong> is available anytime — call or text <strong>988</strong>. They're there for any mental health moment, not just emergencies.",
   "safety.btn": "I'm ready — let's begin",
 
+  "triage.question": "What are you experiencing right now?",
+  "triage.subhead": "Choose all that apply — you can select more than one.",
+  "triage.grid.aria": "Experience categories",
+  "triage.continue": "Continue",
+  "triage.unknown": "I don't know how I feel or where I feel it — help me begin",
+
   "categories.question": "Where do you feel it most?",
   "categories.subhead": "Select all that apply.",
   "categories.grid.aria": "Stress categories",
@@ -177,11 +183,11 @@
   "stress.level.aria": "Stress level {level}",
 
   "category.physical.label": "Body",
-  "category.physical.desc": "My body feels tense, tired, or out of control. I'm not sleeping or eating well.",
+  "category.physical.desc": "Tension, restlessness, or the urge to release energy — breathing and movement exercises can help right now.",
   "category.mental.label": "Mind",
-  "category.mental.desc": "My thoughts are racing. I can't think clearly or stop worrying.",
+  "category.mental.desc": "Racing thoughts, overthinking, or a mind that won't slow down — even when you want it to.",
   "category.emotional.label": "Feelings",
-  "category.emotional.desc": "My feelings are overwhelming me. I feel hopeless, sad, or like I'm drowning.",
+  "category.emotional.desc": "Anxiety, nervousness, or emotions that are hard to name — you're feeling something intense and need help with it.",
   "category.spiritual.label": "Spirit",
   "category.spiritual.desc": "I feel disconnected from what matters. I've lost my sense of peace and purpose.",
 
@@ -286,6 +292,8 @@
   "ftb.phase.hold-empty": "Hold Empty",
   "ftb.complete": "Four full cycles complete. Your body is calmer than it was a few minutes ago.",
 
+  "meditation.reflect": "Sit with this. Take your time.",
+
   "growth.title": "Growth Mindset Reframe",
   "growth.subtitle": "Fixed thought → growth question",
   "growth.q.label": "Question {n} of {total}",
@@ -294,7 +302,7 @@
   "growth.q2": "Is this a permanent fact, or is it a temporary situation?",
   "growth.q3": "What is one thing within this situation that you DO have control over?",
   "growth.q4": "What could this experience be teaching you, even if it is painful?",
-  "growth.q5": "Write down or hold in mind one small action you can take today that is within your control.",
+  "growth.q5": "Hold in mind one small action you can take today that is within your control.",
   "growth.placeholder": "Your thoughts (optional — nothing is saved or transmitted)",
   "growth.next": "Next →",
   "growth.finish": "Finish",
@@ -342,7 +350,7 @@
   "ntl.step3.q": "What would you say to your best friend if they said this to you?",
   "ntl.step3.placeholder": "Write what you'd say to someone you love. Nothing is saved or transmitted.",
   "ntl.step4.label": "Step 4 of 4",
-  "ntl.step4.q": "Now write the truth.",
+  "ntl.step4.q": "Now sit with the truth.",
   "ntl.step4.sub": "Not a fake positive spin — the actual truth about yourself and this situation.",
   "ntl.step4.placeholder": "The actual truth...",
   "ntl.affirmation": "That truth is the thing worth listening to.",
