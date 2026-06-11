@@ -1,8 +1,9 @@
 {
-  "name": "Calm and Steady",
-  "short_name": "Calm & Steady",
+  "name": "Steady — Breathing & Grounding for Stress Relief",
+  "short_name": "Steady",
   "lang": "en",
-  "description": "Accessible, evidence-based grounding and breathing tools to help you steady yourself, step by step.",
+  "description": "Free guided breathing exercises, grounding techniques, and mindfulness tools for stress and anxiety. No account. Works offline.",
+  "categories": ["health", "lifestyle", "medical"],
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

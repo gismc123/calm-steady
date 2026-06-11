@@ -272,6 +272,13 @@ input, textarea {
   color: var(--color-text-secondary);
 }
 
+.app-tagline {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin-top: var(--spacing-xs);
+  line-height: 1.4;
+}
+
 /* ============================================================
    INSTALL BANNER
    ============================================================ */

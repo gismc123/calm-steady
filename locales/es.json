@@ -1,5 +1,5 @@
 {
-  "header.wordmark": "Calm and Steady",
+  "header.wordmark": "Steady",
   "header.install-btn": "+ Pantalla de inicio",
   "header.install-btn.aria": "Cómo agregar a la pantalla de inicio",
   "header.theme-picker.aria": "Elegir tema de color",
@@ -21,6 +21,7 @@
   "back.plan.aria": "Volver a mi plan",
 
   "checkin.question": "¿Cómo te sientes en este momento?",
+  "checkin.tagline": "Ejercicios guiados de respiración y anclaje para el estrés y la ansiedad — gratis, privado, funciona sin conexión.",
   "checkin.scale.aria": "Selector de nivel de estrés",
   "checkin.scale.numbers.aria": "Selecciona tu nivel de estrés",
   "checkin.scale.low.label": "1–3",
@@ -88,7 +89,7 @@
   "install.modal.title": "Agregar a la pantalla de inicio",
   "modal.close.aria": "Cerrar",
   "modal.ok": "Entendido",
-  "install.modal.subtitle": "Calm and Steady funciona como una app nativa cuando la instalas en tu teléfono. Sin tienda de apps.",
+  "install.modal.subtitle": "Steady funciona como una app nativa cuando la instalas en tu teléfono. Sin tienda de apps.",
   "install.modal.privacy": "<strong>Tu privacidad está completamente protegida.</strong> Ningún dato se guarda, registra o transmite por esta app. Todo lo que escribas permanece solo en tu pestaña y desaparece al cerrarla — a menos que elijas descargarlo.",
   "install.modal.iphone.title": "iPhone / iPad (Safari)",
   "install.modal.iphone.step1": "Abre esta página en <strong>Safari</strong> (no Chrome)",
@@ -102,9 +103,9 @@
   "install.modal.android.step4": "Confirma tocando <strong>\"Agregar\"</strong>",
 
   "terms.modal.title": "Términos de uso",
-  "terms.modal.subtitle": "Por favor lee estos términos antes de usar Calm and Steady.",
+  "terms.modal.subtitle": "Por favor lee estos términos antes de usar Steady.",
   "terms.h1": "No es un servicio médico",
-  "terms.b1": "Calm and Steady es una herramienta personal de bienestar diseñada para apoyar el manejo del estrés y la regulación emocional. <strong>No</strong> es un servicio médico, tratamiento de salud mental ni intervención clínica. Nada en esta app constituye consejo médico, diagnóstico o tratamiento.",
+  "terms.b1": "Steady es una herramienta personal de bienestar diseñada para apoyar el manejo del estrés y la regulación emocional. <strong>No</strong> es un servicio médico, tratamiento de salud mental ni intervención clínica. Nada en esta app constituye consejo médico, diagnóstico o tratamiento.",
   "terms.h2": "No reemplaza la atención profesional",
   "terms.b2": "Si estás en una crisis de salud mental, por favor contacta a un profesional calificado o llama/envía un mensaje al <strong>988</strong> (Línea de Crisis). Esta app no reemplaza la terapia, la orientación psicológica ni ningún otro cuidado profesional.",
   "terms.h3": "Úsala a tu propio criterio",
@@ -116,7 +117,7 @@
   "privacy.modal.subtitle": "Tu privacidad es un principio central de esta app — no una ocurrencia tardía.",
   "privacy.notice": "<strong>No recopilamos absolutamente nada.</strong> Sin cuenta, sin inicio de sesión, sin rastreo.",
   "privacy.h1": "Sin recopilación de datos",
-  "privacy.b1": "Calm and Steady no recopila, almacena ni transmite ninguna información personal. Tus niveles de estrés, respuestas escritas y actividad de sesión nunca salen de tu dispositivo.",
+  "privacy.b1": "Steady no recopila, almacena ni transmite ninguna información personal. Tus niveles de estrés, respuestas escritas y actividad de sesión nunca salen de tu dispositivo.",
   "privacy.h2": "Datos de la sesión",
   "privacy.b2": "Todos los datos de sesión viven solo en tu pestaña del navegador. Al cerrar o actualizar la pestaña, todo desaparece. Nada se escribe en cookies, almacenamiento local ni ningún servidor.",
   "privacy.h3": "Descargas",
@@ -127,16 +128,16 @@
   "privacy.b5": "Si eliges ingresar tu nombre, rango de edad o género durante el registro inicial, esa información se almacena solo en el almacenamiento local de tu dispositivo y nunca se transmite, comparte ni es accesible para nadie. Puedes omitir este paso en cualquier momento.",
 
   "attribution.modal.title": "Acerca de",
-  "attribution.h1": "Calm and Steady",
-  "attribution.b1": "Calm and Steady fue diseñada para ofrecer herramientas accesibles y basadas en evidencia para la respiración y el anclaje emocional. Las técnicas de esta app provienen de métodos ampliamente utilizados en la atención plena, la terapia somática y los enfoques cognitivo-conductuales. El uso de esta app no establece ninguna relación clínica.",
+  "attribution.h1": "Steady",
+  "attribution.b1": "Steady fue diseñada para ofrecer herramientas accesibles y basadas en evidencia para la respiración y el anclaje emocional. Las técnicas de esta app provienen de métodos ampliamente utilizados en la atención plena, la terapia somática y los enfoques cognitivo-conductuales. El uso de esta app no establece ninguna relación clínica.",
   "attribution.h2": "Sobre las técnicas",
   "attribution.b2": "Los ejercicios de respiración, las técnicas de anclaje y las herramientas de visualización son prácticas establecidas en la psicología clínica, la atención plena y la orientación en crisis. No son exclusivas — forman parte del amplio cuerpo de investigación sobre bienestar basado en evidencia.",
-  "attribution.b3": "© 2026 Calm and Steady. Nunca se recopilan ni transmiten datos. Todo permanece en tu dispositivo.",
+  "attribution.b3": "© 2026 Steady. Nunca se recopilan ni transmiten datos. Todo permanece en tu dispositivo.",
 
   "version.modal.title": "Versión de la app",
   "version.h1": "Versión instalada",
 
-  "onboarding.title": "Bienvenido a Calm and Steady",
+  "onboarding.title": "Bienvenido a Steady",
   "onboarding.subtitle": "Unos datos opcionales nos ayudan a entender quién usa esta app. Puedes omitirlo en cualquier momento.",
   "onboarding.name.label": "Nombre (opcional)",
   "onboarding.name.placeholder": "Tu nombre",
@@ -161,7 +162,7 @@
   "onboarding.skip": "Omitir",
   "onboarding.continue": "Continuar",
 
-  "ad.disclosure": "Los anuncios ayudan a mantener Calm and Steady gratuita.",
+  "ad.disclosure": "Los anuncios ayudan a mantener Steady gratuita.",
 
   "stress.desc.1": "Un poco intranquilo — algo está en tu mente.",
   "stress.desc.2": "Tensión leve — perceptible pero manejable.",

@@ -1,4 +1,4 @@
-# Calm and Steady — Grounding & Breathing PWA
+# Steady — Grounding & Breathing PWA
 
 A mobile-first, Progressive Web App that walks you through evidence-based grounding, breathing, and imagery exercises during moments of stress or emotional overwhelm. No account. No login. No app store. Just open the link and use it.
 
@@ -6,7 +6,7 @@ A mobile-first, Progressive Web App that walks you through evidence-based ground
 
 ## What It Does
 
-When you're overwhelmed, the hardest part is knowing where to start. Calm and Steady removes that barrier. It asks how stressed you are and which areas of your life feel most affected, then hands you a short, focused plan of exercises tailored to your answers.
+When you're overwhelmed, the hardest part is knowing where to start. Steady removes that barrier. It asks how stressed you are and which areas of your life feel most affected, then hands you a short, focused plan of exercises tailored to your answers.
 
 The app guides you through each exercise — breathing animations, step-by-step prompts, visualization exercises, reflection questions — tracks your stress before and after, and shows a session summary when you're done. Everything stays on your device.
 
@@ -134,9 +134,9 @@ The container exposes port `906` on the host. A reverse proxy sitting in front r
 
 ```yaml
 services:
-  calm-and-steady-app:
+  steady-app:
     build: .
-    container_name: calm-and-steady-app
+    container_name: steady-app
     restart: unless-stopped
     labels:
       - "traefik.enable=true"
@@ -187,7 +187,7 @@ Once installed, the app launches in standalone mode and works fully offline.
 ## File Structure
 
 ```
-calm-and-steady/
+steady/
 ├── index.html          # App shell — all screens and modals
 ├── style.css           # All styles, CSS custom properties, three color themes
 ├── app.js              # Screen logic, tool timers, session state
@@ -223,8 +223,8 @@ Look for `TODO` comments marking both locations.
 
 ## Legal
 
-Calm and Steady is provided for personal wellness use only. It is not a medical service, mental health treatment, or clinical intervention. Nothing in this app constitutes medical advice, diagnosis, or treatment. If you are in crisis, please contact the **988 Suicide & Crisis Lifeline** (call or text 988).
+Steady is provided for personal wellness use only. It is not a medical service, mental health treatment, or clinical intervention. Nothing in this app constitutes medical advice, diagnosis, or treatment. If you are in crisis, please contact the **988 Suicide & Crisis Lifeline** (call or text 988).
 
 The breathing, grounding, and imagery techniques in this app draw from widely-practiced methods in mindfulness, somatic therapy, and cognitive-behavioral approaches. These are established practices in the public domain — they are not proprietary.
 
-© 2026 Calm and Steady.
+© 2026 Steady.

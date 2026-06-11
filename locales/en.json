@@ -1,5 +1,5 @@
 {
-  "header.wordmark": "Calm and Steady",
+  "header.wordmark": "Steady",
   "header.install-btn": "+ Home Screen",
   "header.install-btn.aria": "How to add to home screen",
   "header.theme-picker.aria": "Choose color theme",
@@ -21,6 +21,7 @@
   "back.plan.aria": "Back to my plan",
 
   "checkin.question": "How are you feeling right now?",
+  "checkin.tagline": "Guided breathing & grounding exercises for stress and anxiety — free, private, works offline.",
   "checkin.scale.aria": "Stress level selector",
   "checkin.scale.numbers.aria": "Select your stress level",
   "checkin.scale.low.label": "1–3",
@@ -88,7 +89,7 @@
   "install.modal.title": "Add to Home Screen",
   "modal.close.aria": "Close",
   "modal.ok": "Got it",
-  "install.modal.subtitle": "Calm and Steady works like a native app when installed on your phone. No app store needed.",
+  "install.modal.subtitle": "Steady works like a native app when installed on your phone. No app store needed.",
   "install.modal.privacy": "<strong>Your privacy is fully protected.</strong> No data is ever saved, recorded, or transmitted by this app. Everything you write stays only in your current tab and is gone when you close it — unless you choose to download it yourself.",
   "install.modal.iphone.title": "iPhone / iPad (Safari)",
   "install.modal.iphone.step1": "Open this page in <strong>Safari</strong> (not Chrome)",
@@ -102,9 +103,9 @@
   "install.modal.android.step4": "Confirm by tapping <strong>\"Add\"</strong>",
 
   "terms.modal.title": "Terms of Use",
-  "terms.modal.subtitle": "Please read these terms before using Calm and Steady.",
+  "terms.modal.subtitle": "Please read these terms before using Steady.",
   "terms.h1": "Not a Medical Service",
-  "terms.b1": "Calm and Steady is a personal wellness tool designed to support stress management and emotional regulation. It is <strong>not</strong> a medical service, mental health treatment, or clinical intervention. Nothing in this app constitutes medical advice, diagnosis, or treatment.",
+  "terms.b1": "Steady is a personal wellness tool designed to support stress management and emotional regulation. It is <strong>not</strong> a medical service, mental health treatment, or clinical intervention. Nothing in this app constitutes medical advice, diagnosis, or treatment.",
   "terms.h2": "Not a Substitute for Professional Care",
   "terms.b2": "If you are experiencing a mental health crisis, please contact a qualified professional or call/text <strong>988</strong> (Suicide &amp; Crisis Lifeline). This app is not a replacement for therapy, counseling, or any other professional care.",
   "terms.h3": "Use at Your Own Discretion",
@@ -116,7 +117,7 @@
   "privacy.modal.subtitle": "Your privacy is a core principle of this app — not an afterthought.",
   "privacy.notice": "<strong>We collect absolutely nothing.</strong> No account, no login, no tracking.",
   "privacy.h1": "No Data Collection",
-  "privacy.b1": "Calm and Steady does not collect, store, or transmit any personal information. Your stress levels, written responses, and session activity never leave your device.",
+  "privacy.b1": "Steady does not collect, store, or transmit any personal information. Your stress levels, written responses, and session activity never leave your device.",
   "privacy.h2": "Session Data",
   "privacy.b2": "All session data lives only in your browser tab. When you close or refresh the tab, everything is gone. Nothing is written to cookies, local storage, or any server.",
   "privacy.h3": "Downloads",
@@ -127,16 +128,16 @@
   "privacy.b5": "If you choose to enter your name, age range, or gender during onboarding, that information is stored only in your device's local storage and is never transmitted, shared, or accessible to anyone. You can skip this step entirely at any time.",
 
   "attribution.modal.title": "About",
-  "attribution.h1": "Calm and Steady",
-  "attribution.b1": "Calm and Steady was designed to offer accessible, evidence-based grounding and breathing tools. The techniques in this app draw from widely-practiced methods in mindfulness, somatic therapy, and cognitive-behavioral approaches. No clinical relationship is formed through use of this app.",
+  "attribution.h1": "Steady",
+  "attribution.b1": "Steady was designed to offer accessible, evidence-based grounding and breathing tools. The techniques in this app draw from widely-practiced methods in mindfulness, somatic therapy, and cognitive-behavioral approaches. No clinical relationship is formed through use of this app.",
   "attribution.h2": "About the Techniques",
   "attribution.b2": "Breathing exercises, grounding techniques, and imagery-based tools are established practices in clinical psychology, mindfulness, and crisis counseling. They are not proprietary — they belong to the broad body of evidence-based wellness research.",
-  "attribution.b3": "© 2026 Calm and Steady. No data is ever collected or transmitted. Everything stays on your device.",
+  "attribution.b3": "© 2026 Steady. No data is ever collected or transmitted. Everything stays on your device.",
 
   "version.modal.title": "Build Version",
   "version.h1": "Deployed Version",
 
-  "onboarding.title": "Welcome to Calm and Steady",
+  "onboarding.title": "Welcome to Steady",
   "onboarding.subtitle": "A few optional details help us understand who uses this app. You can skip anytime.",
   "onboarding.name.label": "First name (optional)",
   "onboarding.name.placeholder": "Your first name",
@@ -161,7 +162,7 @@
   "onboarding.skip": "Skip",
   "onboarding.continue": "Continue",
 
-  "ad.disclosure": "Ads help keep Calm and Steady free.",
+  "ad.disclosure": "Ads help keep Steady free.",
 
   "stress.desc.1": "A little uneasy — something's on your mind.",
   "stress.desc.2": "Mild tension — noticeable but manageable.",
