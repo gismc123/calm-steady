@@ -11,13 +11,13 @@ fi
 CF_API_TOKEN="${CF_API_TOKEN:-}"
 CF_ZONE_ID="${CF_ZONE_ID:-}"
 
-echo "Deploying calm-down-v1.0-${BUILD_DATE}..."
+echo "Deploying steady-v1.0-${BUILD_DATE}..."
 
 git pull
 docker compose build --no-cache
 docker compose up -d
 
-echo "Done. Deployed calm-down-v1.0-${BUILD_DATE}"
+echo "Done. Deployed steady-v1.0-${BUILD_DATE}"
 
 # Purge Cloudflare cache so users get fresh files immediately
 if [ -n "$CF_API_TOKEN" ] && [ -n "$CF_ZONE_ID" ]; then
