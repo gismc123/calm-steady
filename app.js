@@ -364,12 +364,15 @@ function initOnboarding() {
     modal.setAttribute('aria-hidden', 'true');
   }
 
-  $('btn-onboarding-continue').addEventListener('click', completeOnboarding);
-  $('btn-onboarding-skip').addEventListener('click', () => {
+  function skipOnboarding() {
     localStorage.setItem('calm_steady_onboarded', '1');
     modal.classList.add('hidden');
     modal.setAttribute('aria-hidden', 'true');
-  });
+  }
+
+  $('btn-onboarding-continue').addEventListener('click', completeOnboarding);
+  $('btn-onboarding-skip').addEventListener('click', skipOnboarding);
+  $('onboarding-modal-backdrop').addEventListener('click', skipOnboarding);
 }
 
 // ============================================================
