@@ -286,13 +286,33 @@ function initLegalModals() {
     $(backdropId).addEventListener('click', hide);
   });
 
-  $('btn-open-version').addEventListener('click', () => {
+  // Wire up the duplicate footer buttons on the home (categories) screen
+  [
+    { openId: 'btn-open-terms-home',        modalId: 'terms-modal' },
+    { openId: 'btn-open-privacy-home',      modalId: 'privacy-modal' },
+    { openId: 'btn-open-attribution-home',  modalId: 'attribution-modal' },
+    { openId: 'btn-open-version-home',      modalId: 'version-modal' }
+  ].forEach(({ openId, modalId }) => {
+    const btn = $(openId);
+    const modal = $(modalId);
+    if (btn && modal) {
+      btn.addEventListener('click', () => {
+        modal.classList.remove('hidden');
+        modal.setAttribute('aria-hidden', 'false');
+      });
+    }
+  });
+
+  const showVersion = () => {
     const meta = document.querySelector('meta[name="app-version"]');
     const version = (meta && meta.content && meta.content !== '__APP_VERSION__')
       ? meta.content
       : 'steady-v1.0-dev';
     $('build-version-string').textContent = version;
-  });
+  };
+  $('btn-open-version').addEventListener('click', showVersion);
+  const versionHomeBtn = $('btn-open-version-home');
+  if (versionHomeBtn) versionHomeBtn.addEventListener('click', showVersion);
 }
 
 // ============================================================
@@ -2168,6 +2188,8 @@ function resetSession() {
 
 document.addEventListener('DOMContentLoaded', () => {
   (window.i18nReady || Promise.resolve()).then(() => {
+    // Safety net: ensure t() is always callable even if i18n failed to load
+    if (typeof t !== 'function') window.t = k => k;
     initTheme();
     initStressScale();
     renderCategories();
@@ -2177,5 +2199,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initLegalModals();
     initOnboarding();
     initAdBanner();
+  }).catch(err => {
+    console.error('[Steady] init error:', err);
+    // Last-ditch attempt: wire events so the app isn't completely broken
+    try { if (typeof t !== 'function') window.t = k => k; renderCategories(); wireEvents(); } catch (_) {}
   });
 });
