@@ -474,5 +474,18 @@
   "mindfulness.step4.sub": "Watch the feeling like a wave. Let it rise, peak, and begin to fall on its own.",
   "mindfulness.hold.label": "Just notice. You don't have to do anything.",
   "mindfulness.next": "Next →",
-  "mindfulness.affirmation": "You leaned in instead of running. That takes more courage than most people realize."
+  "mindfulness.affirmation": "You leaned in instead of running. That takes more courage than most people realize.",
+
+  "export.tool.header": "Steady — {toolName}",
+  "export.session.header": "Steady — Session Summary",
+  "export.session.stress-journey": "STRESS JOURNEY",
+  "export.session.started": "Started: {n}/10",
+  "export.session.ended": "Ended:   {n}/10",
+  "export.session.shift.down": "Shift:   ↓ {n} point{s}",
+  "export.session.shift.up": "Shift:   ↑ {n} point{s}",
+  "export.session.tools-tried": "TOOLS TRIED",
+  "export.session.written-responses": "YOUR WRITTEN RESPONSES",
+  "export.privacy-note": "Privacy note: This file was created entirely on your device.\nNo data was saved, recorded, or transmitted by Steady.",
+  "export.no-response": "(no response written)",
+  "export.your-response": "Your response"
 }

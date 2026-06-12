@@ -474,5 +474,18 @@
   "mindfulness.step4.sub": "Observa el sentimiento como una ola. Deja que suba, llegue a su punto más alto y empiece a caer por sí solo.",
   "mindfulness.hold.label": "Solo nota. No tienes que hacer nada.",
   "mindfulness.next": "Siguiente →",
-  "mindfulness.affirmation": "Te acercaste en lugar de huir. Eso requiere más valentía de lo que la mayoría de las personas se da cuenta."
+  "mindfulness.affirmation": "Te acercaste en lugar de huir. Eso requiere más valentía de lo que la mayoría de las personas se da cuenta.",
+
+  "export.tool.header": "Steady — {toolName}",
+  "export.session.header": "Steady — Resumen de sesión",
+  "export.session.stress-journey": "RECORRIDO DEL ESTRÉS",
+  "export.session.started": "Inicio: {n}/10",
+  "export.session.ended": "Fin:    {n}/10",
+  "export.session.shift.down": "Cambio: ↓ {n} punto{s}",
+  "export.session.shift.up": "Cambio: ↑ {n} punto{s}",
+  "export.session.tools-tried": "HERRAMIENTAS USADAS",
+  "export.session.written-responses": "TUS RESPUESTAS ESCRITAS",
+  "export.privacy-note": "Nota de privacidad: Este archivo fue creado completamente en tu dispositivo.\nNo se guardó, registró ni transmitió ningún dato por parte de Steady.",
+  "export.no-response": "(sin respuesta escrita)",
+  "export.your-response": "Tu respuesta"
 }

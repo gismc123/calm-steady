@@ -73,6 +73,7 @@
     }
     document.documentElement.lang = lang;
     applyTranslations();
+    document.dispatchEvent(new CustomEvent('langchange', { detail: { lang } }));
     if (resolveReady) {
       resolveReady();
       resolveReady = null;

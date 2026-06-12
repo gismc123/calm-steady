@@ -114,13 +114,13 @@ function captureCurrentToolTextareas() {
   if (filled.length === 0) return;
   const toolName = t('tools.' + state.currentTool + '.name') || state.currentTool;
   const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  let text = `Steady — ${toolName}\n${date}\n\n${'='.repeat(44)}\n\n`;
+  let text = `${t('export.tool.header').replace('{toolName}', toolName)}\n${date}\n\n${'='.repeat(44)}\n\n`;
   filled.forEach(ta => {
     const prev = ta.previousElementSibling;
-    const question = prev?.textContent?.trim() || 'Your response';
+    const question = prev?.textContent?.trim() || t('export.your-response');
     text += `${question}\n\n${ta.value.trim()}\n\n${'-'.repeat(44)}\n\n`;
   });
-  text += 'Privacy note: This file was created entirely on your device.\nNo data was saved, recorded, or transmitted by Steady.';
+  text += t('export.privacy-note');
   state.sessionResponses.push({
     toolId: state.currentTool,
     filename: `steady-${state.currentTool}.txt`,
@@ -131,37 +131,38 @@ function captureCurrentToolTextareas() {
 function buildSessionSummaryText() {
   const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-  let text = `Steady — Session Summary\n${date} at ${time}\n\n${'='.repeat(44)}\n\n`;
+  let text = `${t('export.session.header')}\n${date} at ${time}\n\n${'='.repeat(44)}\n\n`;
 
   const start = state.sessionStartLevel;
   const end = state.currentStressLevel || state.stressLevel;
   if (start) {
-    text += `STRESS JOURNEY\n`;
-    text += `Started: ${start}/10\n`;
+    text += `${t('export.session.stress-journey')}\n`;
+    text += `${t('export.session.started').replace('{n}', start)}\n`;
     if (end) {
-      text += `Ended:   ${end}/10\n`;
+      text += `${t('export.session.ended').replace('{n}', end)}\n`;
       const diff = start - end;
-      if (diff > 0)      text += `Shift:   ↓ ${diff} point${diff !== 1 ? 's' : ''}\n`;
-      else if (diff < 0) text += `Shift:   ↑ ${Math.abs(diff)} point${Math.abs(diff) !== 1 ? 's' : ''}\n`;
+      const s = Math.abs(diff) !== 1 ? 's' : '';
+      if (diff > 0)      text += `${t('export.session.shift.down').replace('{n}', diff).replace('{s}', s)}\n`;
+      else if (diff < 0) text += `${t('export.session.shift.up').replace('{n}', Math.abs(diff)).replace('{s}', s)}\n`;
     }
     text += `\n${'-'.repeat(44)}\n\n`;
   }
 
   if (state.toolsUsed.length > 0) {
     const names = state.toolsUsed.map(id => t('tools.' + id + '.name') || id).filter(Boolean);
-    text += `TOOLS TRIED\n`;
+    text += `${t('export.session.tools-tried')}\n`;
     names.forEach(n => { text += `• ${n}\n`; });
     text += `\n${'-'.repeat(44)}\n\n`;
   }
 
   if (state.sessionResponses.length > 0) {
-    text += `YOUR WRITTEN RESPONSES\n\n`;
+    text += `${t('export.session.written-responses')}\n\n`;
     state.sessionResponses.forEach(r => {
       text += r.content;
       text += `\n\n${'='.repeat(44)}\n\n`;
     });
   } else {
-    text += 'Privacy note: This file was created entirely on your device.\nNo data was saved, recorded, or transmitted by Steady.';
+    text += t('export.privacy-note');
   }
   return text;
 }
@@ -209,15 +210,14 @@ function showSummaryPage() {
 
 function buildResponseText(toolName, entries) {
   const date = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-  let text = `Steady — ${toolName}\n${date}\n\n${'='.repeat(44)}\n\n`;
+  let text = `${t('export.tool.header').replace('{toolName}', toolName)}\n${date}\n\n${'='.repeat(44)}\n\n`;
   entries.forEach(({ label, question, response }) => {
     if (label) text += `[${label}]\n`;
     text += `${question}\n\n`;
-    text += (response && response.trim()) ? response.trim() : '(no response written)';
+    text += (response && response.trim()) ? response.trim() : t('export.no-response');
     text += `\n\n${'-'.repeat(44)}\n\n`;
   });
-  text += 'Privacy note: This file was created entirely on your device.\n';
-  text += 'No data was saved, recorded, or transmitted by Steady.';
+  text += t('export.privacy-note');
 
   return text;
 }
@@ -2152,6 +2152,43 @@ function wireEvents() {
   });
 
   initOtherToolsToggle();
+
+  document.addEventListener('langchange', () => {
+    const active = SCREENS.find(sid => {
+      const el = $(sid);
+      return el && el.classList.contains('screen--active');
+    });
+
+    if (active === 'screen-categories') {
+      renderCategories();
+    } else if (active === 'screen-checkin') {
+      initStressScale();
+      if (state.stressLevel) {
+        document.querySelectorAll('.stress-btn').forEach(btn => {
+          const isSelected = Number(btn.dataset.level) === state.stressLevel;
+          btn.classList.toggle('stress-btn--selected', isSelected);
+          btn.setAttribute('aria-checked', isSelected ? 'true' : 'false');
+        });
+        const descEl = $('stress-description');
+        if (descEl) descEl.textContent = t('stress.desc.' + state.stressLevel);
+      }
+    } else if (active === 'screen-plan') {
+      renderPlan();
+    } else if (active === 'screen-tool' && state.currentTool) {
+      clearTimers();
+      renderTool(state.currentTool);
+    }
+
+    const checkinPage = $('overlay-checkin-page');
+    if (checkinPage && !checkinPage.classList.contains('hidden')) {
+      renderMiniCheckin();
+    }
+
+    const summaryPage = $('overlay-summary-page');
+    if (summaryPage && !summaryPage.classList.contains('hidden')) {
+      renderSessionSummaryCard();
+    }
+  });
 }
 
 // ============================================================
